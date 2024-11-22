@@ -1,4 +1,4 @@
-import React, { createContext, PropsWithChildren } from 'react';
+import React, { createContext, PropsWithChildren, useEffect, useState } from 'react';
 import { useColorScheme } from 'react-native';
 import { NavigationContainer, DarkTheme as NavigationDarkTheme, DefaultTheme as NavigationDefaultTheme } from '@react-navigation/native';
 import { adaptNavigationTheme, PaperProvider } from 'react-native-paper';
@@ -49,12 +49,37 @@ const CustomDarkTheme = {
 export const ThemeContext = createContext({
   isDark: false,
   theme: NavLightTheme,
+  setDarkTheme: () => {},
+  setLightTheme: () => {},
+  setSystemTheme: () => {},
 });
 
 export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
   const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
+  const [isDark, setIsDark] = useState(colorScheme === 'dark');
+  const [useSystemTheme, setUseSystemTheme] = useState(true);
   const theme = isDark ? CustomDarkTheme : CustomLightTheme;
+
+  const setLightTheme = () => {
+    setIsDark(false);
+    setUseSystemTheme(false);
+  };
+
+  const setDarkTheme = () => {
+    setIsDark(true);
+    setUseSystemTheme(false);
+  };
+
+  const setSystemTheme = () => {
+    setIsDark(colorScheme === 'dark');
+    setUseSystemTheme(true);
+  };
+
+  useEffect(() => {
+    if (useSystemTheme) {
+      setIsDark(colorScheme === 'dark');
+    }
+  }, [colorScheme, useSystemTheme]);
 
   return (
     <PaperProvider theme={theme}>
@@ -62,6 +87,9 @@ export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
         <ThemeContext.Provider value={{
           isDark,
           theme,
+          setDarkTheme,
+          setLightTheme,
+          setSystemTheme,
         }}>
           {children}
         </ThemeContext.Provider>
