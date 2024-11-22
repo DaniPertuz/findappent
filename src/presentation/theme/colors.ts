@@ -7,6 +7,8 @@ export const useColors = () => {
     darkBlue: '#207CFD',
     lightBlue: '#58D7FE',
     black: '#2F2F2F',
+    brandMainText: '#081023',
+    brandWhite: '#FAFAFA',
     white: colorScheme === 'dark' ? '#081023' : '#FAFAFA',
     mainText: colorScheme === 'dark' ? '#FAFAFA' : '#081023',
     primaryText: '#1F273A',
