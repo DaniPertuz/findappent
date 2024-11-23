@@ -16,13 +16,12 @@ interface Props {
 }
 
 export const DefaultInput: FC<Props> = ({ field, fieldValue, placeholder, icon, keyboardType, warning, onChange }) => {
-  const { brandMainText, mainText, gray } = useColors();
+  const { brandMainText, gray } = useColors();
   const { input, inputContainer, underline, warningBorder } = useStyles();
 
   const iconElement = useIcons(icon, 20, 20, brandMainText);
   const containerStyle = [
     inputContainer,
-    { borderColor: mainText },
     warning && warningBorder,
   ];
 
