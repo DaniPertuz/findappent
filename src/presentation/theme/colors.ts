@@ -18,5 +18,6 @@ export const useColors = () => {
     error: '#D13232',
     success: '#26DFB3',
     alert: '#F9C749',
+    gray: '#9A9A9A',
   };
 };
