@@ -26,6 +26,17 @@ export const useStyles = () => {
       marginTop: 5,
       paddingHorizontal: 16,
     },
+    input: {
+      fontSize: 14,
+      fontWeight: '500',
+      height: 40,
+      lineHeight: 14,
+      letterSpacing: -0.24,
+      paddingVertical: 10,
+    },
+    underline: {
+      display: 'none',
+    },
     warningBorder: {
       borderColor: alert,
       borderWidth: 1,
