@@ -13,13 +13,12 @@ interface Props {
 }
 
 const AddressInput: FC<Props> = ({ field, warning, onBlur, onChange }) => {
-  const { brandMainText, gray, mainText } = useColors();
+  const { brandMainText, gray } = useColors();
   const { input, inputContainer, underline, warningBorder } = useStyles();
 
   const iconElement = useIcons('Mall', 20, 20, brandMainText);
   const containerStyle = [
     inputContainer,
-    { borderColor: mainText },
     warning && warningBorder,
   ];
 
