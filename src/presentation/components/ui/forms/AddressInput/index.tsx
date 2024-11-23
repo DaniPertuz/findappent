@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { View } from 'react-native';
 import { useIcons } from '../../../../hooks/useIcons';
 import { TextInput } from 'react-native-paper';
@@ -12,7 +12,7 @@ interface Props {
   onChange: (value: string, field: 'address') => void;
 }
 
-const AddressInput = ({ field, warning, onBlur, onChange }: Props) => {
+const AddressInput: FC<Props> = ({ field, warning, onBlur, onChange }) => {
   const { brandMainText, gray, mainText } = useColors();
   const { input, inputContainer, underline, warningBorder } = useStyles();
 
