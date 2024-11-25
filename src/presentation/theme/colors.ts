@@ -1,4 +1,6 @@
-export const useColors = (isDark: boolean) => {
+import { ThemeColors } from './ThemeColors';
+
+export const useColors = (isDark: boolean): ThemeColors => {
   return {
     darkBlue: '#207CFD',
     lightBlue: '#58D7FE',
