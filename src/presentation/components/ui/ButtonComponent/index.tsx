@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Pressable, StyleProp, ViewStyle } from 'react-native';
 import { useColors } from '../../../theme/colors';
+import { ThemeContext } from '../../../theme/ThemeContext';
 import { styles } from './styles';
 
 interface Props {
@@ -10,7 +11,8 @@ interface Props {
 }
 
 export const ButtonComponent: FC<Props> = ({ children, customStyle, onPress }) => {
-  const { darkBlue } = useColors();
+  const { currentTheme } = useContext(ThemeContext);
+  const { darkBlue } = useColors(currentTheme === 'dark');
   return (
     <Pressable
       style={[styles.button, { backgroundColor: darkBlue }, customStyle]}
