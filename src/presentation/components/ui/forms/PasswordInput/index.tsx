@@ -1,6 +1,5 @@
 import React from 'react';
-import { Pressable, View } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import { Pressable, TextInput, View } from 'react-native';
 import { useIcons } from '../../../../hooks/useIcons';
 import { useColors } from '../../../../theme/colors';
 import { useStyles } from '../styles';
@@ -16,7 +15,7 @@ interface Props {
 
 const PasswordInput = ({ field, fieldValue, placeholder, warning, onChange }: Props) => {
   const { brandMainText, gray } = useColors();
-  const { input, inputContainer, underline, warningBorder } = useStyles();
+  const { input, inputContainer, warningBorder } = useStyles();
 
   const containerStyle = [
     inputContainer,
@@ -37,9 +36,7 @@ const PasswordInput = ({ field, fieldValue, placeholder, warning, onChange }: Pr
         secureTextEntry={true}
         selectionColor={gray}
         cursorColor={brandMainText}
-        underlineStyle={underline}
-        contentStyle={{ color: brandMainText }}
-        style={[input, styles.passwordInput]}
+        style={[input, styles.passwordInput, { color: brandMainText }]}
         value={field}
       />
       <Pressable onPress={() => { }}>

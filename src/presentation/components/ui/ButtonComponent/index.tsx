@@ -1,22 +1,22 @@
-import React, {FC} from 'react';
-import {Button} from 'react-native-paper';
-import {useColors} from '../../../theme/colors';
-import {styles} from './styles';
+import React, { FC } from 'react';
+import { Pressable, StyleProp, ViewStyle } from 'react-native';
+import { useColors } from '../../../theme/colors';
+import { styles } from './styles';
 
 interface Props {
   children: React.ReactNode;
+  customStyle?: StyleProp<ViewStyle>;
   onPress?: () => void;
 }
 
-export const ButtonComponent: FC<Props> = ({children, onPress}) => {
-  const {darkBlue, brandWhite} = useColors();
+export const ButtonComponent: FC<Props> = ({ children, customStyle, onPress }) => {
+  const { darkBlue } = useColors();
   return (
-    <Button
-      mode="contained"
-      textColor={brandWhite}
-      style={[styles.button, {backgroundColor: darkBlue}]}
-      onPress={onPress}>
+    <Pressable
+      style={[styles.button, { backgroundColor: darkBlue }, customStyle]}
+      onPress={onPress}
+      >
       {children}
-    </Button>
+    </Pressable>
   );
 };

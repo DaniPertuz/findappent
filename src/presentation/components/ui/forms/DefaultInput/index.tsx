@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
-import { TextInput } from 'react-native-paper';
+import { KeyboardTypeOptions, TextInput, View } from 'react-native';
 import { useIcons } from '../../../../hooks/useIcons';
 import { useColors } from '../../../../theme/colors';
 import { useStyles } from '../../forms/styles';
-import { KeyboardTypeOptions, View } from 'react-native';
 
 interface Props {
   field: string;
@@ -15,9 +14,9 @@ interface Props {
   onChange: (value: string, field: 'name' | 'category' | 'other' | 'phone' | 'whatsapp' | 'instagram') => void;
 }
 
-export const DefaultInput: FC<Props> = ({ field, fieldValue, placeholder, icon, keyboardType, warning, onChange }) => {
+const DefaultInput: FC<Props> = ({ field, fieldValue, placeholder, icon, keyboardType, warning, onChange }) => {
   const { brandMainText, gray } = useColors();
-  const { input, inputContainer, underline, warningBorder } = useStyles();
+  const { input, inputContainer, warningBorder } = useStyles();
 
   const iconElement = useIcons(icon, 20, 20, brandMainText);
   const containerStyle = [
@@ -35,7 +34,6 @@ export const DefaultInput: FC<Props> = ({ field, fieldValue, placeholder, icon, 
         placeholder={placeholder}
         placeholderTextColor={gray}
         cursorColor={brandMainText}
-        underlineStyle={underline}
         keyboardType={keyboardType}
         selectionColor={gray}
         autoCapitalize={'none'}
@@ -46,3 +44,5 @@ export const DefaultInput: FC<Props> = ({ field, fieldValue, placeholder, icon, 
     </View>
   );
 };
+
+export default DefaultInput;

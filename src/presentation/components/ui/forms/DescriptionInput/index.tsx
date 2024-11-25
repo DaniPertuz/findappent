@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import { TextInput } from 'react-native';
 import { useColors } from '../../../../theme/colors';
 import { useStyles } from '../styles';
 import { styles } from './styles';
@@ -12,7 +12,7 @@ interface Props {
 
 const DescriptionInput: FC<Props> = ({ description, onChange }) => {
   const { brandMainText, gray } = useColors();
-  const { inputContainer, underline } = useStyles();
+  const { inputContainer } = useStyles();
 
   return (
     <View style={inputContainer}>
@@ -23,7 +23,6 @@ const DescriptionInput: FC<Props> = ({ description, onChange }) => {
         style={styles.inputField}
         cursorColor={brandMainText}
         selectionColor={gray}
-        underlineStyle={underline}
         autoCapitalize={'none'}
         autoCorrect={false}
         multiline
