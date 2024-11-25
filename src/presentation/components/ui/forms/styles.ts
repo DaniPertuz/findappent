@@ -12,7 +12,7 @@ export const useStyles = () => {
       borderRadius: 8,
       borderWidth: 1,
       flexDirection: 'row',
-      marginTop: 5,
+      gap: 5,
       paddingHorizontal: 16,
       width: '90%',
     },
@@ -29,10 +29,10 @@ export const useStyles = () => {
     input: {
       fontSize: 14,
       fontWeight: '500',
-      height: 40,
+      height: 60,
       lineHeight: 14,
       letterSpacing: -0.24,
-      paddingVertical: 10,
+      paddingHorizontal: 14,
     },
     underline: {
       display: 'none',
