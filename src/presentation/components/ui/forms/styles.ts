@@ -1,8 +1,11 @@
+import { useContext } from 'react';
 import { StyleSheet } from 'react-native';
 import { useColors } from '../../../theme/colors';
+import { ThemeContext } from '../../../theme/ThemeContext';
 
 export const useStyles = () => {
-  const { alert, brandMainText } = useColors();
+  const { currentTheme } = useContext(ThemeContext);
+  const { alert, brandMainText } = useColors(currentTheme === 'light');
 
   return StyleSheet.create({
     inputContainer: {
