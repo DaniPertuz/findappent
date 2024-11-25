@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { TextInput, View } from 'react-native';
 import { useIcons } from '../../../../hooks/useIcons';
 import { useColors } from '../../../../theme/colors';
 import { useStyles } from '../styles';
+import { ThemeContext } from '../../../../theme/ThemeContext';
 
 interface Props {
   field: string;
@@ -12,7 +13,8 @@ interface Props {
 }
 
 const AddressInput: FC<Props> = ({ field, warning, onBlur, onChange }) => {
-  const { brandMainText, gray } = useColors();
+  const { currentTheme } = useContext(ThemeContext);
+  const { brandMainText, gray } = useColors(currentTheme === 'dark');
   const { input, inputContainer, warningBorder } = useStyles();
 
   const iconElement = useIcons('Mall', 20, 20, brandMainText);

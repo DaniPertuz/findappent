@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { KeyboardTypeOptions, TextInput, View } from 'react-native';
 import { useIcons } from '../../../../hooks/useIcons';
 import { useColors } from '../../../../theme/colors';
+import { ThemeContext } from '../../../../theme/ThemeContext';
 import { useStyles } from '../../forms/styles';
 
 interface Props {
@@ -15,7 +16,8 @@ interface Props {
 }
 
 const DefaultInput: FC<Props> = ({ field, fieldValue, placeholder, icon, keyboardType, warning, onChange }) => {
-  const { brandMainText, gray } = useColors();
+  const { currentTheme } = useContext(ThemeContext);
+  const { brandMainText, gray } = useColors(currentTheme === 'light');
   const { input, inputContainer, warningBorder } = useStyles();
 
   const iconElement = useIcons(icon, 20, 20, brandMainText);

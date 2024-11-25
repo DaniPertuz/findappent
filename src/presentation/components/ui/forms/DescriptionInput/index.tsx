@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { View } from 'react-native';
 import { TextInput } from 'react-native';
 import { useColors } from '../../../../theme/colors';
+import { ThemeContext } from '../../../../theme/ThemeContext';
 import { useStyles } from '../styles';
 import { styles } from './styles';
 
@@ -11,7 +12,8 @@ interface Props {
 }
 
 const DescriptionInput: FC<Props> = ({ description, onChange }) => {
-  const { brandMainText, gray } = useColors();
+  const { currentTheme } = useContext(ThemeContext);
+  const { brandMainText, gray } = useColors(currentTheme === 'light');
   const { inputContainer } = useStyles();
 
   return (

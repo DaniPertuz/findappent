@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
 import { useIcons } from '../../../../hooks/useIcons';
 import { useColors } from '../../../../theme/colors';
+import { ThemeContext } from '../../../../theme/ThemeContext';
 import { useStyles } from '../styles';
 import { styles } from './styles';
 
@@ -14,7 +15,8 @@ interface Props {
 }
 
 const PasswordInput = ({ field, fieldValue, placeholder, warning, onChange }: Props) => {
-  const { brandMainText, gray } = useColors();
+  const { currentTheme } = useContext(ThemeContext);
+  const { brandMainText, gray } = useColors(currentTheme === 'light');
   const { input, inputContainer, warningBorder } = useStyles();
 
   const containerStyle = [
