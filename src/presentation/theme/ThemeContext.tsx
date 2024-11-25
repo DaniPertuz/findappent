@@ -1,44 +1,25 @@
 import React, { createContext, PropsWithChildren, useEffect, useState } from 'react';
 import { useColorScheme } from 'react-native';
-import { NavigationContainer, DarkTheme as NavigationDarkTheme, DefaultTheme as NavigationDefaultTheme } from '@react-navigation/native';
-import { adaptNavigationTheme, PaperProvider } from 'react-native-paper';
 import { useColors } from './colors';
+import { ThemeColors } from './ThemeColors';
 
-const { LightTheme: NavLightTheme, DarkTheme: NavDarkTheme } = adaptNavigationTheme({
-  reactNavigationLight: NavigationDefaultTheme,
-  reactNavigationDark: NavigationDarkTheme,
-});
+type ThemeColor = 'light' | 'dark';
 
-export const ThemeContext = createContext({
-  isDark: false,
-  theme: NavLightTheme,
-  setDarkTheme: () => { },
-  setLightTheme: () => { },
-  setSystemTheme: () => { },
-});
+interface ThemeContextProps {
+  currentTheme: ThemeColor;
+  colors: ThemeColors;
+  setLightTheme: () => void;
+  setDarkTheme: () => void;
+  setSystemTheme: () => void;
+}
+
+export const ThemeContext = createContext({} as ThemeContextProps);
 
 export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
   const colorScheme = useColorScheme();
   const [isDark, setIsDark] = useState(colorScheme === 'dark');
   const [useSystemTheme, setUseSystemTheme] = useState(true);
-  const baseColors = useColors();
-
-  const CustomLightTheme = {
-    ...NavLightTheme,
-    colors: {
-      ...NavLightTheme.colors,
-      ...baseColors,
-    },
-  };
-
-  const CustomDarkTheme = {
-    ...NavDarkTheme,
-    colors: {
-      ...NavDarkTheme.colors,
-      ...baseColors,
-    },
-  };
-  const theme = isDark ? CustomDarkTheme : CustomLightTheme;
+  const baseColors = useColors(isDark);
 
   const setLightTheme = () => {
     setIsDark(false);
@@ -62,19 +43,14 @@ export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
   }, [colorScheme, useSystemTheme]);
 
   return (
-    <PaperProvider theme={theme}>
-      <NavigationContainer theme={theme}>
-        <ThemeContext.Provider value={{
-          isDark,
-          theme,
-          setDarkTheme,
-          setLightTheme,
-          setSystemTheme,
-        }}>
-          {children}
-        </ThemeContext.Provider>
-      </NavigationContainer>
-    </PaperProvider>
-
+    <ThemeContext.Provider value={{
+      currentTheme: isDark ? 'dark' : 'light',
+      colors: baseColors,
+      setDarkTheme,
+      setLightTheme,
+      setSystemTheme,
+    }}>
+      {children}
+    </ThemeContext.Provider>
   );
 };
