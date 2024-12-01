@@ -17,7 +17,6 @@ export const useStyles = () => {
       flexDirection: 'row',
       gap: 5,
       paddingHorizontal: 16,
-      width: '90%',
     },
     inputFieldContainerWhite: {
       alignItems: 'center',
