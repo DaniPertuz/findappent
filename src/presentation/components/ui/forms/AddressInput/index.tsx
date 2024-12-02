@@ -1,9 +1,9 @@
 import React, { FC, useContext } from 'react';
 import { TextInput, View } from 'react-native';
-import { useIcons } from '../../../../hooks/useIcons';
+import AddressIcon from './AddressIcon';
 import { useColors } from '../../../../theme/colors';
-import { useStyles } from '../styles';
 import { ThemeContext } from '../../../../theme/ThemeContext';
+import { useStyles } from '../styles';
 
 interface Props {
   field: string;
@@ -17,7 +17,6 @@ const AddressInput: FC<Props> = ({ field, warning, onBlur, onChange }) => {
   const { brandMainText, gray } = useColors(currentTheme === 'dark');
   const { input, inputContainer, warningBorder } = useStyles();
 
-  const iconElement = useIcons('Mall', 20, 20, brandMainText);
   const containerStyle = [
     inputContainer,
     warning && warningBorder,
@@ -27,7 +26,7 @@ const AddressInput: FC<Props> = ({ field, warning, onBlur, onChange }) => {
 
   return (
     <View style={containerStyle}>
-      {iconElement}
+      <AddressIcon />
       <TextInput
         placeholder={'Dirección, ciudad, depto/estado, país'}
         placeholderTextColor={gray}
