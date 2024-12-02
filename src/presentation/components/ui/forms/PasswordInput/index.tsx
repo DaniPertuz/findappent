@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
-import { useIcons } from '../../../../hooks/useIcons';
+import PasswordVisibleIcon from './PasswordVisibleIcon';
+import PassowrdIcon from './PasswordIcon';
 import { useColors } from '../../../../theme/colors';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 import { useStyles } from '../styles';
@@ -28,7 +29,7 @@ const PasswordInput = ({ field, fieldValue, placeholder, warning, onChange }: Pr
 
   return (
     <View style={[containerStyle, (warning) && warningBorder]}>
-      {useIcons('Lock', 20, 20, brandMainText)}
+      <PassowrdIcon />
       <TextInput
         autoCapitalize={'none'}
         autoCorrect={false}
@@ -42,7 +43,7 @@ const PasswordInput = ({ field, fieldValue, placeholder, warning, onChange }: Pr
         value={field}
       />
       <Pressable onPress={() => { }}>
-        {useIcons('Eye', 20, 20, brandMainText)}
+        <PasswordVisibleIcon visible={true} />
       </Pressable>
     </View>
   );
