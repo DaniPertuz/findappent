@@ -36,6 +36,10 @@ export const useStyles = () => {
       letterSpacing: -0.24,
       paddingHorizontal: 14,
     },
+    inputIcon: {
+      height: 20,
+      width: 20,
+    },
     underline: {
       display: 'none',
     },
