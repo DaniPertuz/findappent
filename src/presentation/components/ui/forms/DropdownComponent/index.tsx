@@ -6,7 +6,7 @@ interface Props {
   items: { label: string; value: string }[];
 }
 
-export const DropdownComponent: FC<Props> = ({ items }) => {
+const DropdownComponent: FC<Props> = ({ items }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [list, setList] = useState(
@@ -29,3 +29,5 @@ export const DropdownComponent: FC<Props> = ({ items }) => {
     />
   );
 };
+
+export default DropdownComponent;
