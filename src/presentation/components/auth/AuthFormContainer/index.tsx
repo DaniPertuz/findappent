@@ -12,10 +12,7 @@ const AuthFormContainer: FC<Props> = ({ children }) => {
   const { colors, currentTheme } = useContext(ThemeContext);
   const borders = {
     backgroundColor: colors.white,
-    borderTopColor: currentTheme === 'light' ? undefined : colors.brandWhite,
-    borderBottomColor: currentTheme === 'light' ? undefined : colors.brandWhite,
-    borderEndColor: currentTheme === 'light' ? undefined : colors.brandWhite,
-    borderStartColor: currentTheme === 'light' ? undefined : colors.brandWhite,
+    borderColor: currentTheme === 'light' ? undefined : colors.brandWhite,
     borderWidth: currentTheme === 'light' ? 0 : 1,
   };
 
