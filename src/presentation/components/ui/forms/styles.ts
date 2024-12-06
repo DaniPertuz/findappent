@@ -4,13 +4,13 @@ import { useColors } from '../../../theme/colors';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
 export const useStyles = () => {
-  const { currentTheme } = useContext(ThemeContext);
+  const { colors, currentTheme } = useContext(ThemeContext);
   const { alert, brandMainText } = useColors(currentTheme === 'light');
 
   return StyleSheet.create({
     inputContainer: {
       alignItems: 'center',
-      backgroundColor: 'rgba(250, 250, 250, 1)',
+      backgroundColor: colors.brandWhite,
       borderColor: brandMainText,
       borderRadius: 8,
       borderWidth: 1,
@@ -20,7 +20,7 @@ export const useStyles = () => {
     },
     inputFieldContainerWhite: {
       alignItems: 'center',
-      backgroundColor: 'rgba(250, 250, 250, 1)',
+      backgroundColor: colors.brandWhite,
       borderColor: '#081023',
       borderRadius: 8,
       borderWidth: 1,
