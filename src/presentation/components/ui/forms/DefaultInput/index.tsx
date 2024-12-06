@@ -6,12 +6,12 @@ import { useStyles } from '../../forms/styles';
 
 interface Props {
   field: string;
-  fieldValue: 'name' | 'category' | 'other' | 'phone' | 'whatsapp' | 'instagram';
+  fieldValue: 'name' | 'email' | 'category' | 'other' | 'phone' | 'whatsapp' | 'instagram';
   placeholder: string;
   iconElement: React.JSX.Element
   keyboardType: KeyboardTypeOptions;
   warning?: boolean;
-  onChange: (value: string, field: 'name' | 'category' | 'other' | 'phone' | 'whatsapp' | 'instagram') => void;
+  onChange: (value: string, field: 'name' | 'email' | 'category' | 'other' | 'phone' | 'whatsapp' | 'instagram') => void;
 }
 
 const DefaultInput: FC<Props> = ({ field, fieldValue, placeholder, iconElement, keyboardType, warning, onChange }) => {
