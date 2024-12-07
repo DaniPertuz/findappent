@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { View, Image, Pressable, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import AuthFormContainer from '../../../components/auth/AuthFormContainer';
+import RenderInputWithWarning from '../../../components/auth/RenderInputWithWarning';
 import { Background } from '../../../components/ui/Background';
 import { Body } from '../../../components/ui/Body';
 import { BodySmall } from '../../../components/ui/BodySmall';
@@ -10,7 +11,6 @@ import { Caption2 } from '../../../components/ui/Caption2';
 import { Footnote } from '../../../components/ui/Footnote';
 import { H4 } from '../../../components/ui/H4';
 import { MainView } from '../../../components/ui/MainView';
-import { DefaultInput, PasswordInput } from '../../../components/ui/forms';
 import StatusBarComponent from '../../../components/ui/StatusBarComponent';
 import { ThemeContext } from '../../../theme/ThemeContext';
 import { styles } from './styles';
@@ -24,31 +24,6 @@ const LoginScreen = () => {
     dark: require('../../../../assets/icons/FA_COMPLETE_White.png'),
   };
   const logoSource = ICONS[currentTheme];
-
-  const renderInputWithWarning = (label: string, value: string, placeholder: string, onChange: (value: string) => void, isPassword = false) => (
-    <View style={styles.inputsContainer}>
-      <Caption2 customColor={colors.mainText}>{label}</Caption2>
-      <View style={styles.inputWarningContainer}>
-        {isPassword ? (
-          <PasswordInput field={value} placeholder={placeholder} onChange={onChange} fieldValue={'password'} />
-        ) : (
-          <DefaultInput
-            field={value}
-            fieldValue={'email'}
-            placeholder={placeholder}
-            iconElement={<Image source={require('../../../../assets/icons/envelope.png')} style={styles.inputIcon} />}
-            keyboardType="default"
-            onChange={onChange} />
-        )}
-        {value === '' && (
-          <View style={styles.warningContainer}>
-            <Image style={styles.inputIcon} source={require('../../../../assets/icons/warning.png')} />
-            <Caption2 customColor={colors.error}>Por favor, ingresa tu {label.toLowerCase()}</Caption2>
-          </View>
-        )}
-      </View>
-    </View>
-  );
 
   return (
     <MainView>
@@ -66,8 +41,8 @@ const LoginScreen = () => {
                 <H4 customColor={colors.mainText}>Bienvenido</H4>
                 <BodySmall customColor={colors.mainText}>Ingresa tus credenciales para continuar</BodySmall>
               </View>
-              {renderInputWithWarning('Correo corporativo', email, 'Ingresa tu correo', setEmail)}
-              {renderInputWithWarning('Contraseña', password, 'Ingresa tu contraseña', setPassword, true)}
+              <RenderInputWithWarning label={'Correo corporativo'} value={email} placeholder={'Ingresa tu correo'} onChange={setEmail} />
+              <RenderInputWithWarning label={'Contraseña'} value={password} placeholder={'Ingresa tu contraseña'} onChange={setPassword} />
               <View style={styles.forgotPasswordContainer}>
                 <Pressable>
                   <Caption2 customColor={colors.darkBlue}>¿Olvidaste tu contraseña?</Caption2>
