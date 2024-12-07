@@ -24,17 +24,6 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     marginTop: 70,
   },
-  inputsContainer: {
-    alignSelf: 'stretch',
-    gap: 10,
-  },
-  inputIcon: {
-    height: 20,
-    width: 20,
-  },
-  inputWarningContainer: {
-    gap: 5,
-  },
   keyboardContainer: {
     flex: 1,
   },
@@ -48,10 +37,5 @@ export const styles = StyleSheet.create({
   },
   scrollContainer: {
     flexGrow: 1,
-  },
-  warningContainer: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    gap: 5,
   },
 });
