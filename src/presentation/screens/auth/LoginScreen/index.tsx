@@ -11,6 +11,7 @@ import { Footnote } from '../../../components/ui/Footnote';
 import { H4 } from '../../../components/ui/H4';
 import { MainView } from '../../../components/ui/MainView';
 import StatusBarComponent from '../../../components/ui/StatusBarComponent';
+import { appStyles } from '../../../theme/app-styles';
 import { ThemeContext } from '../../../theme/ThemeContext';
 import { styles } from './styles';
 
@@ -28,9 +29,9 @@ const LoginScreen = () => {
     <MainView>
       <StatusBarComponent color={colors.white} theme={currentTheme === 'light' ? 'dark-content' : 'light-content'} />
       <Background />
-      <KeyboardAvoidingView style={styles.keyboardContainer} behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}>
-        <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps={'handled'} showsVerticalScrollIndicator={false}>
-          <AuthFormContainer>
+      <AuthFormContainer>
+        <KeyboardAvoidingView style={appStyles.keyboardContainer} behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}>
+          <ScrollView contentContainerStyle={appStyles.scrollContainer} keyboardShouldPersistTaps={'handled'} showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
               <Image style={styles.image} source={logoSource} />
               <View style={styles.imageText}>
@@ -50,9 +51,9 @@ const LoginScreen = () => {
               <AuthButton text={'Iniciar sesión'} />
               <AuthFooter label={'¿No tienes una empresa registrada?'} link={'Crear cuenta'} />
             </View>
-          </AuthFormContainer>
-        </ScrollView>
-      </KeyboardAvoidingView>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </AuthFormContainer>
     </MainView>
   );
 };
