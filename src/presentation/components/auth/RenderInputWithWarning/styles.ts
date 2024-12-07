@@ -8,9 +8,4 @@ export const styles = StyleSheet.create({
   inputWarningContainer: {
     gap: 5,
   },
-  warningContainer: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    gap: 5,
-  },
 });

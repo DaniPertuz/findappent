@@ -20,10 +20,6 @@ export const styles = StyleSheet.create({
   keyboardContainer: {
     flex: 1,
   },
-  labelsContainer: {
-    alignSelf: 'stretch',
-    gap: 5,
-  },
   scrollContainer: {
     flexGrow: 1,
   },

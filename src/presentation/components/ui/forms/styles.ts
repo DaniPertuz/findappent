@@ -29,6 +29,7 @@ export const useStyles = () => {
       paddingHorizontal: 16,
     },
     input: {
+      flex: 1,
       fontSize: 14,
       fontWeight: '500',
       height: 60,
