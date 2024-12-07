@@ -6,10 +6,9 @@ import { ThemeContext } from '../../../theme/ThemeContext';
 import AuthButton from '../../../components/auth/AuthButton';
 import AuthFooter from '../../../components/auth/AuthFooter';
 import AuthFormContainer from '../../../components/auth/AuthFormContainer';
+import AuthHeader from '../../../components/auth/AuthHeader';
 import RenderInputWithWarning from '../../../components/auth/RenderInputWithWarning';
 import { Background } from '../../../components/ui/Background';
-import { BodySmall } from '../../../components/ui/BodySmall';
-import { H4 } from '../../../components/ui/H4';
 import { appStyles } from '../../../theme/app-styles';
 import { styles } from './styles';
 
@@ -27,9 +26,7 @@ const RegisterScreen = () => {
         <KeyboardAvoidingView style={appStyles.keyboardContainer} behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}>
           <ScrollView contentContainerStyle={appStyles.scrollContainer} keyboardShouldPersistTaps={'handled'} showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
-              <H4 customColor={colors.mainText}>Crea tu cuenta</H4>
-              <BodySmall customColor={colors.mainText}>Ingresa tus datos para crear una cuenta</BodySmall>
-
+              <AuthHeader title={'Crea tu cuenta'} subtitle={'Ingresa tus datos para crear una cuenta'} />
               <View style={styles.inputsContainer}>
                 <RenderInputWithWarning label={'Nombre de la empresa'} placeholder={'Ingresa tu nombre'} customMessage={'Ingresa el nombre de la empresa'} value={name} onChange={setName} />
                 <RenderInputWithWarning label={'Correo corporativo'} placeholder={'Ingresa tu correo'} isEmail value={email} onChange={setEmail} />

@@ -2,6 +2,7 @@ import React, { FC, useContext } from 'react';
 import { View, Image } from 'react-native';
 import { Caption2 } from '../../ui/Caption2';
 import { PasswordInput, DefaultInput } from '../../ui/forms';
+import WarningMessage from '../WarningMessage';
 import { appStyles } from '../../../theme/app-styles';
 import { ThemeContext } from '../../../theme/ThemeContext';
 import { styles } from './styles';
@@ -42,12 +43,7 @@ const RenderInputWithWarning: FC<Props> = ({ label, value, placeholder, customMe
             keyboardType={isEmail ? 'email-address' : 'default'}
             onChange={onChange} />
         )}
-        {value === '' && (
-          <View style={styles.warningContainer}>
-            <Image style={appStyles.inputIcon} source={require('../../../../assets/icons/warning.png')} />
-            <Caption2 customColor={colors.error}>{customMessage ?? `Ingresa tu ${label.toLowerCase()}`}</Caption2>
-          </View>
-        )}
+        {value === '' && <WarningMessage text={customMessage ?? `Ingresa tu ${label.toLowerCase()}`} />}
       </View>
     </View>
   );
