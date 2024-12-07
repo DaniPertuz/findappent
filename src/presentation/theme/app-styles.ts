@@ -5,4 +5,10 @@ export const appStyles = StyleSheet.create({
     height: 20,
     width: 20,
   },
+  keyboardContainer: {
+    flex: 1,
+  },
+  scrollContainer: {
+    flexGrow: 1,
+  },
 });
