@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { BodySmall } from '../../ui/BodySmall';
 import { Caption2 } from '../../ui/Caption2';
 import ProfileLabelContainer from '../ProfileLabelContainer';
@@ -11,15 +11,17 @@ const ProfileDescription: FC<{ description: string; }> = ({ description }) => {
   return (
     <ProfileLabelContainer>
       <Caption2 customColor={colors.gray}>Descripción</Caption2>
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        <BodySmall customColor={colors.mainText}>{description}</BodySmall>
-      </ScrollView>
+      <View style={[styles.container, { borderColor: colors.gray }]}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <BodySmall customColor={colors.mainText}>{description}</BodySmall>
+        </ScrollView>
+      </View>
     </ProfileLabelContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { maxHeight: 100 },
+  container: { borderRadius: 10, borderWidth: 1, maxHeight: 120, overflow: 'hidden', padding: 10 },
 });
 
 export default ProfileDescription;
