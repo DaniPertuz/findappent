@@ -3,7 +3,7 @@ import { useColorScheme } from 'react-native';
 import { useColors } from './colors';
 import { ThemeColors } from './ThemeColors';
 
-type ThemeColor = 'light' | 'dark';
+export type ThemeColor = 'light' | 'dark';
 
 interface ThemeContextProps {
   currentTheme: ThemeColor;
