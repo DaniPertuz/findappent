@@ -17,7 +17,7 @@ export const ButtonComponent: FC<Props> = ({ children, customStyle, onPress }) =
     <Pressable
       style={[styles.button, { backgroundColor: darkBlue }, customStyle]}
       onPress={onPress}
-      >
+    >
       {children}
     </Pressable>
   );
