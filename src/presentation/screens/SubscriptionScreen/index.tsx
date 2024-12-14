@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import SubscriptionHeader from '../../components/subscriptions/SubscriptionHeader';
 import SubscriptionPlansList from '../../components/subscriptions/SubscriptionPlansList';
 import StatusBarComponent from '../../components/ui/StatusBarComponent';
 import { ThemeContext } from '../../theme/ThemeContext';
+
+const { height } = Dimensions.get('window');
 
 const SubscriptionScreen = () => {
   const { colors, currentTheme } = useContext(ThemeContext);
@@ -17,7 +19,10 @@ const SubscriptionScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+    paddingBottom: height * 0.08,
+  },
 });
 
 export default SubscriptionScreen;

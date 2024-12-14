@@ -20,7 +20,7 @@ const SubscriptionPlanDetails: FC<{ details: string[]; }> = ({ details }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flexDirection: 'row', gap: 10 },
+  container: { flexDirection: 'row', gap: 5 },
   checkIcon: { marginTop: 5, height: 15, width: 15 },
 });
 
