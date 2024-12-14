@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Footnote } from '../../ui/Footnote';
+import SubscriptionBadge from '../SubscriptionBadge';
 import { H3 } from '../../ui/H3';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
@@ -9,7 +9,7 @@ const SubscriptionHeader = () => {
   return (
     <View style={styles.container}>
       <H3 customColor={colors.mainText}>Restaurante Las Rocas</H3>
-      <Footnote customColor={colors.mainText}>Nivel 3</Footnote>
+      <SubscriptionBadge level={'3'} />
     </View>
   );
 };

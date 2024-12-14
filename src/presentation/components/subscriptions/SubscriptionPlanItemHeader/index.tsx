@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Footnote } from '../../ui/Footnote';
+import SubscriptionBadge from '../SubscriptionBadge';
 import { Subheadline } from '../../ui/Subheadline';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
@@ -13,7 +13,7 @@ const SubscriptionPlanItemHeader: FC<Props> = ({ level, text }) => {
   const { colors } = useContext(ThemeContext);
   return (
     <View style={styles.container}>
-      <Footnote customColor={colors.mainText}>Nivel {level}</Footnote>
+      <SubscriptionBadge level={level} />
       <Subheadline customColor={colors.mainText}>Paquete {text}</Subheadline>
     </View>
   );
@@ -21,8 +21,9 @@ const SubscriptionPlanItemHeader: FC<Props> = ({ level, text }) => {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
     flexDirection: 'row',
-    gap: 5,
+    gap: 10,
   },
 });
 
