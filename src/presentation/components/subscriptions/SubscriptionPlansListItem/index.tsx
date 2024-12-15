@@ -18,8 +18,8 @@ const SubscriptionPlastListItem: FC<Props> = ({ level, levelText, price, details
   const { colors, currentTheme } = useContext(ThemeContext);
   const borderBackground = {
     backgroundColor: colors.white,
-    borderColor: currentTheme === 'dark' ? colors.brandWhite : colors.gray,
-    borderWidth: 1,
+    borderColor: currentTheme === 'dark' ? colors.brandWhite : undefined,
+    borderWidth: currentTheme === 'dark' ? 1 : 0,
   };
   return (
     <View style={[styles.container, borderBackground]}>

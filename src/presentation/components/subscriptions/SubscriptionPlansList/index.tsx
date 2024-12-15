@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { Dimensions, ScrollView, StyleSheet } from 'react-native';
 import SubscriptionPlastListItem from '../SubscriptionPlansListItem';
+
+const { height } = Dimensions.get('window');
 
 const SubscriptionPlansList: FC = () => {
   return (
@@ -43,7 +45,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginTop: 20,
   },
-  contentContainer: { gap: 16 },
+  contentContainer: {
+    gap: 16,
+    paddingBottom: height * 0.085,
+  },
 });
 
 export default SubscriptionPlansList;
