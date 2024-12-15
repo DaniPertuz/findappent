@@ -30,7 +30,7 @@ const SubscriptionPlansList: FC = () => {
       <SubscriptionPlastListItem
         level={'1'}
         levelText={'Básico'}
-        price={'$ 10.000'}
+        price={'$ 0'}
         details={[
           'Baja prioridad en resultado de búsquedas',
           'Subir 1 foto del lugar',
