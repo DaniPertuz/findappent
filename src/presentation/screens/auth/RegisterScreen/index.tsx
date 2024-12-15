@@ -13,7 +13,7 @@ import { appStyles } from '../../../theme/app-styles';
 import { styles } from './styles';
 
 const RegisterScreen = () => {
-  const { colors, currentTheme } = useContext(ThemeContext);
+  const { colors } = useContext(ThemeContext);
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -21,7 +21,7 @@ const RegisterScreen = () => {
   return (
     <MainView>
       <Background />
-      <StatusBarComponent color={colors.white} theme={currentTheme === 'light' ? 'dark-content' : 'light-content'} />
+      <StatusBarComponent color={colors.brandMainText} theme={'light-content'} />
       <AuthFormContainer>
         <KeyboardAvoidingView style={appStyles.keyboardContainer} behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}>
           <ScrollView contentContainerStyle={appStyles.scrollContainer} keyboardShouldPersistTaps={'handled'} showsVerticalScrollIndicator={false}>

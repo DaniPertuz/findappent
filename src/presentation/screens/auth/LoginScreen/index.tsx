@@ -26,7 +26,7 @@ const LoginScreen = () => {
 
   return (
     <MainView>
-      <StatusBarComponent color={colors.white} theme={currentTheme === 'light' ? 'dark-content' : 'light-content'} />
+      <StatusBarComponent color={colors.brandMainText} theme={'light-content'} />
       <Background />
       <AuthFormContainer>
         <KeyboardAvoidingView style={appStyles.keyboardContainer} behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}>
