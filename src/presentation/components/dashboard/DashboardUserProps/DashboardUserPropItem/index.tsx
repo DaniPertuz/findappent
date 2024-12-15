@@ -12,13 +12,18 @@ interface Props {
 }
 
 const DashboardUserPropItem: FC<Props> = ({ iconUrl, title, subtitle, onPress }) => {
-  const { colors } = useContext(ThemeContext);
+  const { colors, currentTheme } = useContext(ThemeContext);
+  const bgItem = {
+    backgroundColor: colors.brandWhite,
+    borderColor: currentTheme === 'dark' ? colors.brandWhite : undefined,
+    borderWidth: currentTheme === 'dark' ? 1 : 0,
+  };
   return (
-    <View style={[{ backgroundColor: colors.brandWhite }, styles.container]}>
+    <View style={[bgItem, styles.container]}>
       <Pressable style={styles.pressableContainer} onPress={onPress}>
         <Image source={{ uri: iconUrl }} style={styles.iconSize} />
-        <BodySmall customColor={colors.brandMainText}>{title}</BodySmall>
-        <Footnote customColor={colors.brandMainText}>{subtitle}</Footnote>
+        <BodySmall customColor={colors.mainText}>{title}</BodySmall>
+        <Footnote customColor={colors.mainText}>{subtitle}</Footnote>
       </Pressable>
     </View>
   );
