@@ -4,6 +4,7 @@ export const useColors = (isDark: boolean): ThemeColors => {
   return {
     darkBlue: '#207CFD',
     lightBlue: '#58D7FE',
+    background: isDark ? '#081023' : '#DEDEDE',
     black: '#2F2F2F',
     brandMainText: '#081023',
     brandWhite: '#FAFAFA',

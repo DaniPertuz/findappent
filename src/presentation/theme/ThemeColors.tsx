@@ -1,6 +1,7 @@
 export interface ThemeColors {
   darkBlue: string;
   lightBlue: string;
+  background: string;
   black: string;
   brandMainText: string;
   brandWhite: string;
