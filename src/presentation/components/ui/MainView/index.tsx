@@ -5,7 +5,7 @@ import { ThemeContext } from '../../../theme/ThemeContext';
 export const MainView: FC<PropsWithChildren> = ({ children }) => {
   const { colors } = useContext(ThemeContext);
   return (
-    <View style={[styles.container, { backgroundColor: colors.white }]}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       {children}
     </View>
   );

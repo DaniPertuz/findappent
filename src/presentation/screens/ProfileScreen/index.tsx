@@ -9,8 +9,8 @@ const ProfileScreen = () => {
   const { colors, currentTheme } = useContext(ThemeContext);
   return (
     <>
-      <StatusBarComponent color={colors.white} theme={currentTheme === 'light' ? 'dark-content' : 'light-content'} />
-      <View style={[{ backgroundColor: colors.white }, styles.container]}>
+      <StatusBarComponent color={colors.background} theme={currentTheme === 'light' ? 'dark-content' : 'light-content'} />
+      <View style={[{ backgroundColor: colors.background }, styles.container]}>
         <ProfileHeader />
         <ProfileBody />
       </View>
@@ -21,8 +21,8 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap: 20,
-    paddingTop: 50,
+    gap: 10,
+    paddingTop: 40,
     paddingHorizontal: 20,
   },
 });

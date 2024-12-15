@@ -21,7 +21,7 @@ export const useStyles = () => {
     inputFieldContainerWhite: {
       alignItems: 'center',
       backgroundColor: colors.brandWhite,
-      borderColor: '#081023',
+      borderColor: colors.brandMainText,
       borderRadius: 8,
       borderWidth: 1,
       flexDirection: 'row',
