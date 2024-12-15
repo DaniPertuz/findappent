@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { CLOUDINARY_URL } from '../../../../api/cloudinaryIconsAPI';
 import DashboardUserPropItem from './DashboardUserPropItem';
+import { getIconUrl } from '../../../../utils/icon-url';
+import { ThemeContext } from '../../../theme/ThemeContext';
 
 const DashboardUserProps = () => {
+  const { currentTheme } = useContext(ThemeContext);
   return (
     <View style={styles.container}>
-      <DashboardUserPropItem iconUrl={`${CLOUDINARY_URL}/restaurant`} title={'Categoría'} subtitle={'Restaurante'} />
-      <DashboardUserPropItem iconUrl={`${CLOUDINARY_URL}/heart-favorite`} title={'Favoritos'} subtitle={'0 Usuarios'} />
-      <DashboardUserPropItem iconUrl={`${CLOUDINARY_URL}/star-out`} title={'Promedio'} subtitle={'0 Usuarios'} />
+      <DashboardUserPropItem iconUrl={getIconUrl('restaurant', currentTheme, true)} title={'Categoría'} subtitle={'Restaurante'} />
+      <DashboardUserPropItem iconUrl={getIconUrl('heartfavorite', currentTheme, true)} title={'Favoritos'} subtitle={'0 Usuarios'} />
+      <DashboardUserPropItem iconUrl={getIconUrl('starout', currentTheme, true)} title={'Promedio'} subtitle={'0 Usuarios'} />
     </View>
   );
 };
