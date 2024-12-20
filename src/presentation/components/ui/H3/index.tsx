@@ -1,18 +1,12 @@
 import React, { FC, useContext } from 'react';
 import { Text } from 'react-native';
-import { useColors } from '../../../theme/colors';
 import { ThemeContext } from '../../../theme/ThemeContext';
 import { styles } from './styles';
+import { TextProps } from '../../../../interfaces/text-props.interface';
 
-interface Props {
-  children: React.ReactNode;
-  customColor?: string;
-}
-
-export const H3: FC<Props> = ({ children, customColor }) => {
-  const { currentTheme } = useContext(ThemeContext);
-  const { brandMainText } = useColors(currentTheme === 'dark');
+export const H3: FC<TextProps> = ({ children, customColor }) => {
+  const { colors } = useContext(ThemeContext);
   return (
-    <Text style={{ ...styles.h3, color: customColor ?? brandMainText }}>{children}</Text>
+    <Text style={{ ...styles.h3, color: customColor ?? colors.brandMainText }}>{children}</Text>
   );
 };
