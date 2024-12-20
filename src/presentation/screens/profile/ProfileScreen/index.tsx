@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import StatusBarComponent from '../../../components/ui/StatusBarComponent';
 import ProfileHeader from '../../../components/profile/ProfileHeader';
 import ProfileBody from '../../../components/profile/ProfileBody';
 import { ThemeContext } from '../../../theme/ThemeContext';
+import { styles } from '../styles';
 
 const ProfileScreen = () => {
   const { colors, currentTheme } = useContext(ThemeContext);
@@ -17,14 +18,5 @@ const ProfileScreen = () => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    gap: 10,
-    paddingTop: 40,
-    paddingHorizontal: 20,
-  },
-});
 
 export default ProfileScreen;
