@@ -1,6 +1,7 @@
 import React, { FC, useContext, useState } from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DropDownIcon from './DropdownIcon';
+import DropDownUpIcon from './DropDownUpIcon';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 import { styles } from './styles';
 
@@ -29,6 +30,7 @@ const DropdownComponent: FC<Props> = ({ items }) => {
       setItems={setList}
       placeholder={'Categoría'}
       ArrowDownIconComponent={DropDownIcon}
+      ArrowUpIconComponent={DropDownUpIcon}
       style={[styles.dropdown, { backgroundColor: colors.white, borderColor: colors.mainText }]}
       textStyle={{ color: colors.mainText }}
     />
