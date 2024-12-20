@@ -18,7 +18,7 @@ const ReviewsList: FC<{data: any[]}> = ({ data }) => {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  listContentContainer: { paddingHorizontal: 20, gap: 20, paddingBottom: 20 },
+  listContentContainer: { paddingHorizontal: 20, gap: 20, marginVertical: 20 },
 });
 
 export default ReviewsList;

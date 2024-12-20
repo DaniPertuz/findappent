@@ -16,12 +16,12 @@ const ModalHeader: FC<{ onPress: () => void; }> = ({ onPress }) => {
 
 const styles = StyleSheet.create({
   modalContainer: {
+    alignItems: 'center',
     borderTopEndRadius: 20,
     borderTopStartRadius: 20,
     flexDirection: 'row',
-    paddingEnd: 40,
-    paddingStart: 20,
-    paddingVertical: 20,
+    paddingVertical: 30,
+    paddingHorizontal: 20,
   },
 });
 

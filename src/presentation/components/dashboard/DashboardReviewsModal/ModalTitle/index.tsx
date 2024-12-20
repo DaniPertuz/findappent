@@ -13,7 +13,7 @@ const ModalTitle: FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center' },
+  container: { alignItems: 'center', position: 'absolute', left: 0, right: 0 },
 });
 
 export default ModalTitle;
