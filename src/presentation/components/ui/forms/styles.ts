@@ -1,17 +1,15 @@
 import { useContext } from 'react';
 import { StyleSheet } from 'react-native';
-import { useColors } from '../../../theme/colors';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
 export const useStyles = () => {
-  const { colors, currentTheme } = useContext(ThemeContext);
-  const { alert, brandMainText } = useColors(currentTheme === 'light');
+  const { colors } = useContext(ThemeContext);
 
   return StyleSheet.create({
     inputContainer: {
       alignItems: 'center',
-      backgroundColor: colors.brandWhite,
-      borderColor: brandMainText,
+      backgroundColor: colors.white,
+      borderColor: colors.mainText,
       borderRadius: 8,
       borderWidth: 1,
       flexDirection: 'row',
@@ -45,7 +43,7 @@ export const useStyles = () => {
       display: 'none',
     },
     warningBorder: {
-      borderColor: alert,
+      borderColor: colors.alert,
       borderWidth: 1,
     },
   });

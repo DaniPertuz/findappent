@@ -1,7 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { View } from 'react-native';
 import { TextInput } from 'react-native';
-import { useColors } from '../../../../theme/colors';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 import { useStyles } from '../styles';
 import { styles } from './styles';
@@ -12,19 +11,18 @@ interface Props {
 }
 
 const DescriptionInput: FC<Props> = ({ description, onChange }) => {
-  const { currentTheme } = useContext(ThemeContext);
-  const { brandMainText, gray } = useColors(currentTheme === 'light');
+  const { colors } = useContext(ThemeContext);
   const { inputContainer } = useStyles();
 
   return (
     <View style={inputContainer}>
       <TextInput
         placeholder={'Descripción'}
-        placeholderTextColor={gray}
+        placeholderTextColor={colors.gray}
         keyboardType={'default'}
         style={styles.inputField}
-        cursorColor={brandMainText}
-        selectionColor={gray}
+        cursorColor={colors.mainText}
+        selectionColor={colors.mainText}
         autoCapitalize={'none'}
         autoCorrect={false}
         multiline
