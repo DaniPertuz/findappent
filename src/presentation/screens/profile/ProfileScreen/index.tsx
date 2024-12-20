@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import StatusBarComponent from '../../components/ui/StatusBarComponent';
-import ProfileHeader from '../../components/profile/ProfileHeader';
-import ProfileBody from '../../components/profile/ProfileBody';
-import { ThemeContext } from '../../theme/ThemeContext';
+import StatusBarComponent from '../../../components/ui/StatusBarComponent';
+import ProfileHeader from '../../../components/profile/ProfileHeader';
+import ProfileBody from '../../../components/profile/ProfileBody';
+import { ThemeContext } from '../../../theme/ThemeContext';
 
 const ProfileScreen = () => {
   const { colors, currentTheme } = useContext(ThemeContext);
