@@ -14,7 +14,7 @@ interface Props {
 const DashboardUserPropItem: FC<Props> = ({ iconUrl, title, subtitle, onPress }) => {
   const { colors, currentTheme } = useContext(ThemeContext);
   const bgItem = {
-    backgroundColor: colors.brandWhite,
+    backgroundColor: colors.white,
     borderColor: currentTheme === 'dark' ? colors.brandWhite : undefined,
     borderWidth: currentTheme === 'dark' ? 1 : 0,
   };
