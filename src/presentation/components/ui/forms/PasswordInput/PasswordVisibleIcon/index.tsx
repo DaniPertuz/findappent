@@ -1,5 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Image } from 'react-native';
+import { getIconUrl } from '../../../../../../utils/icon-url';
+import { ThemeContext } from '../../../../../theme/ThemeContext';
 import { useStyles } from '../../styles';
 
 interface Props {
@@ -7,16 +9,12 @@ interface Props {
 }
 
 const PasswordVisibleIcon: FC<Props> = ({ visible }) => {
+  const { currentTheme } = useContext(ThemeContext);
   const { inputIcon } = useStyles();
   return (
     <Image
       style={inputIcon}
-      source={
-        visible ?
-          require('../../../../../../assets/icons/eye-closed.png')
-          :
-          require('../../../../../../assets/icons/eye.png')
-      }
+      source={{ uri: getIconUrl(visible ? 'eye' : 'eyeclosed', currentTheme, true) }}
     />
   );
 };

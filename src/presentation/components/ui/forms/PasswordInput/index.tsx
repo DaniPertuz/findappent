@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
 import PasswordVisibleIcon from './PasswordVisibleIcon';
 import PassowrdIcon from './PasswordIcon';
-import { useColors } from '../../../../theme/colors';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 import { useStyles } from '../styles';
 import { styles } from './styles';
@@ -16,8 +15,7 @@ interface Props {
 }
 
 const PasswordInput = ({ field, fieldValue, placeholder, warning, onChange }: Props) => {
-  const { currentTheme } = useContext(ThemeContext);
-  const { brandMainText, gray } = useColors(currentTheme === 'light');
+  const { colors } = useContext(ThemeContext);
   const { input, inputContainer, warningBorder } = useStyles();
 
   const containerStyle = [
@@ -35,11 +33,11 @@ const PasswordInput = ({ field, fieldValue, placeholder, warning, onChange }: Pr
         autoCorrect={false}
         onChangeText={handleChangePassword}
         placeholder={placeholder}
-        placeholderTextColor={gray}
+        placeholderTextColor={colors.gray}
         secureTextEntry={true}
-        selectionColor={gray}
-        cursorColor={brandMainText}
-        style={[input, styles.passwordInput, { color: brandMainText }]}
+        selectionColor={colors.gray}
+        cursorColor={colors.mainText}
+        style={[input, styles.passwordInput, { color: colors.mainText }]}
         value={field}
       />
       <Pressable onPress={() => { }}>

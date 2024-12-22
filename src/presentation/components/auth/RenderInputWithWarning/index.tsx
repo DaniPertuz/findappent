@@ -1,10 +1,11 @@
 import React, { FC, useContext } from 'react';
 import { View, Image } from 'react-native';
+import { getIconUrl } from '../../../../utils/icon-url';
+import { appStyles } from '../../../theme/app-styles';
+import { ThemeContext } from '../../../theme/ThemeContext';
 import { Caption2 } from '../../ui/Caption2';
 import { PasswordInput, DefaultInput } from '../../ui/forms';
 import WarningMessage from '../WarningMessage';
-import { appStyles } from '../../../theme/app-styles';
-import { ThemeContext } from '../../../theme/ThemeContext';
 import { styles } from './styles';
 
 interface Props {
@@ -18,7 +19,7 @@ interface Props {
 }
 
 const RenderInputWithWarning: FC<Props> = ({ label, value, placeholder, customMessage, isEmail = false, isPassword = false, onChange }) => {
-  const { colors } = useContext(ThemeContext);
+  const { colors, currentTheme } = useContext(ThemeContext);
   return (
     <View style={styles.inputsContainer}>
       <Caption2 customColor={colors.mainText}>{label}</Caption2>
@@ -32,11 +33,7 @@ const RenderInputWithWarning: FC<Props> = ({ label, value, placeholder, customMe
             placeholder={placeholder}
             iconElement={
               <Image
-                source={
-                  isEmail
-                    ? require('../../../../assets/icons/envelope.png')
-                    : require('../../../../assets/icons/users.png')
-                }
+                source={{ uri: getIconUrl(isEmail ? 'envelope' : 'users', currentTheme, true) }}
                 style={appStyles.inputIcon}
               />
             }
