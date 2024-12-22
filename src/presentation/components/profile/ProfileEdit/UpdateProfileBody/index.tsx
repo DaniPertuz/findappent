@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { Dimensions, Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from 'react-native';
-import WarningMessage from '../../auth/WarningMessage';
-import { Caption2 } from '../../ui/Caption2';
-import { DefaultInput, DescriptionInput, DropdownComponent, PasswordInput } from '../../ui/forms';
-import { getIconUrl } from '../../../../utils/icon-url';
-import { ButtonComponent } from '../../ui/ButtonComponent';
-import { Body } from '../../ui/Body';
+import WarningMessage from '../../../auth/WarningMessage';
+import { Body } from '../../../ui/Body';
+import { ButtonComponent } from '../../../ui/ButtonComponent';
+import { Caption2 } from '../../../ui/Caption2';
+import { DescriptionInput, DefaultInput, DropdownComponent, PasswordInput } from '../../../ui/forms';
 import UpdateProfileFormItemContainer from '../UpdateProfileFormItemContainer';
-import { appStyles } from '../../../theme/app-styles';
-import { ThemeContext } from '../../../theme/ThemeContext';
+import { getIconUrl } from '../../../../../utils/icon-url';
+import { appStyles } from '../../../../theme/app-styles';
+import { ThemeContext } from '../../../../theme/ThemeContext';
 
 const deviceHeight = Dimensions.get('window').height;
 
@@ -83,6 +83,14 @@ const UpdateProfileBody = () => {
             keyboardType={'default'}
             onChange={() => { }}
           />
+        </UpdateProfileFormItemContainer>
+        <UpdateProfileFormItemContainer>
+          <Caption2 customColor={colors.mainText}>Imágenes</Caption2>
+          
+        </UpdateProfileFormItemContainer>
+        <UpdateProfileFormItemContainer>
+          <Caption2 customColor={colors.mainText}>Horario de atención</Caption2>
+          
         </UpdateProfileFormItemContainer>
         <UpdateProfileFormItemContainer>
           <Caption2 customColor={colors.mainText}>Instagram</Caption2>

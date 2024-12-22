@@ -1,5 +1,5 @@
 import React from 'react';
-import BackButton from '../../ui/BackButton';
+import BackButton from '../../../ui/BackButton';
 import UpdateProfileHeaderContainer from '../UpdateProfileHeaderContainer';
 import UpdateProfileHeaderTitle from '../UpdateProfileHeaderTitle';
 

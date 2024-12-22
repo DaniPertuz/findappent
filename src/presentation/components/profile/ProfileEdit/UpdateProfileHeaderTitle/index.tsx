@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Caption1 } from '../../ui/Caption1';
-import { ThemeContext } from '../../../theme/ThemeContext';
+import { Caption1 } from '../../../ui/Caption1';
+import { ThemeContext } from '../../../../theme/ThemeContext';
 
 const UpdateProfileHeaderTitle = () => {
   const { colors } = useContext(ThemeContext);
