@@ -13,7 +13,7 @@ const BackButton = ({ onPress }: Props) => {
     <Pressable onPress={onPress}>
       <Image
         style={styles.iconSize}
-        source={{ uri: getIconUrl('back', currentTheme, false) }}
+        source={{ uri: getIconUrl('back', currentTheme, true) }}
       />
     </Pressable>
   );
