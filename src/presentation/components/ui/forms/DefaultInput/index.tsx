@@ -1,8 +1,7 @@
 import React, { FC, useContext } from 'react';
 import { KeyboardTypeOptions, TextInput, View } from 'react-native';
-import { useColors } from '../../../../theme/colors';
-import { ThemeContext } from '../../../../theme/ThemeContext';
 import { useStyles } from '../../forms/styles';
+import { ThemeContext } from '../../../../theme/ThemeContext';
 
 interface Props {
   field: string;
@@ -15,8 +14,7 @@ interface Props {
 }
 
 const DefaultInput: FC<Props> = ({ field, fieldValue, placeholder, iconElement, keyboardType, warning, onChange }) => {
-  const { currentTheme } = useContext(ThemeContext);
-  const { brandMainText, gray } = useColors(currentTheme === 'light');
+  const { colors } = useContext(ThemeContext);
   const { input, inputContainer, warningBorder } = useStyles();
   const containerStyle = [
     inputContainer,
@@ -29,12 +27,12 @@ const DefaultInput: FC<Props> = ({ field, fieldValue, placeholder, iconElement, 
     <View style={containerStyle}>
       {iconElement}
       <TextInput
-        style={[{ color: brandMainText }, input]}
+        style={[{ color: colors.mainText }, input]}
         placeholder={placeholder}
-        placeholderTextColor={gray}
-        cursorColor={brandMainText}
+        placeholderTextColor={colors.gray}
+        cursorColor={colors.mainText}
         keyboardType={keyboardType}
-        selectionColor={gray}
+        selectionColor={colors.gray}
         autoCapitalize={'none'}
         autoCorrect={false}
         onChangeText={handleChangeText}
