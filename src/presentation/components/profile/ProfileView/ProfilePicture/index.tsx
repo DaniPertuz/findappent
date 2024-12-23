@@ -1,11 +1,13 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Image, Pressable, StyleSheet } from 'react-native';
-import { CLOUDINARY_URL } from '../../../../api/cloudinaryIconsAPI';
+import { ThemeContext } from '../../../../theme/ThemeContext';
+import { getIconUrl } from '../../../../../utils/icon-url';
 
 const ProfilePicture: FC<{ onPress: () => void; }> = ({ onPress }) => {
+  const { currentTheme } = useContext(ThemeContext);
   return (
     <Pressable onPress={onPress}>
-      <Image source={{ uri: `${CLOUDINARY_URL}/fa_blue` }} style={styles.picture} />
+      <Image source={{ uri: getIconUrl('fa_blue', currentTheme, false) }} style={styles.picture} />
     </Pressable>
   );
 };
