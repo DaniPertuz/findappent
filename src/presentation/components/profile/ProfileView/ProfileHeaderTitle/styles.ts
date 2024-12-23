@@ -6,11 +6,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 10,
   },
-  editIcon: {
-    height: 30,
-    padding: 10,
-    width: 30,
-  },
   titleContainer: {
     maxWidth: '85%',
   },
