@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Caption2 } from '../../ui/Caption2';
+import { Caption2 } from '../../ui';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
 const SubscriptionBestSeller = () => {

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import SubscriptionBadge from '../SubscriptionBadge';
-import { H3 } from '../../ui/H3';
+import { H3 } from '../../ui';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
 const SubscriptionHeader = () => {

@@ -4,9 +4,11 @@ import { ThemeContext } from '../../../theme/ThemeContext';
 import { styles } from './styles';
 import { TextProps } from '../../../../interfaces/text-props.interface';
 
-export const H3: FC<TextProps> = ({ children, customColor }) => {
+const H3: FC<TextProps> = ({ children, customColor }) => {
   const { colors } = useContext(ThemeContext);
   return (
     <Text style={{ ...styles.h3, color: customColor ?? colors.brandMainText }}>{children}</Text>
   );
 };
+
+export default H3;

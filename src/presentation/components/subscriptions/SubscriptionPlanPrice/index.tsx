@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
-import { Caption2 } from '../../ui/Caption2';
+import { Caption2 } from '../../ui';
 import { getIconUrl } from '../../../../utils/icon-url';
 import { ThemeContext } from '../../../theme/ThemeContext';
 

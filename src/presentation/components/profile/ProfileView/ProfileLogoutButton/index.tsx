@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
-import { Body } from '../../ui/Body';
-import { ThemeContext } from '../../../theme/ThemeContext';
+import { Body } from '../../../ui';
+import { ThemeContext } from '../../../../theme/ThemeContext';
 
 const ProfileLogoutButton = () => {
   const { colors } = useContext(ThemeContext);

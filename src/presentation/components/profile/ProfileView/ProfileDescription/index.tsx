@@ -1,9 +1,8 @@
 import React, { FC, useContext } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { BodySmall } from '../../ui/BodySmall';
-import { Caption2 } from '../../ui/Caption2';
 import ProfileLabelContainer from '../ProfileLabelContainer';
-import { ThemeContext } from '../../../theme/ThemeContext';
+import { BodySmall, Caption2 } from '../../../ui';
+import { ThemeContext } from '../../../../theme/ThemeContext';
 
 const ProfileDescription: FC<{ description: string; }> = ({ description }) => {
   const { colors } = useContext(ThemeContext);

@@ -3,7 +3,7 @@ import { View, Image } from 'react-native';
 import { getIconUrl } from '../../../../utils/icon-url';
 import { appStyles } from '../../../theme/app-styles';
 import { ThemeContext } from '../../../theme/ThemeContext';
-import { Caption2 } from '../../ui/Caption2';
+import { Caption2 } from '../../ui';
 import { PasswordInput, DefaultInput } from '../../ui/forms';
 import WarningMessage from '../WarningMessage';
 import { styles } from './styles';

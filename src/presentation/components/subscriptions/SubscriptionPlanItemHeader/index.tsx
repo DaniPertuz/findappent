@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Subheadline } from '../../ui/Subheadline';
+import { Subheadline } from '../../ui';
 import SubscriptionBadge from '../SubscriptionBadge';
 import SubscriptionBestSeller from '../SubscriptionBestSeller';
 import { ThemeContext } from '../../../theme/ThemeContext';

@@ -1,10 +1,8 @@
 import React, { FC, useContext } from 'react';
 import { View } from 'react-native';
-import { BodySmall } from '../../../ui/BodySmall';
-import { H3 } from '../../../ui/H3';
+import { AddEditButton, BodySmall, H3 } from '../../../ui';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 import { styles } from './styles';
-import AddEditButton from '../../../ui/AddEditButton';
 
 interface Props {
   name: string;

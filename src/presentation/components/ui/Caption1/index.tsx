@@ -4,9 +4,11 @@ import { TextProps } from '../../../../interfaces/text-props.interface';
 import { ThemeContext } from '../../../theme/ThemeContext';
 import { styles } from './styles';
 
-export const Caption1: FC<TextProps> = ({ children, customColor }) => {
+const Caption1: FC<TextProps> = ({ children, customColor }) => {
   const { colors } = useContext(ThemeContext);
   return (
     <Text style={{ ...styles.caption, color: customColor ?? colors.brandMainText }}>{children}</Text>
   );
 };
+
+export default Caption1;

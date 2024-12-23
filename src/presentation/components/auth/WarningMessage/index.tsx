@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { appStyles } from '../../../theme/app-styles';
-import { Caption2 } from '../../ui/Caption2';
+import { Caption2 } from '../../ui';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
 interface Props {

@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Footnote } from '../../ui/Footnote';
+import { Footnote } from '../../ui';
 import { getIconUrl } from '../../../../utils/icon-url';
 import { ThemeContext } from '../../../theme/ThemeContext';
 

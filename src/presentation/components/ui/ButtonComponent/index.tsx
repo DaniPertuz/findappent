@@ -10,7 +10,7 @@ interface Props {
   onPress?: () => void;
 }
 
-export const ButtonComponent: FC<Props> = ({ children, customStyle, disabled, onPress }) => {
+const ButtonComponent: FC<Props> = ({ children, customStyle, disabled, onPress }) => {
   const { colors } = useContext(ThemeContext);
   return (
     <Pressable
@@ -22,3 +22,5 @@ export const ButtonComponent: FC<Props> = ({ children, customStyle, disabled, on
     </Pressable>
   );
 };
+
+export default ButtonComponent;

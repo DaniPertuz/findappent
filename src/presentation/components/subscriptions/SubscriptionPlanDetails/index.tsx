@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { getIconUrl } from '../../../../utils/icon-url';
-import { Caption2 } from '../../ui/Caption2';
+import { Caption2 } from '../../ui';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
 const SubscriptionPlanDetails: FC<{ details: string[]; }> = ({ details }) => {

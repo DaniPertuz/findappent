@@ -3,8 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import ProfileDescription from '../ProfileDescription';
 import ProfileDetail from '../ProfileDetail';
 import ProfileLogoutButton from '../ProfileLogoutButton';
-import { ThemeContext } from '../../../theme/ThemeContext';
-import { getIconUrl } from '../../../../utils/icon-url';
+import { getIconUrl } from '../../../../../utils/icon-url';
+import { ThemeContext } from '../../../../theme/ThemeContext';
 
 const ProfileBody = () => {
   const { currentTheme } = useContext(ThemeContext);
