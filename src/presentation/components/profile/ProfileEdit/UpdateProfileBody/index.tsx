@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Dimensions, Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from 'react-native';
 import WarningMessage from '../../../auth/WarningMessage';
 import { Body, ButtonComponent, Caption2 } from '../../../ui';
-import { DescriptionInput, DefaultInput, DropdownComponent, PasswordInput } from '../../../ui/forms';
+import { DescriptionInput, DefaultInput, DropdownComponent, PasswordInput, AddressInput } from '../../../ui/forms';
 import UpdateProfileFormItemContainer from '../UpdateProfileFormItemContainer';
 import UpdateProfileGallery from '../UpdateProfileGallery';
 import { getIconUrl } from '../../../../../utils/icon-url';
@@ -49,6 +49,14 @@ const UpdateProfileBody = () => {
               />
             }
             keyboardType={'email-address'}
+            onChange={() => { }}
+          />
+        </UpdateProfileFormItemContainer>
+        <UpdateProfileFormItemContainer>
+          <Caption2 customColor={colors.mainText}>Dirección</Caption2>
+          <AddressInput
+            field={''}
+            onBlur={() => { }}
             onChange={() => { }}
           />
         </UpdateProfileFormItemContainer>
