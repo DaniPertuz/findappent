@@ -1,6 +1,6 @@
 export interface ModalProps {
   closeIcon?: string;
-  hasTitle?: boolean;
+  title?: string;
   uri?: string;
   modalVisible?: boolean;
   onPress?: () => void;
