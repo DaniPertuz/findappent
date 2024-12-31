@@ -5,12 +5,12 @@ import ModalHideButton from '../ModalHideButton';
 import ModalTitle from '../ModalTitle';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 
-const ModalHeader: FC<ModalProps> = ({ closeIcon, hasTitle, onPress }) => {
+const ModalHeader: FC<ModalProps> = ({ closeIcon, title, onPress }) => {
   const { colors } = useContext(ThemeContext);
   return (
     <View style={[{ backgroundColor: colors.background }, styles.modalContainer]}>
-      <ModalHideButton closeIcon={closeIcon} onPress={onPress} />
-      {hasTitle && <ModalTitle />}
+      <ModalHideButton closeIcon={closeIcon!} onPress={onPress!} />
+      {title?.length !== 0 && <ModalTitle title={title!} />}
     </View>
   );
 };
