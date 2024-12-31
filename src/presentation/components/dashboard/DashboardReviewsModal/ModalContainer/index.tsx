@@ -1,7 +1,6 @@
 import React, { FC, PropsWithChildren } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
-
-const deviceHeight = Dimensions.get('window').height;
+import { StyleSheet, View } from 'react-native';
+import { deviceHeight } from '../../../../../utils/dimensions';
 
 const ModalContainer: FC<PropsWithChildren> = ({ children }) => {
   return (

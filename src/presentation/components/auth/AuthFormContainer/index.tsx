@@ -1,8 +1,7 @@
 import React, { FC, useContext } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { deviceHeight, deviceWidth } from '../../../../utils/dimensions';
 import { ThemeContext } from '../../../theme/ThemeContext';
-
-const { width, height } = Dimensions.get('window');
 
 interface Props {
   children: React.ReactNode;
@@ -26,11 +25,11 @@ const AuthFormContainer: FC<Props> = ({ children }) => {
 const styles = StyleSheet.create({
   loginFormContainer: {
     borderRadius: 16,
-    height: height * 0.85,
+    height: deviceHeight * 0.85,
     marginVertical: 45,
     paddingHorizontal: 10,
     paddingVertical: 15,
-    width: width * 0.9,
+    width: deviceWidth * 0.9,
   },
 });
 

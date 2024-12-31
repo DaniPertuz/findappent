@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
-import { Dimensions, ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import SubscriptionPlastListItem from '../SubscriptionPlansListItem';
-
-const { height } = Dimensions.get('window');
+import { deviceHeight } from '../../../../utils/dimensions';
 
 const SubscriptionPlansList: FC = () => {
   return (
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     gap: 16,
-    paddingBottom: height * 0.085,
+    paddingBottom: deviceHeight * 0.085,
   },
 });
 

@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { ThemeContext } from '../../../theme/ThemeContext';
-
-const { width, height } = Dimensions.get('window');
+import { deviceHeight, deviceWidth } from '../../../../utils/dimensions';
 
 export const Background = () => {
   const { colors, currentTheme } = useContext(ThemeContext);
@@ -22,8 +21,8 @@ const styles = StyleSheet.create({
     borderBottomEndRadius: 16,
     borderBottomStartRadius: 16,
     borderWidth: 1,
-    height: height * 0.296,
+    height: deviceHeight * 0.296,
     position: 'absolute',
-    width,
+    width: deviceWidth,
   },
 });

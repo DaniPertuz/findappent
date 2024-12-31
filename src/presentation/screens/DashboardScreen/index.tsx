@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import DashboardHeader from '../../components/dashboard/DashboardHeader';
 import DashboardStatistics from '../../components/dashboard/DashboardStatistics';
 import DashboardUserProps from '../../components/dashboard/DashboardUserProps';
 import StatusBarComponent from '../../components/ui/StatusBarComponent';
+import { deviceHeight } from '../../../utils/dimensions';
 import { ThemeContext } from '../../theme/ThemeContext';
-
-const { height } = Dimensions.get('window');
 
 const DashboardScreen = () => {
   const { colors, currentTheme } = useContext(ThemeContext);
@@ -27,7 +26,7 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 40,
     paddingHorizontal: 20,
-    paddingBottom: height * 0.07,
+    paddingBottom: deviceHeight * 0.07,
   },
 });
 
