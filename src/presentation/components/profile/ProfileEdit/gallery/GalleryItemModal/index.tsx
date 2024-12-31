@@ -1,27 +1,22 @@
 import React, { FC } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
+import { ModalProps } from '../../../../../../interfaces/modal-props.interface';
 import ModalHeader from '../../../../dashboard/DashboardReviewsModal/ModalHeader';
 import ItemImage from './ItemImage';
 
-interface Props {
-  uri: string;
-  modalVisible: boolean;
-  setModalVisible: (value: boolean) => void;
-}
-
-const GalleryItemModal: FC<Props> = ({ modalVisible, uri, setModalVisible }) => {
+const GalleryItemModal: FC<ModalProps> = ({ modalVisible, uri, setModalVisible }) => {
   return (
     <Modal
       animationType={'fade'}
       transparent={true}
       visible={modalVisible}
       onRequestClose={() => {
-        setModalVisible(!modalVisible);
+        setModalVisible!(!modalVisible);
       }}
     >
       <View style={styles.container}>
-        <ModalHeader closeIcon={'close'} onPress={() => setModalVisible(false)} />
-        <ItemImage uri={uri} />
+        <ModalHeader closeIcon={'close'} onPress={() => setModalVisible!(false)} />
+        <ItemImage uri={uri!} />
       </View>
     </Modal>
   );
