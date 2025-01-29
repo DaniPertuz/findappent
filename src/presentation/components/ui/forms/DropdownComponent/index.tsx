@@ -8,9 +8,10 @@ import { styles } from './styles';
 interface Props {
   items: { label: string; value: string; }[];
   placeholder: string;
+  onChange: (value: string | null) => void;
 }
 
-const DropdownComponent: FC<Props> = ({ items, placeholder }) => {
+const DropdownComponent: FC<Props> = ({ items, placeholder, onChange }) => {
   const { colors } = useContext(ThemeContext);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -26,7 +27,7 @@ const DropdownComponent: FC<Props> = ({ items, placeholder }) => {
       listMode={'SCROLLVIEW'}
       open={open}
       value={value}
-      onChangeValue={() => { }}
+      onChangeValue={onChange}
       items={list}
       setOpen={setOpen}
       setValue={setValue}
@@ -36,7 +37,7 @@ const DropdownComponent: FC<Props> = ({ items, placeholder }) => {
       ArrowUpIconComponent={DropDownUpIcon}
       style={[styles.dropdown, { backgroundColor: colors.white, borderColor: colors.mainText }]}
       textStyle={{ color: colors.mainText }}
-      dropDownContainerStyle={{ backgroundColor: colors.white }}
+      dropDownContainerStyle={{ backgroundColor: colors.white, borderColor: colors.mainText }}
     />
   );
 };
