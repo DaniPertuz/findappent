@@ -1,22 +1,22 @@
 import React, { useContext } from 'react';
-import { Dimensions, Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from 'react-native';
+import { getIconUrl } from '../../../../../utils/icon-url';
 import WarningMessage from '../../../auth/WarningMessage';
 import { Body, ButtonComponent, Caption2 } from '../../../ui';
 import { DescriptionInput, DefaultInput, DropdownComponent, PasswordInput, AddressInput } from '../../../ui/forms';
 import UpdateProfileFormItemContainer from '../UpdateProfileFormItemContainer';
 import UpdateProfileGallery from '../UpdateProfileGallery';
-import { getIconUrl } from '../../../../../utils/icon-url';
+import UpdateProfileSchedule from '../UpdateProfileSchedule';
+import { deviceHeight } from '../../../../../utils/dimensions';
 import { appStyles } from '../../../../theme/app-styles';
 import { ThemeContext } from '../../../../theme/ThemeContext';
-
-const deviceHeight = Dimensions.get('window').height;
 
 const UpdateProfileBody = () => {
   const { colors, currentTheme } = useContext(ThemeContext);
 
   return (
     <KeyboardAvoidingView style={appStyles.keyboardContainer} behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}>
-      <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps={'always'} showsVerticalScrollIndicator={false}>
+      <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps={'always'} showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
         <UpdateProfileFormItemContainer>
           <Caption2 customColor={colors.mainText}>Descripción</Caption2>
           <DescriptionInput description={''} onChange={() => { }} />
@@ -77,7 +77,7 @@ const UpdateProfileBody = () => {
         </UpdateProfileFormItemContainer>
         <UpdateProfileFormItemContainer>
           <Caption2 customColor={colors.mainText}>Categoría</Caption2>
-          <DropdownComponent items={[{ label: 'Item 1', value: 'Item1' }]} />
+          <DropdownComponent onChange={() => { }} items={[{ label: 'Item 1', value: 'Item1' }]} placeholder={'Categoría'} />
           <DefaultInput
             field={''}
             fieldValue={'name'}
@@ -93,10 +93,9 @@ const UpdateProfileBody = () => {
           />
         </UpdateProfileFormItemContainer>
         <UpdateProfileGallery />
-        <UpdateProfileFormItemContainer>
-          <Caption2 customColor={colors.mainText}>Horario de atención</Caption2>
-
-        </UpdateProfileFormItemContainer>
+        <UpdateProfileSchedule
+          onChangeSchedule={() => {}}
+        />
         <UpdateProfileFormItemContainer>
           <Caption2 customColor={colors.mainText}>Instagram</Caption2>
           <DefaultInput
