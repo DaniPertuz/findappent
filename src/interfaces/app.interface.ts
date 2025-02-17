@@ -58,7 +58,7 @@ export interface IPlace {
   email:       string;
   coords:      Location;
   phone:       number;
-  whatsapp?:   string;
+  whatsapp?:   number;
   instagram?:  string;
   city:        string;
   cityState:   string;
