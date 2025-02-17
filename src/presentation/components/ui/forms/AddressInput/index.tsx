@@ -29,13 +29,15 @@ const AddressInput: FC<Props> = ({ field, warning, onBlur, onChange }) => {
         placeholder={'Dirección, ciudad, depto/estado, país'}
         placeholderTextColor={colors.gray}
         keyboardType={'default'}
-        style={input}
+        style={[{ color: colors.mainText }, input]}
         cursorColor={colors.mainText}
         selectionColor={colors.gray}
         autoCapitalize={'none'}
         autoCorrect={false}
         numberOfLines={1}
         onBlur={onBlur}
+        onSubmitEditing={onBlur}
+        returnKeyType={'done'}
         onChangeText={handleChangeText}
         value={field}
       />
