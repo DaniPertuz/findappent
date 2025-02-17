@@ -20,7 +20,7 @@ const DescriptionInput: FC<Props> = ({ description, onChange }) => {
         placeholder={'Descripción'}
         placeholderTextColor={colors.gray}
         keyboardType={'default'}
-        style={styles.inputField}
+        style={[styles.inputField, { color: colors.mainText }]}
         cursorColor={colors.mainText}
         selectionColor={colors.mainText}
         autoCapitalize={'none'}
