@@ -15,7 +15,7 @@ const ButtonComponent: FC<Props> = ({ children, customStyle, disabled, onPress }
   return (
     <Pressable
       disabled={disabled}
-      style={[styles.button, { backgroundColor: colors.darkBlue }, customStyle]}
+      style={({ pressed }) => [styles.button, { backgroundColor: colors.darkBlue, opacity: pressed ? 0.9 : 1 }, customStyle]}
       onPress={onPress}
     >
       {children}
