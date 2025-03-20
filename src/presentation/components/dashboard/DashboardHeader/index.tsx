@@ -1,9 +1,7 @@
 import React, { FC, useContext } from 'react';
 import { Image, View } from 'react-native';
-import { CLOUDINARY_URL } from '../../../../api/cloudinaryIconsAPI';
-import { BodySmall } from '../../ui/BodySmall';
-import { Footnote } from '../../ui/Footnote';
-import { Subheadline } from '../../ui/Subheadline';
+import { CLOUDINARY_URL } from '@env';
+import { Subheadline, BodySmall, Footnote } from '../../ui';
 import { ThemeContext } from '../../../theme/ThemeContext';
 import { styles } from './styles';
 
