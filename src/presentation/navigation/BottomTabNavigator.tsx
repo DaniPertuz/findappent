@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TabItem } from '../components/navigation/TabItem';
-import { DashboardScreen, SubscriptionScreen } from '../screens';
-import { ProfileNavigator } from './';
+import { DashboardScreen, SubscriptionScreen, ProfileScreen } from '../screens';
 import { ThemeContext } from '../theme/ThemeContext';
 
 const Tab = createBottomTabNavigator();
@@ -20,7 +19,7 @@ const BottomTabNavigator = () => {
     >
       <Tab.Screen name={'Inicio'} options={{ tabBarLabel: '' }} component={DashboardScreen} />
       <Tab.Screen name={'Suscripción'} options={{ tabBarLabel: '' }} component={SubscriptionScreen} />
-      <Tab.Screen name={'Perfil'} options={{ tabBarLabel: '' }} component={ProfileNavigator} />
+      <Tab.Screen name={'Perfil'} options={{ tabBarLabel: '' }} component={ProfileScreen} />
     </Tab.Navigator>
   );
 };
