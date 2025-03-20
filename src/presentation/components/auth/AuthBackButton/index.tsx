@@ -1,7 +1,8 @@
 import React, { FC, useContext } from 'react';
 import { Pressable, Image, View, StyleSheet } from 'react-native';
+import { Caption1 } from '../../ui';
+import { getIconUrl } from '../../../../utils/icon-url';
 import { appStyles } from '../../../theme/app-styles';
-import { Caption1 } from '../../ui/Caption1';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
 interface Props {
@@ -9,11 +10,11 @@ interface Props {
 }
 
 const AuthBackButton: FC<Props> = ({ onPress }) => {
-  const { colors } = useContext(ThemeContext);
+  const { colors, currentTheme } = useContext(ThemeContext);
 
   return (
     <Pressable style={styles.backButton} onPress={onPress}>
-      <Image source={require('../../../../assets/icons/back.png')} style={appStyles.inputIcon} />
+      <Image source={{ uri: getIconUrl('back', currentTheme, false) }} style={appStyles.inputIcon} />
       <View style={styles.captionContainer}>
         <Caption1 customColor={colors.darkBlue}>Volver</Caption1>
       </View>

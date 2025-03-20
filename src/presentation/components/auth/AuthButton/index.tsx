@@ -1,7 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Body } from '../../ui/Body';
-import { ButtonComponent } from '../../ui/ButtonComponent';
+import { Body, ButtonComponent } from '../../ui';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
 interface Props {

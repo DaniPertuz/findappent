@@ -2,7 +2,7 @@ import React, { FC, useContext } from 'react';
 import ReviewBodyContainer from './ReviewBodyContainer';
 import ReviewBodyHeader from './ReviewBodyHeader';
 import ReviewBodyRating from './ReviewBodyRating';
-import { Footnote } from '../../../ui/Footnote';
+import { Footnote } from '../../../ui';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 
 const ReviewBody: FC = () => {

@@ -1,15 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
-import { MainView } from '../../../components/ui/MainView';
-import StatusBarComponent from '../../../components/ui/StatusBarComponent';
-import { ThemeContext } from '../../../theme/ThemeContext';
-import AuthButton from '../../../components/auth/AuthButton';
-import AuthFooter from '../../../components/auth/AuthFooter';
-import AuthFormContainer from '../../../components/auth/AuthFormContainer';
-import AuthHeader from '../../../components/auth/AuthHeader';
-import RenderInputWithWarning from '../../../components/auth/RenderInputWithWarning';
-import { Background } from '../../../components/ui/Background';
+import { AuthFormContainer, AuthHeader, RenderInputWithWarning, AuthButton, AuthFooter } from '../../../components/auth';
+import { Background, MainView, StatusBarComponent } from '../../../components/ui';
 import { appStyles } from '../../../theme/app-styles';
+import { ThemeContext } from '../../../theme/ThemeContext';
 import { styles } from './styles';
 
 const RegisterScreen = () => {

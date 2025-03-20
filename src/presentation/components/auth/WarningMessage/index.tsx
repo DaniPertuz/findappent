@@ -1,7 +1,8 @@
 import React, { FC, useContext } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
-import { appStyles } from '../../../theme/app-styles';
 import { Caption2 } from '../../ui';
+import { getIconUrl } from '../../../../utils/icon-url';
+import { appStyles } from '../../../theme/app-styles';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
 interface Props {
@@ -9,11 +10,14 @@ interface Props {
 }
 
 const WarningMessage: FC<Props> = ({ text }) => {
-  const { colors } = useContext(ThemeContext);
+  const { colors, currentTheme } = useContext(ThemeContext);
 
   return (
     <View style={styles.warningContainer}>
-      <Image style={appStyles.inputIcon} source={require('../../../../assets/icons/warning.png')} />
+      <Image
+        source={{ uri: getIconUrl('warning', currentTheme, false) }}
+        style={appStyles.inputIcon}
+      />
       <Caption2 customColor={colors.error}>{text}</Caption2>
     </View>
   );

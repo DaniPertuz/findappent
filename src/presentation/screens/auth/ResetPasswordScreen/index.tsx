@@ -1,14 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
-import AuthBackButton from '../../../components/auth/AuthBackButton';
-import AuthButton from '../../../components/auth/AuthButton';
-import AuthFormContainer from '../../../components/auth/AuthFormContainer';
-import AuthHeader from '../../../components/auth/AuthHeader';
-import RenderInputWithWarning from '../../../components/auth/RenderInputWithWarning';
-import WarningMessage from '../../../components/auth/WarningMessage';
-import { Background } from '../../../components/ui/Background';
-import { MainView } from '../../../components/ui/MainView';
-import StatusBarComponent from '../../../components/ui/StatusBarComponent';
+import { AuthBackButton, AuthButton, AuthFormContainer, AuthHeader, RenderInputWithWarning, WarningMessage } from '../../../components/auth';
+import { Background, MainView, StatusBarComponent } from '../../../components/ui';
 import { appStyles } from '../../../theme/app-styles';
 import { ThemeContext } from '../../../theme/ThemeContext';
 import { styles } from './styles';

@@ -1,7 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { BodySmall } from '../../ui/BodySmall';
-import { H4 } from '../../ui/H4';
+import { BodySmall, H4 } from '../../ui';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
 interface Props {
