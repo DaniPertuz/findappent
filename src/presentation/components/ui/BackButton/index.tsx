@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { Image, Pressable, StyleSheet } from 'react-native';
 import { getIconUrl } from '../../../../utils/icon-url';
 import { ThemeContext } from '../../../theme/ThemeContext';
@@ -7,7 +7,7 @@ interface Props {
   onPress?: () => void;
 }
 
-const BackButton = ({ onPress }: Props) => {
+const BackButton: FC<Props> = ({ onPress }) => {
   const { currentTheme } = useContext(ThemeContext);
   return (
     <Pressable onPress={onPress}>

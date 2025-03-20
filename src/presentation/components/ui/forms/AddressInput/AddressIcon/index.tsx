@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { Image } from 'react-native';
 import { getIconUrl } from '../../../../../../utils/icon-url';
 import { ThemeContext } from '../../../../../theme/ThemeContext';
 import { useStyles } from '../../styles';
 
-const AddressIcon = () => {
+const AddressIcon: FC = () => {
   const { inputIcon } = useStyles();
   const { currentTheme } = useContext(ThemeContext);
   return (

@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import DashboardReviewsModal from '../DashboardReviewsModal';
 import DashboardUserPropItem from './DashboardUserPropItem';
 import { getIconUrl } from '../../../../utils/icon-url';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
-const DashboardUserProps = () => {
+const DashboardUserProps: FC = () => {
   const { currentTheme } = useContext(ThemeContext);
   const [modalVisible, setModalVisible] = useState(false);
   return (

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
 import PasswordVisibleIcon from './PasswordVisibleIcon';
 import PassowrdIcon from './PasswordIcon';
@@ -14,7 +14,7 @@ interface Props {
   onChange: (value: string, field: 'password' | 'confirmPassword') => void;
 }
 
-const PasswordInput = ({ field, fieldValue, placeholder, warning, onChange }: Props) => {
+const PasswordInput: FC<Props> = ({ field, fieldValue, placeholder, warning, onChange }) => {
   const { colors } = useContext(ThemeContext);
   const { input, inputContainer, warningBorder } = useStyles();
 

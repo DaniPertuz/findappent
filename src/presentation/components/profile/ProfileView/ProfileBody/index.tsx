@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import ProfileDescription from '../ProfileDescription';
 import ProfileDetail from '../ProfileDetail';
@@ -6,7 +6,7 @@ import ProfileLogoutButton from '../ProfileLogoutButton';
 import { getIconUrl } from '../../../../../utils/icon-url';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 
-const ProfileBody = () => {
+const ProfileBody: FC = () => {
   const { currentTheme } = useContext(ThemeContext);
 
   return (

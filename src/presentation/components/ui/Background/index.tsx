@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ThemeContext } from '../../../theme/ThemeContext';
 import { deviceHeight, deviceWidth } from '../../../../utils/dimensions';
 
-export const Background = () => {
+export const Background: FC = () => {
   const { colors, currentTheme } = useContext(ThemeContext);
   return (
     <View style={[styles.background, {

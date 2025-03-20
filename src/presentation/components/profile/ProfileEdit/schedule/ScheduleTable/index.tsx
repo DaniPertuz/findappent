@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { View } from 'react-native';
 import { Row, Rows, Table } from 'react-native-reanimated-table';
 import { ThemeContext } from '../../../../../theme/ThemeContext';
@@ -8,7 +8,7 @@ interface Props {
   displaySchedule: string[][];
 }
 
-const ScheduleTable = ({ displaySchedule }: Props) => {
+const ScheduleTable: FC<Props> = ({ displaySchedule }) => {
   const { colors } = useContext(ThemeContext);
   const headers: string[] = ['Día', 'Abre', 'Cierra'];
 

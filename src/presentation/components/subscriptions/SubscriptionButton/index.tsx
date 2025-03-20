@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { StyleSheet } from 'react-native';
 import { ButtonComponent, Footnote } from '../../ui';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
-const SubscriptionButton = () => {
+const SubscriptionButton: FC = () => {
   const { colors } = useContext(ThemeContext);
   return (
     <ButtonComponent customStyle={styles.container}>

@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Caption2 } from '../../ui';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
-const SubscriptionBestSeller = () => {
+const SubscriptionBestSeller: FC = () => {
   const { colors } = useContext(ThemeContext);
   return (
     <View style={[styles.container, { backgroundColor: colors.lightBlue }]}>

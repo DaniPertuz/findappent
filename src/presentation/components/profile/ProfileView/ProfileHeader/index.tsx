@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { View, StyleSheet } from 'react-native';
 import ProfilePicture from '../ProfilePicture';
 import ProfileHeaderTitle from '../ProfileHeaderTitle';
 
-const ProfileHeader = () => {
+const ProfileHeader: FC = () => {
   return (
     <View style={styles.container}>
       <ProfilePicture onPress={() => {}} />

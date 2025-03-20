@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import { Body } from '../../../ui';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 
-const ProfileLogoutButton = () => {
+const ProfileLogoutButton: FC = () => {
   const { colors } = useContext(ThemeContext);
   return (
     <Pressable style={styles.container} onPress={() => console.log('Logout')}>

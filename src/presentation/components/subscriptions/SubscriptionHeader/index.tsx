@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import SubscriptionBadge from '../SubscriptionBadge';
 import { H3 } from '../../ui';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
-const SubscriptionHeader = () => {
+const SubscriptionHeader: FC = () => {
   const { colors } = useContext(ThemeContext);
   return (
     <View style={styles.container}>

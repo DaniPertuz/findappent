@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Platform, StatusBar, View } from 'react-native';
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
   theme: 'dark-content' | 'light-content';
 }
 
-const StatusBarComponent = ({ color, theme }: Props) => {
+const StatusBarComponent: FC<Props> = ({ color, theme }) => {
 
   const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
 
