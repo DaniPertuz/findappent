@@ -1,4 +1,6 @@
 export { default as AddEditButton } from './AddEditButton';
+export { Background } from './Background';
+export { default as BackButton } from './BackButton';
 export { default as Body } from './Body';
 export { default as BodySmall } from './BodySmall';
 export { default as ButtonComponent } from './ButtonComponent';
@@ -11,4 +13,6 @@ export { default as H2 } from './H2';
 export { default as H3 } from './H3';
 export { default as H4 } from './H4';
 export { default as Headline } from './Headline';
+export { MainView } from './MainView';
+export { default as StatusBarComponent } from './StatusBarComponent';
 export { default as Subheadline } from './Subheadline';
