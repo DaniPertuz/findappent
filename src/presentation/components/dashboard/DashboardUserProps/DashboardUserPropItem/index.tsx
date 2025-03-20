@@ -1,7 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
-import { BodySmall } from '../../../ui/BodySmall';
-import { Footnote } from '../../../ui/Footnote';
+import { BodySmall, Footnote } from '../../../ui';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 
 interface Props {
