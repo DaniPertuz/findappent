@@ -1,13 +1,4 @@
-
-export interface IUser {
-  _id?:      string;
-  name:      string;
-  email:     string;
-  password:  string;
-  role:      roles | string;
-  status:    boolean;
-  photo?:    string;
-}
+import { IFavorite, IPlace, IProduct, IRate, IService, IUser } from '../core/entities';
 
 export interface LoginInterface {
   user:  IUser;
@@ -30,13 +21,6 @@ export interface IRatingList {
   rates: IRate[];
 }
 
-export interface IRate {
-  rate:      number;
-  comments:  string;
-  place?:    IPlace;
-  user?:     IUser;
-  createdAt: string;
-}
 export interface IRatingAverage {
   average: number;
 }
@@ -49,41 +33,8 @@ export interface ISearch {
   products:      IProduct[];
 }
 
-export interface IPlace {
-  _id?:        string;
-  name:        string;
-  description: string;
-  category:    string;
-  address:     string;
-  email:       string;
-  coords:      Location;
-  phone:       number;
-  whatsapp?:   number;
-  instagram?:  string;
-  city:        string;
-  cityState:   string;
-  country:     string;
-  schedule:    string[];
-  photo?:      string;
-  premium?:    number;
-  pics:        string[];
-  rate?:       NumericRate;
-  status:      boolean;
-}
 export interface NumericRate {
   $numberDecimal: string;
-}
-
-export interface IProduct {
-  _id?:        string;
-  name:        string;
-  description: string;
-  category:    string;
-  price:       number;
-  place:       string;
-  rate?:       NumericRate;
-  img?:        string;
-  status?:     boolean;
 }
 
 export interface IFavorites {
@@ -91,21 +42,9 @@ export interface IFavorites {
   favorites: IFavorite[];
 }
 
-export interface IFavorite {
-  place:     IPlace;
-  createdAt: string;
-}
-
-export interface IHistory {
+export interface IServiceList {
   total:     number;
   services:  IService[];
-}
-
-export interface IService {
-  createdAt: string;
-  place:     IPlace;
-  search:    string;
-  user:      string;
 }
 
 export interface Location {
