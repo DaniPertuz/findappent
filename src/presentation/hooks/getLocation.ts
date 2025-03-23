@@ -1,4 +1,4 @@
-import Geocoder from '../../api/geocoder';
+import Geocoder from '../../config/api/geocoder';
 
 export const getCoords = async (address: string) => {
   const { results } = await Geocoder.from(address);
