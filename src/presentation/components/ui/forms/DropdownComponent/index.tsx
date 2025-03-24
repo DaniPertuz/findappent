@@ -5,8 +5,13 @@ import DropDownUpIcon from './DropDownUpIcon';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 import { styles } from './styles';
 
+interface ItemType {
+  label: string;
+  value: string;
+}
+
 interface Props {
-  items: { label: string; value: string; }[];
+  items: ItemType[];
   placeholder: string;
   onChange: (value: string | null) => void;
 }
@@ -41,6 +46,5 @@ const DropdownComponent: FC<Props> = ({ items, placeholder, onChange }) => {
     />
   );
 };
-
 
 export default DropdownComponent;
