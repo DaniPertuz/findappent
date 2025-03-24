@@ -2,7 +2,7 @@ import React, { FC, useCallback, useContext } from 'react';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { IPlace } from '../../../../../interfaces/app.interface';
+import { IPlace } from '../../../../../core/entities';
 import { RootStackParams } from '../../../../navigation/MainNavigator';
 import { AddEditButton, BodySmall, H3 } from '../../../ui';
 import { ThemeContext } from '../../../../theme/ThemeContext';
