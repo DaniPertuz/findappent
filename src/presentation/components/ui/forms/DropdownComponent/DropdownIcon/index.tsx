@@ -1,10 +1,10 @@
-import React, { FC, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Image } from 'react-native';
 import { getIconUrl } from '../../../../../../utils/icon-url';
 import { appStyles } from '../../../../../theme/app-styles';
 import { ThemeContext } from '../../../../../theme/ThemeContext';
 
-const DropDownIcon: FC = () => {
+const DropDownIcon = () => {
   const { currentTheme } = useContext(ThemeContext);
   return (
     <Image
