@@ -38,5 +38,5 @@ export const categories = [
   { label: 'Veterinaria', value: 'veterinary' },
   { label: 'Video Juegos', value: 'video_games' },
   { label: 'Zapatería', value: 'shoe_store' },
-  { label: 'Other', value: 'other' },
+  { label: 'Otro', value: 'other' },
 ];
