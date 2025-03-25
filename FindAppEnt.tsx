@@ -1,23 +1,20 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import { View } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
+import { NavigationContainer } from '@react-navigation/native';
 import { ThemeContextProvider } from './src/presentation/theme/ThemeContext';
+import Navigation from './src/presentation/navigation/Navigation';
+import { AuthProvider } from './src/presentation/providers/AuthProvider';
+import { navigationRef } from './src/presentation/navigation/navigationRef';
 
 const FindAppEnt = () => {
   return (
-    <ThemeContextProvider>
-      <ThemedContent />
-    </ThemeContextProvider>
-  );
-};
-
-const ThemedContent = () => {
-  const theme = useTheme();
-
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors.background }}>
-      <Text style={{ color: theme.colors.mainText }}>123</Text>
-    </View>
+    <NavigationContainer ref={navigationRef}>
+      <AuthProvider>
+        <ThemeContextProvider>
+          <Navigation />
+        </ThemeContextProvider>
+      </AuthProvider>
+    </NavigationContainer>
   );
 };
 
