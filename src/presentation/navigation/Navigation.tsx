@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import SplashScreen from 'react-native-splash-screen';
 import { useAuthStore } from '../../store/authStore';
 import { LoadingScreen, LoginScreen, RegisterScreen, ResetPasswordScreen } from '../screens';
 import { MainNavigator } from './';
@@ -9,6 +10,10 @@ const Stack = createStackNavigator();
 const Navigation = () => {
 
   const { status, user } = useAuthStore();
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
 
   if (status === 'checking') {
     return <LoadingScreen />;
