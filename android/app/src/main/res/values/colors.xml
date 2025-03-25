@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <color name="findapp_bg">#207CFD</color>
+    <color name="findapp_bg_dark">#081023</color>
+</resources>
