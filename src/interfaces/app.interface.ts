@@ -5,6 +5,8 @@ export interface LoginInterface {
   token: string;
 }
 
+export type AuthStatus = 'authenticated' | 'unauthenticated' | 'checking';
+
 export enum roles {
   ADMIN  = 'admin',
   CLIENT = 'client',
