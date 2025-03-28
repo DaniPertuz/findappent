@@ -15,10 +15,11 @@ interface Props {
   customMessage?: string;
   isEmail?: boolean;
   isPassword?: boolean;
+  isFilled: boolean;
   onChange: (value: string) => void;
 }
 
-const RenderInputWithWarning: FC<Props> = ({ label, value, placeholder, customMessage, isEmail = false, isPassword = false, onChange }) => {
+const RenderInputWithWarning: FC<Props> = ({ label, value, placeholder, customMessage, isEmail = false, isPassword = false, isFilled, onChange }) => {
   const { colors, currentTheme } = useContext(ThemeContext);
   return (
     <View style={styles.inputsContainer}>
@@ -40,7 +41,7 @@ const RenderInputWithWarning: FC<Props> = ({ label, value, placeholder, customMe
             keyboardType={isEmail ? 'email-address' : 'default'}
             onChange={onChange} />
         )}
-        {value === '' && <WarningMessage text={customMessage ?? `Ingresa tu ${label.toLowerCase()}`} />}
+        {!isFilled && <WarningMessage text={customMessage ?? `Ingresa tu ${label.toLowerCase()}`} />}
       </View>
     </View>
   );
