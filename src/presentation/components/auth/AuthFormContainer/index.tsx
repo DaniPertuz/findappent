@@ -25,7 +25,7 @@ const AuthFormContainer: FC<Props> = ({ children }) => {
 const styles = StyleSheet.create({
   loginFormContainer: {
     borderRadius: 16,
-    height: deviceHeight * 0.85,
+    height: deviceHeight * 0.9,
     marginVertical: 45,
     paddingHorizontal: 10,
     paddingVertical: 15,
