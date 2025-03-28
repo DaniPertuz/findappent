@@ -5,14 +5,14 @@ import { ThemeContext } from '../../../theme/ThemeContext';
 
 interface Props {
   text: string;
-  action?: 'login' | 'register' | 'reset';
+  onPress?: () => void;
 }
 
-const AuthButton: FC<Props> = ({ text }) => {
+const AuthButton: FC<Props> = ({ text, onPress }) => {
   const { colors } = useContext(ThemeContext);
   return (
     <View style={styles.loginButtonContainer}>
-      <ButtonComponent>
+      <ButtonComponent onPress={onPress}>
         <Body customColor={colors.brandWhite}>{text}</Body>
       </ButtonComponent>
     </View>
