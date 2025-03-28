@@ -1,20 +1,13 @@
-import React, { useContext, useState } from 'react';
-import { View, Image, Pressable, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import { AuthFormContainer, AuthFooter, AuthHeader, RenderInputWithWarning, AuthButton } from '../../../components/auth';
-import { Background, Footnote, Caption2, MainView, StatusBarComponent } from '../../../components/ui';
+import React from 'react';
+import { View, Image, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { AuthFormContainer, AuthFooter, AuthHeader, AuthButton, ForgotPasswordButton, RenderInputWithWarning } from '../../../components/auth';
+import { Background, Footnote, MainView, StatusBarComponent } from '../../../components/ui';
 import { appStyles } from '../../../theme/app-styles';
-import { ThemeContext } from '../../../theme/ThemeContext';
 import { styles } from './styles';
+import { useAuthData } from '../../../hooks/useAuthData';
 
 const LoginScreen = () => {
-  const { colors, currentTheme } = useContext(ThemeContext);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const ICONS = {
-    light: require('../../../../assets/icons/fa_complete_color.png'),
-    dark: require('../../../../assets/icons/FA_COMPLETE_White.png'),
-  };
-  const logoSource = ICONS[currentTheme];
+  const { colors, email, isFieldValid, loading, logoSource, password, goToRegister, goToResetPassword, onLogin, setEmail, setPassword } = useAuthData();
 
   return (
     <MainView>
@@ -29,15 +22,11 @@ const LoginScreen = () => {
                 <Footnote customColor={colors.mainText}>Empresas</Footnote>
               </View>
               <AuthHeader title={'Bienvenido'} subtitle={'Ingresa tus credenciales para continuar'} />
-              <RenderInputWithWarning label={'Correo corporativo'} value={email} placeholder={'Ingresa tu correo'} onChange={setEmail} isEmail={true} />
-              <RenderInputWithWarning label={'Contraseña'} value={password} placeholder={'Ingresa tu contraseña'} onChange={setPassword} />
-              <View style={styles.forgotPasswordContainer}>
-                <Pressable>
-                  <Caption2 customColor={colors.darkBlue}>¿Olvidaste tu contraseña?</Caption2>
-                </Pressable>
-              </View>
-              <AuthButton text={'Iniciar sesión'} />
-              <AuthFooter label={'¿No tienes una empresa registrada?'} link={'Crear cuenta'} />
+              <RenderInputWithWarning label={'Correo corporativo'} value={email} placeholder={'Ingresa tu correo'} onChange={setEmail} isEmail isFilled={isFieldValid} />
+              <RenderInputWithWarning label={'Contraseña'} value={password} placeholder={'Ingresa tu contraseña'} onChange={setPassword} isPassword isFilled={isFieldValid} />
+              <ForgotPasswordButton onPress={goToResetPassword} />
+              <AuthButton loading={loading} text={'Iniciar sesión'} onPress={onLogin} />
+              <AuthFooter label={'¿No tienes una empresa registrada?'} link={'Crear cuenta'} onPress={goToRegister} />
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
