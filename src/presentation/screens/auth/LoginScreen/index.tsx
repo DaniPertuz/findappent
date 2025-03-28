@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Image, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { AuthFormContainer, AuthFooter, AuthHeader, AuthButton, ForgotPasswordButton, RenderInputWithWarning } from '../../../components/auth';
 import { Background, Footnote, MainView, StatusBarComponent } from '../../../components/ui';
+import { useAuthData } from '../../../hooks/useAuthData';
 import { appStyles } from '../../../theme/app-styles';
 import { styles } from './styles';
-import { useAuthData } from '../../../hooks/useAuthData';
 
 const LoginScreen = () => {
   const { colors, email, isFieldValid, loading, logoSource, password, goToRegister, goToResetPassword, onLogin, setEmail, setPassword } = useAuthData();

@@ -2,9 +2,9 @@ import React from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { AuthBackButton, AuthButton, AuthFormContainer, AuthHeader, RenderInputWithWarning, WarningMessage } from '../../../components/auth';
 import { Background, MainView, StatusBarComponent } from '../../../components/ui';
+import { useAuthData } from '../../../hooks/useAuthData';
 import { appStyles } from '../../../theme/app-styles';
 import { styles } from './styles';
-import { useAuthData } from '../../../hooks/useAuthData';
 
 const ResetPasswordScreen = () => {
   const { colors, confirmPassword, email, isFieldValid, loading, password, goBack, onResetPassword, setConfirmPassword, setEmail, setPassword } = useAuthData();
