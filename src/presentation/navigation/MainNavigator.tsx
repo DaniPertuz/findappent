@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createStackNavigator, StackCardStyleInterpolator } from '@react-navigation/stack';
+import SplashScreen from 'react-native-splash-screen';
 import { IProduct, IPlace } from '../../core/entities';
 import { LoadingScreen, LoginScreen, RegisterScreen, ResetPasswordScreen } from '../screens';
 import { UpdateProfileScreen } from '../screens/profile';
@@ -29,6 +30,10 @@ const fadeAnimation: StackCardStyleInterpolator = ({ current }) => {
 };
 
 const MainNavigator = () => {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen options={{ cardStyleInterpolator: fadeAnimation }} name={'LoginScreen'} component={LoginScreen} />
