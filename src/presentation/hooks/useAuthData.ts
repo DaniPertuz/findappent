@@ -52,6 +52,7 @@ export const useAuthData = () => {
     }
 
     setLoading(false);
+    navigation.replace('BottomTabNavigator');
   };
 
   const onRegister = async () => {
