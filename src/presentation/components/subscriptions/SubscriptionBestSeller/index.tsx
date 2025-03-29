@@ -15,15 +15,10 @@ const SubscriptionBestSeller: FC = () => {
 const styles = StyleSheet.create({
   container: {
     alignSelf: 'flex-end',
-    alignItems: 'center',
-    borderRadius: 4,
-    paddingHorizontal: 14,
+    borderRadius: 0,
+    paddingHorizontal: 55,
     paddingVertical: 10,
-    position: 'absolute',
-    left: 180,
-    top: 0,
-    transform: [{ rotate: '35deg' }],
-    width: 250,
+    transform: [{ rotate: '45deg' }],
   },
 });
 

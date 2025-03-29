@@ -12,8 +12,9 @@ interface Props {
 
 const SubscriptionPlanItemHeader: FC<Props> = ({ level, text }) => {
   const { colors } = useContext(ThemeContext);
+  const customJustify = level === '3' ? 'space-between' : 'flex-start';
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { justifyContent: customJustify }]}>
       <SubscriptionBadge level={level} />
       <Subheadline customColor={colors.mainText}>Paquete {text}</Subheadline>
       {level === '3' && <SubscriptionBestSeller />}

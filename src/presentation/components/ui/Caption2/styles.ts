@@ -6,6 +6,6 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '500',
     letterSpacing: -0.28,
-    lineHeight: 20,
+    lineHeight: 15,
   },
 });
