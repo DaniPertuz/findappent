@@ -1,13 +1,13 @@
 import React, { FC, useContext } from 'react';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
 import { useAuthStore } from '../../../../store/authStore';
-import { getIconUrl } from '../../../../utils/icon-url';
+import ProfilePicture from '../../profile/ProfileView/ProfilePicture';
 import { Subheadline, BodySmall, Footnote } from '../../ui';
 import { ThemeContext } from '../../../theme/ThemeContext';
 import { styles } from './styles';
 
 const DashboardHeader: FC = () => {
-  const { colors, currentTheme } = useContext(ThemeContext);
+  const { colors } = useContext(ThemeContext);
   const user = useAuthStore(state => state.user);
 
   return (
@@ -17,7 +17,7 @@ const DashboardHeader: FC = () => {
         <BodySmall customColor={colors.mainText}>{user?.name ?? 'Negocio'}</BodySmall>
         <Footnote customColor={colors.mainText}>Nivel</Footnote>
       </View>
-      <Image source={{ uri: user?.photo ?? getIconUrl('fa_blue', currentTheme, false) }} style={styles.mainPhoto} />
+      <ProfilePicture styles={styles.mainPhoto} />
     </View>
   );
 };
