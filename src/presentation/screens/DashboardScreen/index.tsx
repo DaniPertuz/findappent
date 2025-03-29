@@ -13,7 +13,7 @@ const DashboardScreen = () => {
     <>
       <StatusBarComponent color={colors.background} theme={currentTheme === 'light' ? 'dark-content' : 'light-content'} />
       <View style={[{ backgroundColor: colors.background }, styles.container]}>
-        <DashboardHeader title={'Bienvenid@'} subtitle={'Negocio'} />
+        <DashboardHeader />
         <DashboardUserProps />
         <DashboardStatistics />
       </View>
