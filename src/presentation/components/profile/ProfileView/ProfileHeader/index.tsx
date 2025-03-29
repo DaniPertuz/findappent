@@ -7,7 +7,7 @@ const ProfileHeader: FC = () => {
   return (
     <View style={styles.container}>
       <ProfilePicture onPress={() => {}} />
-      <ProfileHeaderTitle name={'Restaurante Las Rocas'} email={'manager@lasrocas.com'} />
+      <ProfileHeaderTitle />
     </View>
   );
 };

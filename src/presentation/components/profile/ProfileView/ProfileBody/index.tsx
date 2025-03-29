@@ -3,11 +3,13 @@ import { StyleSheet, View } from 'react-native';
 import ProfileDescription from '../ProfileDescription';
 import ProfileDetail from '../ProfileDetail';
 import ProfileLogoutButton from '../ProfileLogoutButton';
+import { useAuthStore } from '../../../../../store/authStore';
 import { getIconUrl } from '../../../../../utils/icon-url';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 
 const ProfileBody: FC = () => {
   const { currentTheme } = useContext(ThemeContext);
+  const user = useAuthStore(state => state.user);
 
   return (
     <View style={styles.container}>
@@ -15,7 +17,7 @@ const ProfileBody: FC = () => {
       <ProfileDetail
         label={'Nombre de la empresa'}
         icon={getIconUrl('users', currentTheme, true)}
-        text={'Restaurante las Rocas'}
+        text={user?.name ?? 'Negocio'}
       />
       <ProfileDetail
         label={'Categoría'}
@@ -25,7 +27,7 @@ const ProfileBody: FC = () => {
       <ProfileDetail
         label={'Correo corporativo'}
         icon={getIconUrl('envelope', currentTheme, true)}
-        text={'manager@lasrocas.com'}
+        text={user?.email ?? 'email'}
       />
       <ProfileLogoutButton />
     </View>

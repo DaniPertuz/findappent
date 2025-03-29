@@ -1,14 +1,16 @@
 import React, { FC, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import SubscriptionBadge from '../SubscriptionBadge';
+import { useAuthStore } from '../../../../store/authStore';
 import { H3 } from '../../ui';
+import SubscriptionBadge from '../SubscriptionBadge';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
 const SubscriptionHeader: FC = () => {
   const { colors } = useContext(ThemeContext);
+  const user = useAuthStore(state => state.user);
   return (
     <View style={styles.container}>
-      <H3 customColor={colors.mainText}>Restaurante Las Rocas</H3>
+      <H3 customColor={colors.mainText}>{user?.name}</H3>
       <SubscriptionBadge level={'3'} />
     </View>
   );
