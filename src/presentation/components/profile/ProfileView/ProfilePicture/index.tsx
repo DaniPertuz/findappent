@@ -1,23 +1,22 @@
 import React, { FC, useContext } from 'react';
-import { Image, Pressable, StyleSheet } from 'react-native';
-import { ThemeContext } from '../../../../theme/ThemeContext';
+import { Image, ImageStyle, Pressable, StyleProp } from 'react-native';
+import { useAuthStore } from '../../../../../store/authStore';
 import { getIconUrl } from '../../../../../utils/icon-url';
+import { ThemeContext } from '../../../../theme/ThemeContext';
 
-const ProfilePicture: FC<{ onPress: () => void; }> = ({ onPress }) => {
+interface Props {
+  onPress?: () => void;
+  styles: StyleProp<ImageStyle>;
+}
+
+const ProfilePicture: FC<Props> = ({ onPress, styles }) => {
   const { currentTheme } = useContext(ThemeContext);
+  const user = useAuthStore(state => state.user);
   return (
     <Pressable onPress={onPress}>
-      <Image source={{ uri: getIconUrl('fa_blue', currentTheme, false) }} style={styles.picture} />
+      <Image source={{ uri: user?.photo ?? getIconUrl('fa_blue', currentTheme, false) }} style={styles} />
     </Pressable>
   );
 };
-
-const styles = StyleSheet.create({
-  picture: {
-    borderRadius: 50,
-    height: 97,
-    width: 97,
-  },
-});
 
 export default ProfilePicture;
