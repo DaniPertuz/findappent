@@ -7,9 +7,9 @@ import { IUser } from '../core/entities';
 export interface AuthState {
   status: AuthStatus;
   authResponse: AuthResponse;
-  login: (email: string, password: string) => Promise<any>;
-  register: (name: string, email: string, password: string, role: string) => Promise<any>;
-  checkUser: (user: IUser | null) => Promise<any>;
+  login: (email: string, password: string) => Promise<AuthResponse | undefined>;
+  register: (name: string, email: string, password: string, role: string) => Promise<AuthResponse | undefined>;
+  checkUser: (user: IUser | null) => Promise<AuthResponse | undefined>;
   logout: () => Promise<void>;
 }
 
@@ -48,7 +48,7 @@ export const useAuthStore = create<AuthState>()((set) => ({
   },
   checkUser: async (user: IUser | null) => {
     const resp = await AuthUseCases.checkAuthUserUseCase(user);
-    console.log({ resp });
+
     if (!resp || Object.values(resp).every(value => value === undefined)) {
       set({ status: 'unauthenticated', authResponse: { token: undefined, user: undefined } });
       return;
