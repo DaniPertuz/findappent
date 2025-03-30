@@ -4,7 +4,7 @@ import CustomizedSchedule from '../schedule/CustomizedSchedule';
 import BusinessDaysSchedule from '../schedule/BusinessDaysSchedule';
 import ScheduleDropdownDays from '../schedule/ScheduleDropdownDays';
 import UpdateProfileFormItemContainer from '../UpdateProfileFormItemContainer';
-import { ScheduleType } from '../../../../../types/schedule.type';
+import { ScheduleType } from '../../../../../interfaces/app.interface';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 
 interface Props {

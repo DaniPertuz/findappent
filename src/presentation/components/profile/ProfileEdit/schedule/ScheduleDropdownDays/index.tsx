@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { DropdownComponent } from '../../../../ui/forms';
-import { ScheduleType } from '../../../../../../types/schedule.type';
+import { ScheduleType } from '../../../../../../interfaces/app.interface';
 
 const ScheduleDropdownDays: FC<{ onChange: (value: string | null) => void; }> = ({ onChange }) => {
   const daysOfWeek = [
