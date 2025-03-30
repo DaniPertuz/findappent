@@ -7,7 +7,7 @@ import { ThemeContext } from '../../../theme/ThemeContext';
 
 const SubscriptionHeader: FC = () => {
   const { colors } = useContext(ThemeContext);
-  const user = useAuthStore(state => state.user);
+  const user = useAuthStore(state => state.authResponse.user);
   return (
     <View style={styles.container}>
       <H3 customColor={colors.mainText}>{user?.name}</H3>

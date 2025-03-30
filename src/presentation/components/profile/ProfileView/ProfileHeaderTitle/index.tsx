@@ -12,7 +12,7 @@ import { styles } from './styles';
 const ProfileHeaderTitle: FC = () => {
   const { colors } = useContext(ThemeContext);
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
-  const user = useAuthStore(state => state.user);
+  const user = useAuthStore(state => state.authResponse.user);
 
   const handleEditPress = useCallback(() => {
     const defaultPlace: IPlace = {

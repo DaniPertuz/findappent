@@ -8,7 +8,7 @@ import { styles } from './styles';
 
 const DashboardHeader: FC = () => {
   const { colors } = useContext(ThemeContext);
-  const user = useAuthStore(state => state.user);
+  const user = useAuthStore(state => state.authResponse.user);
 
   return (
     <View style={styles.container}>

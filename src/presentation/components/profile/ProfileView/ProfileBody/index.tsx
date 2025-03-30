@@ -9,7 +9,7 @@ import { ThemeContext } from '../../../../theme/ThemeContext';
 
 const ProfileBody: FC = () => {
   const { currentTheme } = useContext(ThemeContext);
-  const user = useAuthStore(state => state.user);
+  const user = useAuthStore(state => state.authResponse.user);
 
   return (
     <View style={styles.container}>

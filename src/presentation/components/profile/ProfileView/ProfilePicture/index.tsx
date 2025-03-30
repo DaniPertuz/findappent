@@ -11,7 +11,7 @@ interface Props {
 
 const ProfilePicture: FC<Props> = ({ onPress, styles }) => {
   const { currentTheme } = useContext(ThemeContext);
-  const user = useAuthStore(state => state.user);
+  const user = useAuthStore(state => state.authResponse.user);
   return (
     <Pressable onPress={onPress}>
       <Image source={{ uri: user?.photo ?? getIconUrl('fa_blue', currentTheme, false) }} style={styles} />
