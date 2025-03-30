@@ -16,7 +16,7 @@ const AuthButton: FC<Props> = ({ loading, text, onPress }) => {
       <ButtonComponent onPress={onPress}>
         {loading
           ?
-          <ActivityIndicator size={22} color={colors.brandWhite} />
+          <ActivityIndicator size={24} color={colors.brandWhite} />
           :
           <Body customColor={colors.brandWhite}>{text}</Body>
         }
