@@ -5,12 +5,23 @@ export interface LoginInterface {
   token: string;
 }
 
+export interface AuthResponse {
+  token: string | undefined;
+  user:  IUser | undefined;
+}
+
 export type AuthStatus = 'authenticated' | 'unauthenticated' | 'checking';
 
 export enum roles {
   ADMIN  = 'admin',
   CLIENT = 'client',
   PLACE  = 'place'
+}
+
+export enum ScheduleType {
+  BusinessDays = 'business',
+  Everyday = 'week',
+  Custom = 'custom'
 }
 
 export interface LoginData {
