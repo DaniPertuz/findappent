@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { HttpAdapter } from './http.adapter';
-import { StorageAdapter } from '../../adapters/storage-adapter';
+import { StorageAdapter } from './storage-adapter';
 
 interface Options {
   baseUrl: string;
