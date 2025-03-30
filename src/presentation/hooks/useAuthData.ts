@@ -33,6 +33,7 @@ export const useAuthData = () => {
   const goToResetPassword = () => navigation.navigate('NewPasswordScreen');
 
   const onLogin = async () => {
+    setLoading(true);
     Keyboard.dismiss();
     if (email.length === 0 || password.length === 0) {
       setIsFieldValid(false);
@@ -56,6 +57,7 @@ export const useAuthData = () => {
   };
 
   const onRegister = async () => {
+    setLoading(true);
     Keyboard.dismiss();
     if (name.length === 0 || email.length === 0 || password.length === 0) {
       setIsFieldValid(false);
@@ -78,6 +80,7 @@ export const useAuthData = () => {
   };
 
   const onResetPassword = async () => {
+    setLoading(true);
     Keyboard.dismiss();
     if (email.length === 0 || password.length === 0 || confirmPassword.length === 0) {
       setIsFieldValid(false);
