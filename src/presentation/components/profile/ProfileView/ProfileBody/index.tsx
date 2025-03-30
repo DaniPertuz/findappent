@@ -17,7 +17,7 @@ const ProfileBody: FC = () => {
       <ProfileDetail
         label={'Nombre de la empresa'}
         icon={getIconUrl('users', currentTheme, true)}
-        text={user?.name ?? 'Negocio'}
+        text={user?.name ?? ''}
       />
       <ProfileDetail
         label={'Categoría'}
@@ -27,7 +27,7 @@ const ProfileBody: FC = () => {
       <ProfileDetail
         label={'Correo corporativo'}
         icon={getIconUrl('envelope', currentTheme, true)}
-        text={user?.email ?? 'email'}
+        text={user?.email ?? ''}
       />
       <ProfileLogoutButton />
     </View>
