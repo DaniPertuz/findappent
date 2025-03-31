@@ -13,7 +13,7 @@ const AuthButton: FC<Props> = ({ loading, text, onPress }) => {
   const { colors } = useContext(ThemeContext);
   return (
     <View style={styles.loginButtonContainer}>
-      <ButtonComponent onPress={onPress}>
+      <ButtonComponent disabled={loading} onPress={onPress}>
         {loading
           ?
           <ActivityIndicator size={24} color={colors.brandWhite} />
