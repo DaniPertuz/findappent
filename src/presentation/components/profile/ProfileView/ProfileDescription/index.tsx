@@ -20,7 +20,7 @@ const ProfileDescription: FC<{ description: string; }> = ({ description }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { borderRadius: 10, borderWidth: 1, maxHeight: 120, overflow: 'hidden', padding: 10 },
+  container: { borderRadius: 10, borderWidth: 1, height: 120, overflow: 'hidden', padding: 10 },
 });
 
 export default ProfileDescription;
