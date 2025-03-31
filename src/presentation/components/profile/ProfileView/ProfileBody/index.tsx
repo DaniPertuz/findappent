@@ -1,19 +1,21 @@
 import React, { FC, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useAuthStore } from '../../../../../store/authStore';
+import { usePlaceStore } from '../../../../../store/placeStore';
+import { getIconUrl } from '../../../../../utils/icon-url';
 import ProfileDescription from '../ProfileDescription';
 import ProfileDetail from '../ProfileDetail';
 import ProfileLogoutButton from '../ProfileLogoutButton';
-import { useAuthStore } from '../../../../../store/authStore';
-import { getIconUrl } from '../../../../../utils/icon-url';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 
 const ProfileBody: FC = () => {
   const { currentTheme } = useContext(ThemeContext);
   const user = useAuthStore(state => state.authResponse.user);
+  const place = usePlaceStore(state => state.place);
 
   return (
     <View style={styles.container}>
-      <ProfileDescription description={'Somos un restaurante de comida rápida con un ambiente familiar y cálido, desde el año 2000 ofrecemos servicio de de restaurante, servicio rápido y servicio a domicilio.'} />
+      <ProfileDescription description={place?.description || ''} />
       <ProfileDetail
         label={'Nombre de la empresa'}
         icon={getIconUrl('users', currentTheme, true)}
@@ -21,8 +23,8 @@ const ProfileBody: FC = () => {
       />
       <ProfileDetail
         label={'Categoría'}
-        icon={getIconUrl('restaurant', currentTheme, true)}
-        text={'Restaurante'}
+        icon={getIconUrl(place?.category || 'others', currentTheme, true)}
+        text={place?.category ?? 'Sin categoría'}
       />
       <ProfileDetail
         label={'Correo corporativo'}
