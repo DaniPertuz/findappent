@@ -45,7 +45,15 @@ export class AxiosAdapter implements HttpAdapter {
       const response = await this.axiosInstance.post<T>(url, data, options);
       return response.data;
     } catch (error) {
-      throw new Error(`Error posting data to ${url}: ${error}`);
+      if (axios.isAxiosError(error)) {
+        throw {
+          error: error.message,
+          status: error.response?.status,
+          data: error.response?.data,
+        };
+      }
+
+      throw { error: `Error posting data to ${url}: ${error}` };
     }
   }
 
