@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { View, Image } from 'react-native';
 import { getIconUrl } from '../../../../utils/icon-url';
 import { appStyles } from '../../../theme/app-styles';
@@ -21,12 +21,20 @@ interface Props {
 
 const RenderInputWithWarning: FC<Props> = ({ label, value, placeholder, customMessage, isEmail = false, isPassword = false, isFilled, onChange }) => {
   const { colors, currentTheme } = useContext(ThemeContext);
+  const [hideWarning, setHideWarning] = useState(false);
+
+  const handleBlur = () => {
+    if (value.length > 0) {
+      setHideWarning(true);
+    }
+  };
+
   return (
     <View style={styles.inputsContainer}>
       <Caption2 customColor={colors.mainText}>{label}</Caption2>
       <View style={styles.inputWarningContainer}>
         {isPassword ? (
-          <PasswordInput field={value} placeholder={placeholder} onChange={onChange} fieldValue={'password'} />
+          <PasswordInput field={value} placeholder={placeholder} onBlur={handleBlur} onChange={onChange} fieldValue={'password'} />
         ) : (
           <DefaultInput
             field={value}
@@ -39,9 +47,11 @@ const RenderInputWithWarning: FC<Props> = ({ label, value, placeholder, customMe
               />
             }
             keyboardType={isEmail ? 'email-address' : 'default'}
-            onChange={onChange} />
+            onBlur={handleBlur}
+            onChange={onChange}
+          />
         )}
-        {!isFilled && <WarningMessage text={customMessage ?? `Ingresa tu ${label.toLowerCase()}`} />}
+        {(!isFilled && !hideWarning) && <WarningMessage text={customMessage ?? `Ingresa tu ${label.toLowerCase()}`} />}
       </View>
     </View>
   );
