@@ -10,6 +10,11 @@ export interface AuthResponse {
   user:  IUser | undefined;
 }
 
+export interface AuthAPIResponse {
+  error?:    string;
+  response?: AuthResponse;
+}
+
 export type AuthStatus = 'authenticated' | 'unauthenticated' | 'checking';
 
 export enum roles {
