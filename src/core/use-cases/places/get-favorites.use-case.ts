@@ -3,7 +3,7 @@ import { FavoriteAPIResponse, FavoriteResponse } from '../../../interfaces/app.i
 
 export const getFavoritesUseCase = async (placeId: string): Promise<FavoriteAPIResponse> => {
   try {
-    const response = await findAPI.get<FavoriteResponse>(`/favorites/place/${placeId}`);
+    const response = await findAPI.get<FavoriteResponse>(`favorites/place/${placeId}`);
     return { response };
   } catch (error: any) {
     throw new Error(`${error}`);

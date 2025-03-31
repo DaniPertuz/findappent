@@ -3,7 +3,7 @@ import { RatingAPIResponse, RatingResponse } from '../../../interfaces/app.inter
 
 export const getRatingsUseCase = async (placeId: string): Promise<RatingAPIResponse> => {
   try {
-    const response = await findAPI.get<RatingResponse>(`/ratings/place/${placeId}`);
+    const response = await findAPI.get<RatingResponse>(`ratings/place/${placeId}`);
     return { response };
   } catch (error: any) {
     throw new Error(`${error}`);
