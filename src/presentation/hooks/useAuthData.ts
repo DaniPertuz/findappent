@@ -8,12 +8,13 @@ import { RootStackParams } from '../navigation/MainNavigator';
 import { ThemeContext } from '../theme/ThemeContext';
 
 export const useAuthData = () => {
-  const [isFieldValid, setIsFieldValid] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const [isFieldValid, setIsFieldValid] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [name, setName] = useState<string>('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
   const { colors, currentTheme } = useContext(ThemeContext);
   const login = useAuthStore(state => state.login);
   const register = useAuthStore(state => state.register);
@@ -33,10 +34,12 @@ export const useAuthData = () => {
   const goToResetPassword = () => navigation.navigate('NewPasswordScreen');
 
   const onLogin = async () => {
+    setErrorMessage('');
     setLoading(true);
     Keyboard.dismiss();
     if (email.length === 0 || password.length === 0) {
       setIsFieldValid(false);
+      setLoading(false);
       return;
     }
 
@@ -48,10 +51,12 @@ export const useAuthData = () => {
     }
 
     if (resp.error) {
+      setErrorMessage(resp.error);
       setLoading(false);
       return;
     }
 
+    setErrorMessage('');
     setLoading(false);
     navigation.replace('BottomTabNavigator');
   };
@@ -67,11 +72,6 @@ export const useAuthData = () => {
     const resp = await register(name, email, password, roles.PLACE);
 
     if (!resp) {
-      setLoading(false);
-      return;
-    }
-
-    if (resp.error) {
       setLoading(false);
       return;
     }
@@ -92,6 +92,7 @@ export const useAuthData = () => {
     colors,
     confirmPassword,
     email,
+    errorMessage,
     name,
     isFieldValid,
     loading,
