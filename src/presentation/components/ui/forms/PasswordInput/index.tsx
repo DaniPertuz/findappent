@@ -1,7 +1,8 @@
 import React, { FC, useContext } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
+import { usePasswordVisibility } from '../../../../hooks/usePasswordVisibility';
 import PasswordVisibleIcon from './PasswordVisibleIcon';
-import PassowrdIcon from './PasswordIcon';
+import PasswordIcon from './PasswordIcon';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 import { useStyles } from '../styles';
 import { styles } from './styles';
@@ -17,6 +18,7 @@ interface Props {
 const PasswordInput: FC<Props> = ({ field, fieldValue, placeholder, warning, onChange }) => {
   const { colors } = useContext(ThemeContext);
   const { input, inputContainer, warningBorder } = useStyles();
+  const { passwordVisibility, handlePasswordVisibility } = usePasswordVisibility();
 
   const containerStyle = [
     inputContainer,
@@ -27,21 +29,21 @@ const PasswordInput: FC<Props> = ({ field, fieldValue, placeholder, warning, onC
 
   return (
     <View style={[containerStyle, (warning) && warningBorder]}>
-      <PassowrdIcon />
+      <PasswordIcon />
       <TextInput
         autoCapitalize={'none'}
         autoCorrect={false}
         onChangeText={handleChangePassword}
         placeholder={placeholder}
         placeholderTextColor={colors.gray}
-        secureTextEntry={true}
+        secureTextEntry={passwordVisibility}
         selectionColor={colors.gray}
         cursorColor={colors.mainText}
         style={[input, styles.passwordInput, { color: colors.mainText }]}
         value={field}
       />
-      <Pressable onPress={() => { }}>
-        <PasswordVisibleIcon visible={true} />
+      <Pressable onPress={handlePasswordVisibility}>
+        <PasswordVisibleIcon visible={passwordVisibility} />
       </Pressable>
     </View>
   );
