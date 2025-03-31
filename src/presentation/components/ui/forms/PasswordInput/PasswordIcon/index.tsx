@@ -4,7 +4,7 @@ import { ThemeContext } from '../../../../../theme/ThemeContext';
 import { getIconUrl } from '../../../../../../utils/icon-url';
 import { useStyles } from '../../styles';
 
-const PassowrdIcon: FC = () => {
+const PasswordIcon: FC = () => {
   const { currentTheme } = useContext(ThemeContext);
   const { inputIcon } = useStyles();
   return (
@@ -12,4 +12,4 @@ const PassowrdIcon: FC = () => {
   );
 };
 
-export default PassowrdIcon;
+export default PasswordIcon;
