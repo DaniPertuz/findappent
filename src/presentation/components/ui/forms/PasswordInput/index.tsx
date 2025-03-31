@@ -12,10 +12,11 @@ interface Props {
   fieldValue: 'password' | 'confirmPassword';
   placeholder: string;
   warning?: boolean;
+  onBlur?: () => void;
   onChange: (value: string, field: 'password' | 'confirmPassword') => void;
 }
 
-const PasswordInput: FC<Props> = ({ field, fieldValue, placeholder, warning, onChange }) => {
+const PasswordInput: FC<Props> = ({ field, fieldValue, placeholder, warning, onBlur, onChange }) => {
   const { colors } = useContext(ThemeContext);
   const { input, inputContainer, warningBorder } = useStyles();
   const { passwordVisibility, handlePasswordVisibility } = usePasswordVisibility();
@@ -33,6 +34,7 @@ const PasswordInput: FC<Props> = ({ field, fieldValue, placeholder, warning, onC
       <TextInput
         autoCapitalize={'none'}
         autoCorrect={false}
+        onBlur={onBlur}
         onChangeText={handleChangePassword}
         placeholder={placeholder}
         placeholderTextColor={colors.gray}

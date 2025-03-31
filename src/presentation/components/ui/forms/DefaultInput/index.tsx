@@ -10,10 +10,11 @@ interface Props {
   iconElement: React.JSX.Element
   keyboardType: KeyboardTypeOptions;
   warning?: boolean;
+  onBlur?: () => void;
   onChange: (value: string, field: 'name' | 'email' | 'category' | 'other' | 'phone' | 'whatsapp' | 'instagram') => void;
 }
 
-const DefaultInput: FC<Props> = ({ field, fieldValue, placeholder, iconElement, keyboardType, warning, onChange }) => {
+const DefaultInput: FC<Props> = ({ field, fieldValue, placeholder, iconElement, keyboardType, warning, onBlur, onChange }) => {
   const { colors } = useContext(ThemeContext);
   const { input, inputContainer, warningBorder } = useStyles();
   const containerStyle = [
@@ -35,6 +36,7 @@ const DefaultInput: FC<Props> = ({ field, fieldValue, placeholder, iconElement, 
         selectionColor={colors.gray}
         autoCapitalize={'none'}
         autoCorrect={false}
+        onBlur={onBlur}
         onChangeText={handleChangeText}
         value={field}
       />
