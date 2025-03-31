@@ -5,4 +5,5 @@ export { default as AuthFormContainer } from './AuthFormContainer';
 export { default as AuthHeader } from './AuthHeader';
 export { default as ForgotPasswordButton } from './ForgotPasswordButton';
 export { default as RenderInputWithWarning } from './RenderInputWithWarning';
+export { default as RenderWarningMessage } from './RenderWarningMessage';
 export { default as WarningMessage } from './WarningMessage';
