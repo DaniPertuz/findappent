@@ -3,11 +3,13 @@ import { StyleSheet } from 'react-native';
 import { ButtonComponent, Footnote } from '../../ui';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
-const SubscriptionButton: FC = () => {
+const SubscriptionButton: FC<{ text: string; }> = ({ text }) => {
   const { colors } = useContext(ThemeContext);
+  const textValidation = text === 'Suscripción actual';
+  const subscriptionBg = textValidation ? colors.gray : colors.darkBlue;
   return (
-    <ButtonComponent customStyle={styles.container}>
-      <Footnote customColor={colors.brandWhite}>Subscribirme</Footnote>
+    <ButtonComponent customStyle={[styles.container, { backgroundColor: subscriptionBg }]} disabled={textValidation}>
+      <Footnote customColor={colors.brandWhite}>{text}</Footnote>
     </ButtonComponent>
   );
 };
