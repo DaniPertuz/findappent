@@ -1,14 +1,11 @@
-import { ImagePickerResponse } from 'react-native-image-picker';
 import findAPI from '../../../config/api/findapp.api';
-import { handleUpdateCloudinaryPic } from '../../../presentation/hooks/useCloudinaryOperation';
-import { getUserByIDUseCase } from './get-user-by-id.use-case';
+import { IUser } from '../../entities';
 
-export const updatePhoto = async (data: ImagePickerResponse, userId: string): Promise<string> => {
-  const { user } = await getUserByIDUseCase(userId);
-  const pic = await handleUpdateCloudinaryPic(data, true, user?.photo);
-  const secure_url = pic[0];
-
-  await findAPI.put(`/users/${userId}`, { photo: secure_url });
-
-  return secure_url;
+export const updatePhoto = async (userId: string, photoUrl: string): Promise<IUser> => {
+  try {
+    const resp = await findAPI.patch<IUser>(`/users/${userId}`, { photo: photoUrl });
+    return resp;
+  } catch (error) {
+    throw new Error(`Error updating user photo: ${error}`);
+  }
 };
