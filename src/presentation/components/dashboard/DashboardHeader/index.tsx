@@ -19,7 +19,7 @@ const DashboardHeader: FC = () => {
         <BodySmall customColor={colors.mainText}>{user?.name ?? 'Negocio'}</BodySmall>
         <Footnote customColor={colors.mainText}>Nivel {place?.premium}</Footnote>
       </View>
-      <ProfilePicture styles={styles.mainPhoto} />
+      <ProfilePicture photoUri={user?.photo!} styles={styles.mainPhoto} />
     </View>
   );
 };
