@@ -1,14 +1,20 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import ProfilePicture from '../ProfilePicture';
 import ProfileHeaderTitle from '../ProfileHeaderTitle';
+import ProfilePictureModal from '../ProfilePictureModal';
+import { IUser } from '../../../../../core/entities';
 
-const ProfileHeader: FC = () => {
+const ProfileHeader: FC<{ user: IUser | undefined; }> = ({ user }) => {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
-    <View style={styles.container}>
-      <ProfilePicture styles={styles.picture} />
-      <ProfileHeaderTitle />
-    </View>
+    <>
+      <View style={styles.container}>
+        <ProfilePicture photoUri={user?.photo!} styles={styles.picture} onPress={() => setModalVisible(true)} />
+        <ProfileHeaderTitle />
+      </View>
+      <ProfilePictureModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
+    </>
   );
 };
 
