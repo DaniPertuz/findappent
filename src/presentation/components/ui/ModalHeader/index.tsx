@@ -1,9 +1,9 @@
 import React, { FC, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ModalProps } from '../../../../../interfaces/modal-props.interface';
-import ModalHideButton from '../ModalHideButton';
-import ModalTitle from '../ModalTitle';
-import { ThemeContext } from '../../../../theme/ThemeContext';
+import { ModalProps } from '../../../../interfaces/modal-props.interface';
+import ModalHideButton from '../../dashboard/DashboardReviewsModal/ModalHideButton';
+import ModalTitle from '../../dashboard/DashboardReviewsModal/ModalTitle';
+import { ThemeContext } from '../../../theme/ThemeContext';
 
 const ModalHeader: FC<ModalProps> = ({ closeIcon, title, onPress }) => {
   const { colors } = useContext(ThemeContext);

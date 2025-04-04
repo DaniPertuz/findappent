@@ -14,5 +14,6 @@ export { default as H3 } from './H3';
 export { default as H4 } from './H4';
 export { default as Headline } from './Headline';
 export { MainView } from './MainView';
+export { default as ModalHeader } from './ModalHeader';
 export { default as StatusBarComponent } from './StatusBarComponent';
 export { default as Subheadline } from './Subheadline';
