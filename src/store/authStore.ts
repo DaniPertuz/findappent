@@ -11,6 +11,7 @@ export interface AuthState {
   register: (name: string, email: string, password: string, role: string) => Promise<AuthResponse | undefined>;
   checkUser: (user: IUser | null) => Promise<AuthResponse | undefined>;
   logout: () => Promise<void>;
+  setUser: (user: IUser) => void;
 }
 
 export const useAuthStore = create<AuthState>()((set) => ({
@@ -76,5 +77,10 @@ export const useAuthStore = create<AuthState>()((set) => ({
       StorageAdapter.removeItem('token'),
       StorageAdapter.removeItem('user'),
     ]);
+  },
+  setUser: (user: IUser) => {
+    set((state) => ({
+      authResponse: { ...state.authResponse, user },
+    }));
   },
 }));
