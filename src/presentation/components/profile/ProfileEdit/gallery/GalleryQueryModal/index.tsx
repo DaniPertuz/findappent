@@ -2,7 +2,7 @@ import React, { FC, useContext } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
 import { ModalProps } from '../../../../../../interfaces/modal-props.interface';
 import { deviceHeight } from '../../../../../../utils/dimensions';
-import ModalHeader from '../../../../dashboard/DashboardReviewsModal/ModalHeader';
+import { ModalHeader } from '../../../../ui';
 import GalleryButton from './GalleryButton';
 import { ThemeContext } from '../../../../../theme/ThemeContext';
 

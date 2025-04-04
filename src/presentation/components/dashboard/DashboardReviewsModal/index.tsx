@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { Modal } from 'react-native';
 import { ModalProps } from '../../../../interfaces/modal-props.interface';
-import ModalHeader from './ModalHeader';
-import ModalContainer from './ModalContainer';
+import { ModalHeader } from '../../ui';
 import ReviewsList from '../reviews/ReviewsList';
+import ModalContainer from './ModalContainer';
 
 const DashboardReviewsModal: FC<ModalProps> = ({ modalVisible, setModalVisible }) => {
   return (

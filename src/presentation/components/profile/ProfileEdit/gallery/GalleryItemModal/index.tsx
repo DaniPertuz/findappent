@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
 import { ModalProps } from '../../../../../../interfaces/modal-props.interface';
-import ModalHeader from '../../../../dashboard/DashboardReviewsModal/ModalHeader';
+import { ModalHeader } from '../../../../ui';
 import ItemImage from './ItemImage';
 
 const GalleryItemModal: FC<ModalProps> = ({ modalVisible, uri, setModalVisible }) => {
