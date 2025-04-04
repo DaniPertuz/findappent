@@ -36,7 +36,14 @@ export class AxiosAdapter implements HttpAdapter {
       const { data } = await this.axiosInstance.get<T>(url, options);
       return data;
     } catch (error) {
-      throw new Error(`Error fetching get ${url}: ${error}`);
+      if (axios.isAxiosError(error)) {
+        throw {
+          error: error.message,
+          status: error.response?.status,
+          data: error.response?.data,
+        };
+      }
+      throw {error: `Error fetching data on ${url}: ${error}`};
     }
   }
 
@@ -57,12 +64,19 @@ export class AxiosAdapter implements HttpAdapter {
     }
   }
 
-  async put<T>(url: string, data?: any, options?: Record<string, unknown> | undefined): Promise<T> {
+  async patch<T>(url: string, data?: any, options?: Record<string, unknown> | undefined): Promise<T> {
     try {
-      const response = await this.axiosInstance.put<T>(url, data, options);
+      const response = await this.axiosInstance.patch<T>(url, data, options);
       return response.data;
     } catch (error) {
-      throw new Error(`Error updating resource at ${url}: ${error}`);
+      if (axios.isAxiosError(error)) {
+        throw {
+          error: error.message,
+          status: error.response?.status,
+          data: error.response?.data,
+        };
+      }
+      throw { error: `Error updating resource at ${url}: ${error}` };
     }
   }
 
@@ -71,7 +85,14 @@ export class AxiosAdapter implements HttpAdapter {
       const response = await this.axiosInstance.delete<T>(url, options);
       return response.data;
     } catch (error) {
-      throw new Error(`Error deleting resource at ${url}: ${error}`);
+      if (axios.isAxiosError(error)) {
+        throw {
+          error: error.message,
+          status: error.response?.status,
+          data: error.response?.data,
+        };
+      }
+      throw { error: `Error deleting resource at ${url}: ${error}` };
     }
   }
 }
