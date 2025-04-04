@@ -1,13 +1,12 @@
 import { ImagePickerResponse } from 'react-native-image-picker';
 import sha1 from 'sha1';
-import { CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET, CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_PRESET } from '@env';
-import { CLOUDINARY_DESTROY_PIC_URL, CLOUDINARY_UPLOAD_PIC_URL } from '@env';
+import { CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET, CLOUDINARY_CLOUD_NAME, CLOUDINARY_DESTROY_PIC_URL, CLOUDINARY_UPLOAD_PIC_URL, CLOUDINARY_UPLOAD_PRESET } from '@env';
 
 const headers = {
   'Content-Type': 'multipart/form-data',
 };
 
-export const handleUpdateCloudinaryPic = async (data: ImagePickerResponse, deleteExisting: boolean = false, existingImg: string | undefined = undefined): Promise<string[]> => {
+export const handleUpdateCloudinaryPic = async (data: ImagePickerResponse, userId: string, deleteExisting: boolean = false, existingImg: string | undefined = undefined): Promise<string[]> => {
   try {
     let pics: string[] = [];
 
@@ -27,6 +26,7 @@ export const handleUpdateCloudinaryPic = async (data: ImagePickerResponse, delet
       const uploadData = new FormData();
       uploadData.append('file', fileToUpload);
       uploadData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+      uploadData.append('folder', `findapp/users/${userId}/profile`);
 
       const upload = await fetch(CLOUDINARY_UPLOAD_PIC_URL, {
         method: 'POST',
@@ -48,9 +48,11 @@ export const handleUpdateCloudinaryPic = async (data: ImagePickerResponse, delet
 
 export const deleteCloudinaryPic = async (img: string) => {
   try {
-    const nameArr = img.split('/');
-    const name = nameArr[nameArr.length - 1];
-    const [public_id] = name.split('.');
+    const withoutQuery = img.split('?')[0];
+    const pathStart = withoutQuery.indexOf('/findapp');
+    const fullPath = withoutQuery.substring(pathStart + 1);
+
+    const public_id = fullPath.replace(/\.[^/.]+$/, '');
 
     const timestamp = new Date().getTime();
     const image = `public_id=${public_id}&timestamp=${timestamp}${CLOUDINARY_API_SECRET}`;
