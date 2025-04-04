@@ -4,7 +4,7 @@ import { IPlace } from '../../entities';
 
 export const updatePlacePhoto = async (id: string, photoURL: string): Promise<PlaceAPIResponse> => {
   try {
-    const response = await findAPI.put<IPlace>(`/places/photo/${id}`, { photo: photoURL });
+    const response = await findAPI.patch<IPlace>(`places/photo/${id}`, { photo: photoURL });
     return { place: response };
   } catch (error) {
     throw new Error(`${error}`);
