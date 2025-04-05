@@ -2,6 +2,7 @@ import React, { FC, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useAuthStore } from '../../../../../store/authStore';
 import { usePlaceStore } from '../../../../../store/placeStore';
+import { placeCategory } from '../../../../../utils/categories';
 import { getIconUrl } from '../../../../../utils/icon-url';
 import ProfileDescription from '../ProfileDescription';
 import ProfileDetail from '../ProfileDetail';
@@ -23,7 +24,7 @@ const ProfileBody: FC = () => {
       />
       <ProfileDetail
         label={'Categoría'}
-        icon={getIconUrl(place?.category || 'others', currentTheme, true)}
+        icon={getIconUrl(placeCategory(place!) || 'others', currentTheme, true)}
         text={place?.category ?? 'Sin categoría'}
       />
       <ProfileDetail
@@ -37,7 +38,7 @@ const ProfileBody: FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { gap: 30, paddingTop: 20 },
+  container: { gap: 25, paddingTop: 20 },
 });
 
 export default ProfileBody;
