@@ -1,15 +1,16 @@
 import React, { FC, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ThemeContext } from '../../../../theme/ThemeContext';
+import { IRate } from '../../../../../core/entities';
 import ReviewUserPic from '../ReviewUserPic';
 import ReviewBody from '../ReviewBody';
+import { ThemeContext } from '../../../../theme/ThemeContext';
 
-const ReviewItem: FC<{ item: any; }> = ({ item }) => {
+const ReviewItem: FC<{ item: IRate; }> = ({ item }) => {
   const { colors } = useContext(ThemeContext);
   return (
     <View style={[{ backgroundColor: colors.white }, styles.container]}>
-      <ReviewUserPic />
-      <ReviewBody />
+      <ReviewUserPic photoUrl={item.user?.photo} />
+      <ReviewBody username={item.user!.name} rate={item.rate} comments={item.comments} createdAt={item.createdAt} />
     </View >
   );
 };

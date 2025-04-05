@@ -5,13 +5,20 @@ import ReviewBodyRating from './ReviewBodyRating';
 import { Footnote } from '../../../ui';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 
-const ReviewBody: FC = () => {
+interface Props {
+  username: string;
+  rate: number;
+  comments: string;
+  createdAt: string;
+}
+
+const ReviewBody: FC<Props> = ({ username, rate, comments, createdAt }) => {
   const { colors } = useContext(ThemeContext);
   return (
     <ReviewBodyContainer>
-      <ReviewBodyHeader user={'Daniel Pertuz'} time={'Hace 3 meses'} />
-      <ReviewBodyRating rate={3} />
-      <Footnote customColor={colors.mainText}>Comentarios</Footnote>
+      <ReviewBodyHeader user={username} time={createdAt} />
+      <ReviewBodyRating rate={rate} />
+      <Footnote customColor={colors.mainText}>{comments}</Footnote>
     </ReviewBodyContainer>
   );
 };

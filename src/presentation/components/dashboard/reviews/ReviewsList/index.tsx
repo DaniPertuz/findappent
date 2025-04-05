@@ -1,9 +1,10 @@
 import React, { FC, useContext } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
+import { IRate } from '../../../../../core/entities';
 import ReviewItem from '../ReviewItem';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 
-const ReviewsList: FC<{data: any[]}> = ({ data }) => {
+const ReviewsList: FC<{ data: IRate[]; }> = ({ data }) => {
   const { colors } = useContext(ThemeContext);
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
