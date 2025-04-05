@@ -2,6 +2,9 @@ import React, { FC, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Caption2, Subheadline } from '../../../../ui';
 import { ThemeContext } from '../../../../../theme/ThemeContext';
+import moment from 'moment';
+import 'moment/locale/es';
+moment.locale('es');
 
 interface Props {
   user: string;
@@ -16,7 +19,7 @@ const ReviewBodyHeader: FC<Props> = ({ user, time }) => {
         <Subheadline customColor={colors.mainText}>{user}</Subheadline>
       </View>
       <View style={styles.timeContainer}>
-        <Caption2 customColor={colors.mainText}>{time}</Caption2>
+        <Caption2 customColor={colors.mainText}>{moment(time, 'YYYYMMDD').fromNow()}</Caption2>
       </View>
     </View>
   );
