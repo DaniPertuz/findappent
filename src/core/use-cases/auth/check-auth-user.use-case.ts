@@ -5,7 +5,7 @@ import { IUser } from '../../entities';
 
 export const checkAuthUserUseCase = async (userAuth: IUser | null): Promise<AuthResponse> => {
   try {
-    const { token, user } = await findAPI.post<LoginInterface>('/auth/check-status', userAuth ? { userAuth } : {});
+    const { token, user } = await findAPI.post<LoginInterface>('auth/check-status', userAuth ? { userAuth } : {});
 
     return {
       token,
