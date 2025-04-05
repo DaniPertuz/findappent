@@ -1,3 +1,5 @@
+import { IPlace } from '../core/entities';
+
 export const categories = [
   { label: 'Banco', value: 'bank' },
   { label: 'Bar', value: 'bar' },
@@ -27,7 +29,7 @@ export const categories = [
   { label: 'Parque de diversiones', value: 'amusement_park' },
   { label: 'Películas', value: 'movies' },
   { label: 'Piñatería', value: 'party_supplies' },
-  { label: 'Pizzería', value: 'pizzeria' },
+  { label: 'Pizzería', value: 'pizza' },
   { label: 'Restaurante', value: 'restaurant' },
   { label: 'Alquiler de ropa', value: 'clothing_rental' },
   { label: 'Tienda de ropa', value: 'clothing' },
@@ -40,3 +42,5 @@ export const categories = [
   { label: 'Zapatería', value: 'shoe_store' },
   { label: 'Otro', value: 'other' },
 ];
+
+export const placeCategory = (place: IPlace) => categories.find(category => category.label === place?.category)?.value;
