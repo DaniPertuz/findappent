@@ -6,9 +6,15 @@ import ReviewBody from '../ReviewBody';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 
 const ReviewItem: FC<{ item: IRate; }> = ({ item }) => {
-  const { colors } = useContext(ThemeContext);
+  const { colors, currentTheme } = useContext(ThemeContext);
+  const itemBackground = {
+    backgroundColor: currentTheme === 'light' ?
+      colors.brandWhite
+      :
+      'rgba(255, 255, 255, 0.05)',
+  };
   return (
-    <View style={[{ backgroundColor: colors.white }, styles.container]}>
+    <View style={[itemBackground, styles.container]}>
       <ReviewUserPic photoUrl={item.user?.photo} />
       <ReviewBody username={item.user!.name} rate={item.rate} comments={item.comments} createdAt={item.createdAt} />
     </View >
