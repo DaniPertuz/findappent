@@ -4,7 +4,7 @@ import { usePlaceStore } from '../../store/placeStore';
 import { useAuthStore } from '../../store/authStore';
 
 export const usePlaceData = () => {
-  const { getPlaceByEmail, getFavorites, getRatings, getRatingAverage, place, favorites, ratings, ratingAverage } = usePlaceStore();
+  const { getPlaceByEmail, getFavorites, getRatings, getRatingsByUrl, getRatingAverage, place, favorites, ratings, ratingAverage } = usePlaceStore();
   const user = useAuthStore(state => state.authResponse.user);
 
   const fetchPlaceData = async () => {
@@ -28,5 +28,6 @@ export const usePlaceData = () => {
     favorites,
     ratingAverage,
     ratings,
+    getRatingsByUrl,
   };
 };
