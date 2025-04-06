@@ -17,6 +17,7 @@ export interface PlaceState {
   getFavorites: (placeId: string) => Promise<FavoriteResponse | undefined>;
   getRatingAverage: (placeId: string) => Promise<number>;
   getRatings: (placeId: string) => Promise<RatingResponse | undefined>;
+  getRatingsByUrl: (url: string) => Promise<RatingResponse | undefined>;
   getServices: (placeId: string) => Promise<ServiceResponse | undefined>;
   registerPlace: (place: IPlace) => Promise<void>;
   updatePlace: (id: string, data: IPlace) => Promise<IPlace | undefined>;
@@ -100,6 +101,16 @@ export const usePlaceStore = create<PlaceState>()((set) => ({
 
     set({ ratings: response });
 
+    return response;
+  },
+  getRatingsByUrl: async (url: string) => {
+    const { error, response } = await RatingsUseCases.getRatingsUseCase(url.replace('ratings/place/', ''));
+    if (error) {
+      set({ ratings: ratingInit });
+      return;
+    }
+
+    set({ ratings: response });
     return response;
   },
   getServices: async (placeId: string) => {
