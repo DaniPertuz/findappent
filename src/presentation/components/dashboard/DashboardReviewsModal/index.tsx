@@ -8,6 +8,7 @@ import ModalContainer from './ModalContainer';
 
 const DashboardReviewsModal: FC<ModalProps> = ({ modalVisible, setModalVisible }) => {
   const { ratings } = usePlaceData();
+  const reviewsTitle = `${ratings.total} reseña${ratings.total === 1 ? '' : 's'}`;
   return (
     <Modal
       animationType={'slide'}
@@ -18,8 +19,8 @@ const DashboardReviewsModal: FC<ModalProps> = ({ modalVisible, setModalVisible }
       }}
     >
       <ModalContainer>
-        <ModalHeader closeIcon={'down'} onPress={() => setModalVisible!(false)} />
-        <ReviewsList data={ratings.ratings} />
+        <ModalHeader closeIcon={'down'} title={reviewsTitle} onPress={() => setModalVisible!(false)} />
+        <ReviewsList data={ratings} />
       </ModalContainer>
     </Modal>
   );
