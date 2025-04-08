@@ -44,25 +44,30 @@ export const useAuthData = () => {
       return;
     }
 
-    const resp = await login(email, password);
+    try {
+      const resp = await login(email, password);
 
-    if (!resp) {
+      if (!resp) {
+        setLoading(false);
+        setErrorMessage('No se pudo iniciar sesión');
+        return;
+      }
+
+      if (resp.error) {
+        setErrorMessage(resp.error);
+        setLoading(false);
+        return;
+      }
+
+      setErrorMessage('');
       setLoading(false);
-      setErrorMessage('No se pudo iniciar sesión');
-      return;
-    }
-
-    if (resp.error) {
-      setErrorMessage(resp.error);
+      setEmail('');
+      setPassword('');
+      navigation.replace('BottomTabNavigator');
+    } catch (error) {
       setLoading(false);
-      return;
+      setErrorMessage('Error de conexión. Intenta de nuevo.');
     }
-
-    setErrorMessage('');
-    setLoading(false);
-    setEmail('');
-    setPassword('');
-    navigation.replace('BottomTabNavigator');
   };
 
   const onRegister = async () => {
@@ -76,26 +81,32 @@ export const useAuthData = () => {
       return;
     }
 
-    const resp = await register(name, email, password, roles.PLACE);
+    try {
+      const resp = await register(name, email, password, roles.PLACE);
 
-    if (!resp) {
+      if (!resp) {
+        setLoading(false);
+        setErrorMessage('No se pudo crear la cuenta');
+        return;
+      }
+
+      if (resp.error) {
+        setErrorMessage(resp.error);
+        setLoading(false);
+        return;
+      }
+
+      setErrorMessage('');
       setLoading(false);
-      setErrorMessage('No se pudo crear la cuenta');
-      return;
+      setName('');
+      setEmail('');
+      setPassword('');
+      navigation.replace('BottomTabNavigator');
+    } catch (error) {
+      setLoading(false);
+      setErrorMessage('Error de conexión. Intenta de nuevo.');
     }
 
-    if (resp.error) {
-      setErrorMessage(resp.error);
-      setLoading(false);
-      return;
-    }
-
-    setErrorMessage('');
-    setLoading(false);
-    setName('');
-    setEmail('');
-    setPassword('');
-    navigation.replace('BottomTabNavigator');
   };
 
   const onResetPassword = async () => {
@@ -113,20 +124,25 @@ export const useAuthData = () => {
       return;
     }
 
-    const user = await updateUserPassword(email, password);
+    try {
+      const user = await updateUserPassword(email, password);
 
-    if (!user) {
+      if (!user) {
+        setLoading(false);
+        setErrorMessage('No se pudo restablecer la contraseña');
+        return;
+      }
+
       setLoading(false);
-      setErrorMessage('No se pudo restablecer la contraseña');
-      return;
+      setErrorMessage('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      navigation.goBack();
+    } catch (error) {
+      setLoading(false);
+      setErrorMessage('Error de conexión. Intenta de nuevo.');
     }
-
-    setLoading(false);
-    setErrorMessage('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
-    navigation.goBack();
   };
 
   return {
