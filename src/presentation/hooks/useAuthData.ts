@@ -18,6 +18,7 @@ export const useAuthData = () => {
   const { colors, currentTheme } = useContext(ThemeContext);
   const login = useAuthStore(state => state.login);
   const register = useAuthStore(state => state.register);
+  const updateUserPassword = useAuthStore(state => state.updateUserPassword);
   const ICONS = {
     light: require('../../assets/icons/fa_complete_color.png'),
     dark: require('../../assets/icons/FA_COMPLETE_White.png'),
@@ -76,16 +77,45 @@ export const useAuthData = () => {
       return;
     }
 
+    if (resp.error) {
+      setErrorMessage(resp.error);
+      setLoading(false);
+      return;
+    }
+
+    setErrorMessage('');
     setLoading(false);
+    navigation.replace('BottomTabNavigator');
   };
 
   const onResetPassword = async () => {
+    setErrorMessage('');
     setLoading(true);
     Keyboard.dismiss();
     if (email.length === 0 || password.length === 0 || confirmPassword.length === 0) {
       setIsFieldValid(false);
       return;
     }
+
+    if (password !== confirmPassword) {
+      setErrorMessage('Las contraseñas no coinciden');
+      setLoading(false);
+      return;
+    }
+
+    const user = await updateUserPassword(email, password);
+
+    if (!user) {
+      setLoading(false);
+      return;
+    }
+
+    setLoading(false);
+    setErrorMessage('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+    navigation.goBack();
   };
 
   return {
