@@ -1,8 +1,7 @@
-import { AxiosError } from 'axios';
 import findAPI from '../../../config/api/findapp.api';
-import { AuthResponse, LoginInterface } from '../../../interfaces/app.interface';
+import { AuthAPIResponse, LoginInterface } from '../../../interfaces/app.interface';
 
-export const authRegisterUseCase = async (name: string, email: string, password: string, role: string): Promise<AuthResponse> => {
+export const authRegisterUseCase = async (name: string, email: string, password: string, role: string): Promise<AuthAPIResponse | undefined> => {
   try {
     const { token, user } = await findAPI.post<LoginInterface>('auth/register', {
       name,
@@ -12,13 +11,18 @@ export const authRegisterUseCase = async (name: string, email: string, password:
     });
 
     return {
-      token,
-      user,
+      response: {
+        token,
+        user,
+      },
     };
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      return error.response?.data;
-    }
-    return { token: undefined, user: undefined };
+  } catch (error: any) {
+    return {
+      response: {
+        token: undefined,
+        user: undefined,
+      },
+      error: error.data.message,
+    };
   }
 };
