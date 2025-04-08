@@ -35,9 +35,9 @@ export const useAuthData = () => {
   const goToResetPassword = () => navigation.navigate('NewPasswordScreen');
 
   const onLogin = async () => {
+    Keyboard.dismiss();
     setErrorMessage('');
     setLoading(true);
-    Keyboard.dismiss();
     if (email.length === 0 || password.length === 0) {
       setIsFieldValid(false);
       setLoading(false);
@@ -48,6 +48,7 @@ export const useAuthData = () => {
 
     if (!resp) {
       setLoading(false);
+      setErrorMessage('No se pudo iniciar sesión');
       return;
     }
 
@@ -59,14 +60,19 @@ export const useAuthData = () => {
 
     setErrorMessage('');
     setLoading(false);
+    setEmail('');
+    setPassword('');
     navigation.replace('BottomTabNavigator');
   };
 
   const onRegister = async () => {
-    setLoading(true);
     Keyboard.dismiss();
+    setLoading(true);
+    setIsFieldValid(true);
     if (name.length === 0 || email.length === 0 || password.length === 0) {
+      setErrorMessage('');
       setIsFieldValid(false);
+      setLoading(false);
       return;
     }
 
@@ -74,6 +80,7 @@ export const useAuthData = () => {
 
     if (!resp) {
       setLoading(false);
+      setErrorMessage('No se pudo crear la cuenta');
       return;
     }
 
@@ -85,13 +92,16 @@ export const useAuthData = () => {
 
     setErrorMessage('');
     setLoading(false);
+    setName('');
+    setEmail('');
+    setPassword('');
     navigation.replace('BottomTabNavigator');
   };
 
   const onResetPassword = async () => {
+    Keyboard.dismiss();
     setErrorMessage('');
     setLoading(true);
-    Keyboard.dismiss();
     if (email.length === 0 || password.length === 0 || confirmPassword.length === 0) {
       setIsFieldValid(false);
       return;
@@ -107,6 +117,7 @@ export const useAuthData = () => {
 
     if (!user) {
       setLoading(false);
+      setErrorMessage('No se pudo restablecer la contraseña');
       return;
     }
 
