@@ -104,10 +104,6 @@ export const useUpdateProfile = ({ place }: { place: IPlace; }) => {
     splitAddress(address);
   }, [coordinates, address]);
 
-  useEffect(() => {
-
-  }, []);
-
   return {
     address,
     city,
