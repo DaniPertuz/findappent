@@ -14,9 +14,8 @@ import UpdateProfileGallery from '../UpdateProfileGallery';
 import UpdateProfileSchedule from '../UpdateProfileSchedule';
 import { appStyles } from '../../../../theme/app-styles';
 
-const UpdateProfileBody: FC<{ place: IPlace }> = ({ place }) => {
+const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
   const {
-    address,
     colors,
     currentTheme,
     initialValues,
@@ -86,7 +85,7 @@ const UpdateProfileBody: FC<{ place: IPlace }> = ({ place }) => {
               <UpdateProfileFormItemContainer>
                 <Caption2 customColor={colors.mainText}>Dirección</Caption2>
                 <AddressInput
-                  field={address}
+                  field={values.address}
                   onBlur={() => handleCoords(setFieldValue)}
                   onChange={(newAddress) => {
                     setAddress(newAddress);
@@ -114,15 +113,20 @@ const UpdateProfileBody: FC<{ place: IPlace }> = ({ place }) => {
               </UpdateProfileFormItemContainer>
               <UpdateProfileFormItemContainer>
                 <Caption2 customColor={colors.mainText}>Categoría</Caption2>
-                <DropdownComponent onChange={(selectedValue) => {
-                  if (selectedValue === 'other') {
-                    setFieldValue('category', '');
-                    setShowCustomInput(true);
-                  } else {
-                    setFieldValue('category', selectedValue);
-                    setShowCustomInput(false);
-                  }
-                }} items={categories} placeholder={'Categoría'} />
+                <DropdownComponent
+                  initialValue={values.category}
+                  items={categories}
+                  placeholder={'Categoría'}
+                  onChange={(selectedValue) => {
+                    if (selectedValue === 'other') {
+                      setFieldValue('category', '');
+                      setShowCustomInput(true);
+                    } else {
+                      setFieldValue('category', selectedValue);
+                      setShowCustomInput(false);
+                    }
+                  }}
+                />
                 {showCustomInput && (
                   <DefaultInput
                     field={values.category}
