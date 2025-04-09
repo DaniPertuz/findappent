@@ -33,6 +33,7 @@ const DefaultInput: FC<Props> = ({ field, fieldValue, placeholder, iconElement, 
         placeholderTextColor={colors.gray}
         cursorColor={colors.mainText}
         keyboardType={keyboardType}
+        maxLength={keyboardType === 'phone-pad' ? 10 : 1000}
         selectionColor={colors.gray}
         autoCapitalize={'none'}
         autoCorrect={false}
