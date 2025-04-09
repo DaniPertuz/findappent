@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ImagePickerResponse } from 'react-native-image-picker';
 import { ImagePickerAdapter } from '../../adapters/ImagePickerAdapter';
 import { useAuthStore } from '../../store/authStore';
@@ -110,6 +110,10 @@ export const useGallery = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    setPlaceImages(place?.pics || []);
+  }, [place]);
 
   return {
     loading,
