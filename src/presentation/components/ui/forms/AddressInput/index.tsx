@@ -31,6 +31,7 @@ const AddressInput: FC<Props> = ({ field, warning, onBlur, onChange }) => {
         keyboardType={'default'}
         style={[{ color: colors.mainText }, input]}
         cursorColor={colors.mainText}
+        textAlign={'left'}
         selectionColor={colors.gray}
         autoCapitalize={'none'}
         autoCorrect={false}
