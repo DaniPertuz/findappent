@@ -1,7 +1,6 @@
 
 import { useEffect } from 'react';
-import { usePlaceStore } from '../../store/placeStore';
-import { useAuthStore } from '../../store/authStore';
+import { useAuthStore, usePlaceStore } from '../../store';
 
 export const usePlaceData = () => {
   const { getPlaceByEmail, getFavorites, getRatings, getRatingsByUrl, getRatingAverage, place, favorites, ratings, ratingAverage } = usePlaceStore();

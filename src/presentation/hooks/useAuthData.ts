@@ -3,7 +3,7 @@ import { Keyboard } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { roles } from '../../interfaces/app.interface';
-import { useAuthStore } from '../../store/authStore';
+import { useAuthStore } from '../../store';
 import { RootStackParams } from '../navigation/MainNavigator';
 import { ThemeContext } from '../theme/ThemeContext';
 

@@ -6,7 +6,7 @@ import PictureContainer from './PictureContainer';
 import PicturePickerButtons from './PicturePickerButtons';
 import ProfilePictureModalContainer from './ProfilePictureModalContainer';
 import ModalProfilePictureContainer from './ModalProfilePictureContainer';
-import { useAuthStore } from '../../../../../store/authStore';
+import { useAuthStore } from '../../../../../store';
 import { useGallery } from '../../../../hooks/useGallery';
 
 const ProfilePictureModal: FC<ModalProps> = ({ modalVisible, setModalVisible }) => {

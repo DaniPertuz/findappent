@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { Body } from '../../../ui';
-import { useAuthStore } from '../../../../../store/authStore';
+import { useAuthStore } from '../../../../../store';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 
 const ProfileLogoutButton: FC = () => {

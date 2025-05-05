@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useAuthStore } from '../../../../store/authStore';
+import { useAuthStore } from '../../../../store';
 import { H3 } from '../../ui';
 import SubscriptionBadge from '../SubscriptionBadge';
 import { ThemeContext } from '../../../theme/ThemeContext';
