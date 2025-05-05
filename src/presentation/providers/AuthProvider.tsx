@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParams } from '../navigation/MainNavigator';
 import { StorageAdapter } from '../../adapters/storage-adapter';
 import { IUser } from '../../core/entities';
-import { useAuthStore } from '../../store/authStore';
+import { useAuthStore } from '../../store';
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>();

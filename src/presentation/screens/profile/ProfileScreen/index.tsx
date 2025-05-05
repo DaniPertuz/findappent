@@ -3,7 +3,7 @@ import ProfileBody from '../../../components/profile/ProfileView/ProfileBody';
 import ProfileHeader from '../../../components/profile/ProfileView/ProfileHeader';
 import ProfileMainContainer from '../../../components/profile/ProfileView/ProfileMainContainer';
 import StatusBarComponent from '../../../components/ui/StatusBarComponent';
-import { useAuthStore } from '../../../../store/authStore';
+import { useAuthStore } from '../../../../store';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
 const ProfileScreen = () => {
