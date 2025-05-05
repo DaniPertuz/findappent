@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react';
-import { Pressable, StyleProp, ViewStyle } from 'react-native';
+import { ActivityIndicator, Pressable, StyleProp, ViewStyle } from 'react-native';
 import { ThemeContext } from '../../../theme/ThemeContext';
 import { styles } from './styles';
 
@@ -18,7 +18,14 @@ const ButtonComponent: FC<Props> = ({ children, customStyle, disabled, onPress }
       style={({ pressed }) => [styles.button, { backgroundColor: colors.darkBlue, opacity: pressed ? 0.9 : 1 }, customStyle]}
       onPress={onPress}
     >
-      {children}
+      {disabled
+        ?
+        <ActivityIndicator size={24} color={colors.brandWhite} />
+        :
+        <>
+          {children}
+        </>
+      }
     </Pressable>
   );
 };
