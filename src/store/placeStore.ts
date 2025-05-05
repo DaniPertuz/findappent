@@ -1,11 +1,10 @@
 import { create } from 'zustand';
-import { ImagePickerResponse } from 'react-native-image-picker';
 import { IPlace, IUser } from '../core/entities';
 import * as PlaceUseCases from '../core/use-cases/places';
 import * as RatingsUseCases from '../core/use-cases/ratings';
 import * as UsersUseCases from '../core/use-cases/users';
 import { FavoriteResponse, RatingResponse, ServiceResponse } from '../interfaces/app.interface';
-import { deleteCloudinaryPic, handleUpdateCloudinaryPic } from '../presentation/hooks/useCloudinaryOperation';
+import { deleteCloudinaryPic } from '../presentation/hooks/useCloudinaryOperation';
 
 export interface PlaceState {
   place: IPlace | null;
@@ -20,10 +19,9 @@ export interface PlaceState {
   getRatingsByUrl: (url: string) => Promise<RatingResponse | undefined>;
   getServices: (placeId: string) => Promise<ServiceResponse | undefined>;
   registerPlace: (place: IPlace) => Promise<void>;
-  updatePlace: (id: string, data: IPlace) => Promise<IPlace | undefined>;
+  updatePlace: (id: string, data: Partial<IPlace>) => Promise<IPlace | undefined>;
   updatePlacePhoto: (id: string, photoUrl: string) => Promise<IPlace | undefined>;
   updateUserPhoto: (id: string, photoUrl: string) => Promise<IUser>;
-  uploadPics: (data: ImagePickerResponse, userId: string) => Promise<string[]>;
   removePic: (url: string) => Promise<void>;
 }
 
@@ -128,7 +126,7 @@ export const usePlaceStore = create<PlaceState>()((set) => ({
   registerPlace: async (place: IPlace) => {
     await PlaceUseCases.registerPlace(place);
   },
-  updatePlace: async (id: string, data: IPlace) => {
+  updatePlace: async (id: string, data: Partial<IPlace>) => {
     const { place } = await PlaceUseCases.updatePlace(id, data);
 
     set({ place });
@@ -144,9 +142,6 @@ export const usePlaceStore = create<PlaceState>()((set) => ({
   },
   updateUserPhoto: async (id: string, photoUrl: string) => {
     return await UsersUseCases.updatePhoto(id, photoUrl);
-  },
-  uploadPics: async (data: ImagePickerResponse, userId: string) => {
-    return await handleUpdateCloudinaryPic(data, userId);
   },
   removePic: async (url: string) => {
     await deleteCloudinaryPic(url);
