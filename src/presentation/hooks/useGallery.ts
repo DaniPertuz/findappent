@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import { ImagePickerResponse } from 'react-native-image-picker';
 import { ImagePickerAdapter } from '../../adapters/ImagePickerAdapter';
-import { useAuthStore } from '../../store/authStore';
-import { usePlaceStore } from '../../store/placeStore';
+import { useAuthStore, useGalleryStore, usePlaceStore } from '../../store';
 import { handleUpdateCloudinaryPic } from './useCloudinaryOperation';
 
 export const useGallery = () => {
   const [profilePicture, setProfilePicture] = useState<ImagePickerResponse>();
   const [placeImages, setPlaceImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState<ImagePickerResponse>();
   const user = useAuthStore(state => state.authResponse.user);
   const setUser = useAuthStore(state => state.setUser);
-  const { place, updatePlacePhoto, updateUserPhoto } = usePlaceStore();
+  const response = useGalleryStore(state => state.response);
+  const setResponse = useGalleryStore(state => state.setResponse);
+  const { place, updatePlace, updatePlacePhoto, updateUserPhoto } = usePlaceStore();
 
   const selectProfilePicture = async () => {
     const picture = await ImagePickerAdapter.getPicturesFromLibrary(1);
@@ -34,11 +34,13 @@ export const useGallery = () => {
     setLoading(true);
     try {
       const resp = await ImagePickerAdapter.getPicturesFromLibrary(1);
-      if (resp.didCancel || !resp.assets![0].uri) { return; }
+      if (resp.didCancel || !resp.assets || resp.assets.length === 0) {
+        return;
+      }
 
       const uri = resp.assets![0].uri;
 
-      setPlaceImages([uri]);
+      setPlaceImages([uri!]);
       setResponse(resp);
     } catch (error) {
       console.error(error);
@@ -52,11 +54,14 @@ export const useGallery = () => {
     try {
       const resp = await ImagePickerAdapter.getPicturesFromLibrary(limit);
 
-      if (!resp.assets || resp.didCancel) { return; }
+      if (resp.didCancel || !resp.assets || resp.assets.length === 0) {
+        return;
+      }
 
-      const uris = resp.assets.map((asset) => asset.uri).filter(Boolean) as string[];
-
-      setPlaceImages(prevImages => [...prevImages, ...uris]);
+      setPlaceImages(prevImages => [
+        ...prevImages,
+        ...(resp.assets?.map(asset => asset.uri).filter((uri): uri is string => !!uri) || []),
+      ]);
       setResponse(resp);
     } catch (error) {
       console.error(error);
@@ -90,7 +95,7 @@ export const useGallery = () => {
         return;
       }
 
-      const img = await handleUpdateCloudinaryPic(profilePicture, user?._id!, true, user?.photo);
+      const img = await handleUpdateCloudinaryPic(profilePicture, user?._id!, true, true, user?.photo);
 
       const [respPlace, respUser] = await Promise.all([
         updatePlacePhoto(place?._id!, img[0]),
@@ -104,6 +109,23 @@ export const useGallery = () => {
       if (respUser) {
         setUser(respUser);
       }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const uploadPics = async (oldPics: string[]) => {
+    setLoading(true);
+    if (!response) {
+      return;
+    }
+
+    try {
+      const img = await handleUpdateCloudinaryPic(response, user?._id!, false, true, oldPics);
+      await updatePlace(place?._id!, { pics: img });
+      return img;
     } catch (error) {
       console.error(error);
     } finally {
@@ -127,6 +149,7 @@ export const useGallery = () => {
     setPlaceImages,
     setProfilePicture,
     takeProfilePicture,
+    uploadPics,
     uploadPicture,
   };
 };
