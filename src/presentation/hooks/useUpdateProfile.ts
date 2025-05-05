@@ -1,8 +1,13 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import * as Yup from 'yup';
-import { getCoords } from './getLocation';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParams } from '../navigation/MainNavigator';
 import { IPlace } from '../../core/entities';
 import { Location } from '../../interfaces/app.interface';
+import { useAuthStore, useGalleryStore, usePlaceStore } from '../../store';
+import { getCoords } from './getLocation';
+import { useGallery } from './useGallery';
 import { ThemeContext } from '../theme/ThemeContext';
 
 export const useUpdateProfile = ({ place }: { place: IPlace; }) => {
@@ -12,8 +17,14 @@ export const useUpdateProfile = ({ place }: { place: IPlace; }) => {
   const [city, setCity] = useState('');
   const [cityState, setCityState] = useState('');
   const [country, setCountry] = useState('');
+  const [loading, setLoading] = useState(false);
   const [passwordMatch, setPasswordMatch] = useState<boolean>(true);
   const [coordinates, setCoordinates] = useState<Location>({ latitude: 0, longitude: 0 });
+  const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
+  const { updateUserPassword } = useAuthStore();
+  const { response, clearResponse } = useGalleryStore();
+  const { updatePlace } = usePlaceStore();
+  const { uploadPics } = useGallery();
 
   const initialValues: IPlace = {
     name: place.name ?? '',
@@ -59,60 +70,84 @@ export const useUpdateProfile = ({ place }: { place: IPlace; }) => {
     }
   };
 
-  const splitAddress = (addressValue: string) => {
-    const sp = addressValue.split(', ');
-    sp.shift();
-    setCity(sp[0]);
-    setCityState(sp[1]);
-    setCountry(sp[2]);
+  const getModifiedFields = (initial: any, current: any) => {
+    const modified: any = {};
+
+    Object.keys(current).forEach((key) => {
+      const isEqual = JSON.stringify(current[key]) === JSON.stringify(initial[key]);
+      if (!isEqual) {
+        modified[key] = current[key];
+      }
+    });
+
+    return modified;
+  };
+
+  const splitAddress = (comingAddress: string) => {
+    const sp = comingAddress.split(', ');
+    setAddress(sp[0]);
+    setCity(sp[1]);
+    setCityState(sp[2]);
+    setCountry(sp[3]);
   };
 
   const onSubmit = async (values: any) => {
-    if (values.password !== values.confirmPassword) {
+    setLoading(true);
+    if ((values.password.length > 0 && values.confirmPassword.length > 0) && values.password !== values.confirmPassword) {
       setPasswordMatch(false);
+      setLoading(false);
       return;
     }
-    setPasswordMatch(true);
 
-    // const pics = await uploadPics(response!);
+    try {
+      const modifiedFields = getModifiedFields(initialValues, values);
+      if (response) {
+        const uploadedPics = await uploadPics(values.pics);
+        if (uploadedPics) {
+          modifiedFields.pics = uploadedPics;
+        } else if (getModifiedFields({ pics: initialValues.pics }, { pics: values.pics }).pics) {
+          modifiedFields.pics = values.pics;
+        }
+        clearResponse();
+      }
 
-    if (values.password.length === 0 && values.confirmPassword.length === 0) {
-      // const data: IPlace = {
-      //   name: values.name,
-      //   description: values.description,
-      //   category: values.category,
-      //   address,
-      //   email: place.email,
-      //   coords: coordinates!,
-      //   phone: Number(values.phone),
-      //   whatsapp: values.whatsapp || '',
-      //   instagram: values.instagram || '',
-      //   city,
-      //   cityState,
-      //   country,
-      //   schedule: values.schedule,
-      //   pics: values.pics,
-      //   status: true,
-      // };
-      // console.log('Submit', values);
-      // updatePlace(place._id!, data);
+      if ((values.password.length > 0 && values.confirmPassword.length > 0) && values.password === values.confirmPassword) {
+        setPasswordMatch(true);
+        await updateUserPassword(place.email, values.password);
+      }
+
+      if (Object.keys(modifiedFields).length > 0) {
+        delete modifiedFields.password;
+        delete modifiedFields.confirmPassword;
+
+        if (modifiedFields.address) {
+          splitAddress(modifiedFields.address);
+        }
+        const fullAddress = { address, city, cityState, country };
+        const updatePayload = {
+          ...modifiedFields,
+          ...(modifiedFields.address ? fullAddress : {}),
+        };
+
+        const resp = await updatePlace(place._id!, updatePayload);
+        if (resp) {
+          navigation.goBack();
+        }
+      }
+    } catch (error: any) {
+      console.log('Error:', error);
+    } finally {
+      setLoading(false);
     }
-
   };
-
-  useEffect(() => {
-    splitAddress(address);
-  }, [coordinates, address]);
 
   return {
     address,
-    city,
-    cityState,
     colors,
     coordinates,
-    country,
     currentTheme,
     initialValues,
+    loading,
     passwordMatch,
     showCustomInput,
     validationSchema,
