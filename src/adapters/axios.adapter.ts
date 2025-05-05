@@ -43,7 +43,7 @@ export class AxiosAdapter implements HttpAdapter {
           data: error.response?.data,
         };
       }
-      throw {error: `Error fetching data on ${url}: ${error}`};
+      throw { error: `Error fetching data on ${url}: ${error}` };
     }
   }
 
@@ -68,13 +68,13 @@ export class AxiosAdapter implements HttpAdapter {
     try {
       const response = await this.axiosInstance.patch<T>(url, data, options);
       return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        throw {
-          error: error.message,
-          status: error.response?.status,
+    } catch (error: any) {
+      if (error?.isAxiosError) {
+        console.log({
+          error: error.response?.data.message,
+          status: error.response?.data.statusCode,
           data: error.response?.data,
-        };
+        });
       }
       throw { error: `Error updating resource at ${url}: ${error}` };
     }
