@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Body, ButtonComponent } from '../../ui';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
@@ -14,12 +14,7 @@ const AuthButton: FC<Props> = ({ loading, text, onPress }) => {
   return (
     <View style={styles.loginButtonContainer}>
       <ButtonComponent disabled={loading} onPress={onPress}>
-        {loading
-          ?
-          <ActivityIndicator size={24} color={colors.brandWhite} />
-          :
-          <Body customColor={colors.brandWhite}>{text}</Body>
-        }
+        <Body customColor={colors.brandWhite}>{text}</Body>
       </ButtonComponent>
     </View>
   );
