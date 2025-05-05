@@ -1,7 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useAuthStore } from '../../../../../store/authStore';
-import { usePlaceStore } from '../../../../../store/placeStore';
+import { useAuthStore, usePlaceStore } from '../../../../../store';
 import { placeCategory } from '../../../../../utils/categories';
 import { getIconUrl } from '../../../../../utils/icon-url';
 import ProfileDescription from '../ProfileDescription';
@@ -20,7 +19,7 @@ const ProfileBody: FC = () => {
       <ProfileDetail
         label={'Nombre de la empresa'}
         icon={getIconUrl('users', currentTheme, true)}
-        text={user?.name ?? ''}
+        text={place?.name ?? ''}
       />
       <ProfileDetail
         label={'Categoría'}

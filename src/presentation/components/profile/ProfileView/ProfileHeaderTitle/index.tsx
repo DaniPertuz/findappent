@@ -2,8 +2,7 @@ import React, { FC, useCallback, useContext } from 'react';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useAuthStore } from '../../../../../store/authStore';
-import { usePlaceStore } from '../../../../../store/placeStore';
+import { useAuthStore, usePlaceStore } from '../../../../../store';
 import { RootStackParams } from '../../../../navigation/MainNavigator';
 import { AddEditButton, BodySmall, H3 } from '../../../ui';
 import { ThemeContext } from '../../../../theme/ThemeContext';
@@ -23,7 +22,7 @@ const ProfileHeaderTitle: FC = () => {
     <>
       <View style={styles.container}>
         <View style={styles.titleContainer}>
-          <H3 customColor={colors.mainText}>{user?.name}</H3>
+          <H3 customColor={colors.mainText}>{place?.name}</H3>
         </View>
         <AddEditButton edit onPress={handleEditPress} />
       </View>
