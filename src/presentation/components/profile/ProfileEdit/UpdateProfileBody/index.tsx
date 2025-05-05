@@ -19,6 +19,7 @@ const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
     colors,
     currentTheme,
     initialValues,
+    loading,
     passwordMatch,
     showCustomInput,
     validationSchema,
@@ -147,40 +148,46 @@ const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
               <UpdateProfileSchedule
                 onChangeSchedule={() => { }}
               />
-              <UpdateProfileFormItemContainer>
-                <Caption2 customColor={colors.mainText}>Instagram</Caption2>
-                <DefaultInput
-                  field={values.instagram || ''}
-                  fieldValue={'instagram'}
-                  placeholder={'Instagram'}
-                  iconElement={
-                    <Image
-                      source={{ uri: getIconUrl('instagram', currentTheme, true) }}
-                      style={appStyles.inputIcon}
-                    />
-                  }
-                  keyboardType={'default'}
-                  onChange={handleChange('instagram')}
-                />
-                {errors.instagram && <WarningMessage text={String(errors.instagram)} />}
-              </UpdateProfileFormItemContainer>
-              <UpdateProfileFormItemContainer>
-                <Caption2 customColor={colors.mainText}>WhatsApp</Caption2>
-                <DefaultInput
-                  field={values.whatsapp ? String(values.whatsapp) : ''}
-                  fieldValue={'whatsapp'}
-                  placeholder={'WhatsApp'}
-                  iconElement={
-                    <Image
-                      source={{ uri: getIconUrl('whatsapp', currentTheme, true) }}
-                      style={appStyles.inputIcon}
-                    />
-                  }
-                  keyboardType={'phone-pad'}
-                  onChange={handleChange('whatsapp')}
-                />
-                {errors.whatsapp && <WarningMessage text={String(errors.whatsapp)} />}
-              </UpdateProfileFormItemContainer>
+              {place.premium !== 1
+                &&
+                <UpdateProfileFormItemContainer>
+                  <Caption2 customColor={colors.mainText}>Instagram</Caption2>
+                  <DefaultInput
+                    field={values.instagram || ''}
+                    fieldValue={'instagram'}
+                    placeholder={'Instagram'}
+                    iconElement={
+                      <Image
+                        source={{ uri: getIconUrl('instagram', currentTheme, true) }}
+                        style={appStyles.inputIcon}
+                      />
+                    }
+                    keyboardType={'default'}
+                    onChange={handleChange('instagram')}
+                  />
+                  {errors.instagram && <WarningMessage text={String(errors.instagram)} />}
+                </UpdateProfileFormItemContainer>
+              }
+              {place.premium !== 1
+                &&
+                <UpdateProfileFormItemContainer>
+                  <Caption2 customColor={colors.mainText}>WhatsApp</Caption2>
+                  <DefaultInput
+                    field={values.whatsapp ? String(values.whatsapp) : ''}
+                    fieldValue={'whatsapp'}
+                    placeholder={'WhatsApp'}
+                    iconElement={
+                      <Image
+                        source={{ uri: getIconUrl('whatsapp', currentTheme, true) }}
+                        style={appStyles.inputIcon}
+                      />
+                    }
+                    keyboardType={'phone-pad'}
+                    onChange={handleChange('whatsapp')}
+                  />
+                  {errors.whatsapp && <WarningMessage text={String(errors.whatsapp)} />}
+                </UpdateProfileFormItemContainer>
+              }
               <UpdateProfileFormItemContainer>
                 <Caption2 customColor={colors.mainText}>Contraseña</Caption2>
                 <PasswordInput field={values.password} fieldValue={'password'} placeholder={'Contraseña'} onChange={handleChange('password')} />
@@ -190,7 +197,7 @@ const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
                 <PasswordInput field={values.confirmPassword} fieldValue={'password'} placeholder={'Repetir contraseña'} onChange={handleChange('confirmPassword')} />
                 {!passwordMatch && <WarningMessage text={'Las contraseñas no son iguales'} />}
               </UpdateProfileFormItemContainer>
-              <ButtonComponent onPress={() => onSubmit(values)}>
+              <ButtonComponent disabled={loading} onPress={() => onSubmit(values)}>
                 <Body customColor={colors.brandWhite}>Guardar cambios</Body>
               </ButtonComponent>
             </View>
