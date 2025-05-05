@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { View } from 'react-native';
-import { useAuthStore } from '../../../../store/authStore';
+import { useAuthStore } from '../../../../store';
 import { usePlaceData } from '../../../hooks/usePlaceData';
 import ProfilePicture from '../../profile/ProfileView/ProfilePicture';
 import { Subheadline, BodySmall, Footnote } from '../../ui';
