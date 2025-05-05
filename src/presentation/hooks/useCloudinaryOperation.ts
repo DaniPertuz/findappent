@@ -6,12 +6,16 @@ const headers = {
   'Content-Type': 'multipart/form-data',
 };
 
-export const handleUpdateCloudinaryPic = async (data: ImagePickerResponse, userId: string, deleteExisting: boolean = false, existingImg: string | undefined = undefined): Promise<string[]> => {
+export const handleUpdateCloudinaryPic = async (data: ImagePickerResponse, userId: string, profile: boolean, deleteExisting: boolean = false, existingImg: string | string[] | undefined = undefined): Promise<string[]> => {
   try {
     let pics: string[] = [];
 
     if (deleteExisting && existingImg) {
-      await deleteCloudinaryPic(existingImg);
+      const imagesToDelete = Array.isArray(existingImg) ? existingImg : [existingImg];
+
+      for (const img of imagesToDelete) {
+        await deleteCloudinaryPic(img);
+      }
     }
 
     for (let i = 0; i < data.assets!.length; i++) {
@@ -26,7 +30,7 @@ export const handleUpdateCloudinaryPic = async (data: ImagePickerResponse, userI
       const uploadData = new FormData();
       uploadData.append('file', fileToUpload);
       uploadData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-      uploadData.append('folder', `findapp/users/${userId}/profile`);
+      uploadData.append('folder', `findapp/users/${userId}/${profile ? 'profile' : 'gallery'}`);
 
       const upload = await fetch(CLOUDINARY_UPLOAD_PIC_URL, {
         method: 'POST',
