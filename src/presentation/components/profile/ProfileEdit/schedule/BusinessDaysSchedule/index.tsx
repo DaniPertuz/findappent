@@ -28,10 +28,11 @@ const BusinessDaysSchedule: FC<Props> = ({ everyday, sendSchedule, handleSchedul
     setScheduleArr,
     handleUpdateSchedule,
   } = useBusinessDaysSchedule({ sendSchedule, handleScheduleUpdated, everyday });
+  const displaySchedule = (scheduleUpdated || schedule.length !== 0) ? 'none' : 'flex';
 
   return (
     <View style={styles.container}>
-      <View style={{ display: (scheduleUpdated || schedule.length !== 0) ? 'none' : 'flex' }}>
+      <View style={{ display: displaySchedule }}>
         <SchedulerCheckBox customized={customized} onClick={() => setCustomized(!customized)} />
       </View>
       <View style={styles.scheduleContainer}>
