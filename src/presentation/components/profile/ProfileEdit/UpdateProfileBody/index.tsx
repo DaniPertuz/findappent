@@ -24,6 +24,7 @@ const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
     showCustomInput,
     validationSchema,
     handleCoords,
+    handleSchedule,
     onSubmit,
     setAddress,
     setShowCustomInput,
@@ -146,7 +147,8 @@ const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
               </UpdateProfileFormItemContainer>
               <UpdateProfileGallery />
               <UpdateProfileSchedule
-                onChangeSchedule={() => { }}
+                place={place}
+                onChangeSchedule={handleSchedule}
               />
               {place.premium !== 1
                 &&
