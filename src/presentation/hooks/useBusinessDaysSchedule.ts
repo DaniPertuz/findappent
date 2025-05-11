@@ -24,7 +24,7 @@ export const useBusinessDaysSchedule = ({ sendSchedule, handleScheduleUpdated, e
       const isOpen = everyday || (day !== 'Sábado' && day !== 'Domingo');
       const formattedOpeningHour = (isOpen ? openingHour : '00:00');
       const formattedClosingHour = (isOpen ? closingHour : '00:00');
-      return isOpen ? `${day} ${formattedOpeningHour} ${formattedClosingHour}` : `${day} Cerrado`;
+      return isOpen ? `${day} ${formattedOpeningHour} ${formattedClosingHour}` : `${day} Cerrado Cerrado`;
     };
 
     const generateTableEntry = (day: string) => {
