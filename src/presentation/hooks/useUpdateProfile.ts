@@ -17,6 +17,7 @@ export const useUpdateProfile = ({ place }: { place: IPlace; }) => {
   const [city, setCity] = useState('');
   const [cityState, setCityState] = useState('');
   const [country, setCountry] = useState('');
+  const [placeSchedule, setPlaceSchedule] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [passwordMatch, setPasswordMatch] = useState<boolean>(true);
   const [coordinates, setCoordinates] = useState<Location>({ latitude: 0, longitude: 0 });
@@ -70,6 +71,8 @@ export const useUpdateProfile = ({ place }: { place: IPlace; }) => {
     }
   };
 
+  const handleSchedule = (schedule: string[]) => setPlaceSchedule(schedule);
+
   const getModifiedFields = (initial: any, current: any) => {
     const modified: any = {};
 
@@ -101,6 +104,11 @@ export const useUpdateProfile = ({ place }: { place: IPlace; }) => {
 
     try {
       const modifiedFields = getModifiedFields(initialValues, values);
+
+      if (JSON.stringify(placeSchedule) !== JSON.stringify(values.schedule)) {
+        modifiedFields.schedule = placeSchedule;
+      }
+
       if (response) {
         const uploadedPics = await uploadPics(values.pics);
         if (uploadedPics) {
@@ -149,9 +157,11 @@ export const useUpdateProfile = ({ place }: { place: IPlace; }) => {
     initialValues,
     loading,
     passwordMatch,
+    placeSchedule,
     showCustomInput,
     validationSchema,
     handleCoords,
+    handleSchedule,
     onSubmit,
     setAddress,
     setShowCustomInput,
