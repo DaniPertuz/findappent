@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ImagePickerResponse } from 'react-native-image-picker';
 import { ImagePickerAdapter } from '../../adapters/ImagePickerAdapter';
 import { useAuthStore, useGalleryStore, usePlaceStore } from '../../store';
-import { handleUpdateCloudinaryPic } from './useCloudinaryOperation';
+import { deleteCloudinaryPic, handleUpdateCloudinaryPic } from './useCloudinaryOperation';
 
 export const useGallery = () => {
   const [profilePicture, setProfilePicture] = useState<ImagePickerResponse>();
@@ -10,9 +10,8 @@ export const useGallery = () => {
   const [loading, setLoading] = useState(false);
   const user = useAuthStore(state => state.authResponse.user);
   const setUser = useAuthStore(state => state.setUser);
-  const response = useGalleryStore(state => state.response);
-  const setResponse = useGalleryStore(state => state.setResponse);
-  const { place, updatePlace, updatePlacePhoto, updateUserPhoto } = usePlaceStore();
+  const { response, setResponse, imagesToDelete, clearImagesToDelete } = useGalleryStore();
+  const { place, updatePlacePhoto, updateUserPhoto } = usePlaceStore();
 
   const selectProfilePicture = async () => {
     const picture = await ImagePickerAdapter.getPicturesFromLibrary(1);
@@ -123,9 +122,21 @@ export const useGallery = () => {
     }
 
     try {
-      const img = await handleUpdateCloudinaryPic(response, user?._id!, false, true, oldPics);
-      await updatePlace(place?._id!, { pics: img });
-      return img;
+      if (imagesToDelete && imagesToDelete.length > 0) {
+        await Promise.all(imagesToDelete.map(img => deleteCloudinaryPic(img)));
+      }
+      const remainingPics = oldPics.filter(pic => !imagesToDelete.includes(pic));
+      const updatedPics = await handleUpdateCloudinaryPic(
+        response,
+        user?._id!,
+        false,
+        false,
+        remainingPics,
+      );
+
+      clearImagesToDelete();
+
+      return updatedPics;
     } catch (error) {
       console.error(error);
     } finally {
