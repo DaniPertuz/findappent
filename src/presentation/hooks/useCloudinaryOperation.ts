@@ -12,21 +12,27 @@ export const handleUpdateCloudinaryPic = async (data: ImagePickerResponse, userI
 
     if (deleteExisting && existingImg) {
       const imagesToDelete = Array.isArray(existingImg) ? existingImg : [existingImg];
-
       for (const img of imagesToDelete) {
         await deleteCloudinaryPic(img);
       }
+    } else if (existingImg) {
+      pics = Array.isArray(existingImg) ? [...existingImg] : [existingImg];
     }
 
-    for (let i = 0; i < data.assets!.length; i++) {
-      const element = data.assets![i];
+    if (!data?.assets?.length) { return pics; }
+
+    for (let i = 0; i < data.assets.length; i++) {
+      const element = data.assets[i];
       const { uri, type, fileName } = element;
+
+      if (uri?.startsWith('http')) { continue; }
 
       const fileToUpload = {
         uri,
         type,
-        name: fileName,
+        name: fileName ?? `image-${Date.now()}`,
       };
+
       const uploadData = new FormData();
       uploadData.append('file', fileToUpload);
       uploadData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
@@ -39,8 +45,7 @@ export const handleUpdateCloudinaryPic = async (data: ImagePickerResponse, userI
       });
 
       const { secure_url } = await upload.json();
-
-      pics.push(secure_url);
+      if (secure_url) { pics.push(secure_url); }
     }
 
     return pics;
