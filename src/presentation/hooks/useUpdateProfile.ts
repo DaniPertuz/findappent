@@ -17,7 +17,7 @@ export const useUpdateProfile = ({ place }: { place: IPlace; }) => {
   const [city, setCity] = useState('');
   const [cityState, setCityState] = useState('');
   const [country, setCountry] = useState('');
-  const [placeSchedule, setPlaceSchedule] = useState<string[]>([]);
+  const [placeSchedule, setPlaceSchedule] = useState<string[]>(place.schedule);
   const [loading, setLoading] = useState(false);
   const [passwordMatch, setPasswordMatch] = useState<boolean>(true);
   const [coordinates, setCoordinates] = useState<Location>({ latitude: 0, longitude: 0 });
