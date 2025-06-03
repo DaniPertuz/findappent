@@ -199,7 +199,7 @@ const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
                 <PasswordInput field={values.confirmPassword} fieldValue={'password'} placeholder={'Repetir contraseña'} onChange={handleChange('confirmPassword')} />
                 {!passwordMatch && <WarningMessage text={'Las contraseñas no son iguales'} />}
               </UpdateProfileFormItemContainer>
-              <ButtonComponent disabled={loading} onPress={() => onSubmit(values)}>
+              <ButtonComponent disabled={loading} loading={loading} onPress={() => onSubmit(values)}>
                 <Body customColor={colors.brandWhite}>Guardar cambios</Body>
               </ButtonComponent>
             </View>

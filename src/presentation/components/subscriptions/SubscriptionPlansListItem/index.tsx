@@ -30,7 +30,7 @@ const SubscriptionPlastListItem: FC<Props> = ({ level, levelText, price, details
       <SubscriptionPlanItemBody>
         <SubscriptionPlanPrice price={price} />
         <SubscriptionPlanDetails details={details} />
-        <SubscriptionButton text={`${place?.premium}` === level ? 'Suscripción actual' : 'Suscribirme'} />
+        <SubscriptionButton text={`${place?.premium?.toString()}` === level ? 'Suscripción actual' : 'Suscribirme'} />
       </SubscriptionPlanItemBody>
     </View>
   );
