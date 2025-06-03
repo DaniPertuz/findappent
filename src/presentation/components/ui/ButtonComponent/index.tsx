@@ -7,18 +7,19 @@ interface Props {
   children: React.ReactNode;
   customStyle?: StyleProp<ViewStyle>;
   disabled?: boolean;
+  loading?: boolean;
   onPress?: () => void;
 }
 
-const ButtonComponent: FC<Props> = ({ children, customStyle, disabled, onPress }) => {
+const ButtonComponent: FC<Props> = ({ children, customStyle, disabled, loading, onPress }) => {
   const { colors } = useContext(ThemeContext);
   return (
     <Pressable
-      disabled={disabled}
+      disabled={disabled || loading}
       style={({ pressed }) => [styles.button, { backgroundColor: colors.darkBlue, opacity: pressed ? 0.9 : 1 }, customStyle]}
       onPress={onPress}
     >
-      {disabled
+      {loading
         ?
         <ActivityIndicator size={24} color={colors.brandWhite} />
         :
