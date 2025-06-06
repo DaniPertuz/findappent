@@ -4,7 +4,6 @@ import DashboardHeader from '../../components/dashboard/DashboardHeader';
 import DashboardStatistics from '../../components/dashboard/DashboardStatistics';
 import DashboardUserProps from '../../components/dashboard/DashboardUserProps';
 import StatusBarComponent from '../../components/ui/StatusBarComponent';
-import { deviceHeight } from '../../../utils/dimensions';
 import { ThemeContext } from '../../theme/ThemeContext';
 
 const DashboardScreen = () => {
@@ -26,7 +25,6 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 40,
     paddingHorizontal: 20,
-    paddingBottom: deviceHeight * 0.07,
   },
 });
 
