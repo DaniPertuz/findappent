@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useAuthStore, usePlaceStore } from '../../store';
 
 export const usePlaceData = () => {
-  const { getPlaceByEmail, getFavorites, getRatings, getRatingsByUrl, getRatingAverage, place, favorites, ratings, ratingAverage } = usePlaceStore();
+  const { getPlaceByEmail, getFavorites, getRatings, getRatingsByUrl, getRatingAverage, getServices, place, favorites, ratings, ratingAverage, services } = usePlaceStore();
   const user = useAuthStore(state => state.authResponse.user);
 
   const fetchPlaceData = async () => {
@@ -19,6 +19,7 @@ export const usePlaceData = () => {
       getFavorites(place._id);
       getRatingAverage(place._id);
       getRatings(place._id);
+      getServices(place._id);
     }
   }, [place]);
 
@@ -27,6 +28,7 @@ export const usePlaceData = () => {
     favorites,
     ratingAverage,
     ratings,
+    services,
     getRatingsByUrl,
   };
 };
