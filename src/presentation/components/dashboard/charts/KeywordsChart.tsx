@@ -5,8 +5,13 @@ import { useKeywordsChart } from '../../../hooks/useKeywordsChart';
 import KeywordsChartLegend from './legends/KeywordsChartLegend';
 import NoUsersLegend from './legends/NoUsersLegend';
 
-const KeywordsChart: FC = () => {
-  const { colors, pieData, data } = useKeywordsChart();
+interface Props {
+  selectedMonth: string;
+  selectedYear: string;
+}
+
+const KeywordsChart: FC<Props> = ({ selectedMonth, selectedYear }) => {
+  const { colors, pieData, data } = useKeywordsChart(selectedMonth, selectedYear);
 
   if (pieData.length === 0) {
     return <NoUsersLegend text={'Esperando búsquedas'} />;
