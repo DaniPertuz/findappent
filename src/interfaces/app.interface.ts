@@ -155,3 +155,49 @@ export interface Location {
   latitude:  number;
   longitude: number;
 }
+
+export interface SearchResponse {
+  error?:    string;
+  response?: Search;
+}
+
+export interface Search {
+  total:    number;
+  keywords: Keyword[];
+}
+
+export interface Keyword {
+  keyword: string;
+  count:   number;
+}
+
+export interface SearchAvailable {
+  year:   number;
+  months: SearchMonth[];
+}
+
+export interface SearchMonth {
+  month: number;
+  name:  string;
+}
+
+export interface SearchMonthly {
+  week:     string;
+  count:    number;
+  keywords: string[];
+}
+
+export type PieDataItem = {
+  value: number;
+  name:  string;
+  text:  string;
+  color: string;
+};
+
+export type ChartDataItem = {
+  name:            string;
+  amount:          number;
+  color:           string;
+  legendFontColor: string;
+  legendFontSize:  number;
+};
