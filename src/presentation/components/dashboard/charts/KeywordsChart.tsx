@@ -13,6 +13,10 @@ interface Props {
 const KeywordsChart: FC<Props> = ({ selectedMonth, selectedYear }) => {
   const { colors, pieData, data } = useKeywordsChart(selectedMonth, selectedYear);
 
+  if (!selectedMonth && !selectedYear) {
+    return <NoUsersLegend text={'Esperando filtros de búsqueda'} />;
+  }
+
   if (pieData.length === 0) {
     return <NoUsersLegend text={'Esperando búsquedas'} />;
   }

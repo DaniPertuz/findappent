@@ -4,8 +4,9 @@ import { LineChart } from 'react-native-gifted-charts';
 import moment from 'moment';
 import 'moment/locale/es';
 import { deviceWidth } from '../../../../utils/dimensions';
-import LegendIcon from './legends/LegendIcon';
 import { useChartData } from '../../../hooks/useChartData';
+import LegendIcon from './legends/LegendIcon';
+import NoUsersLegend from './legends/NoUsersLegend';
 moment.locale('es');
 
 const CustomLegendIcon = (color: string) => () => <LegendIcon color={color} />;
@@ -22,6 +23,10 @@ const SearchChart: FC<Props> = ({ selectedMonth, selectedYear }) => {
     spacing,
     formatYValue,
   } = useChartData(selectedMonth, selectedYear);
+
+  if (!selectedMonth && !selectedYear) {
+    return <NoUsersLegend text={'Esperando filtros de búsqueda'} />;
+  }
 
   return (
     <View style={styles.container}>
