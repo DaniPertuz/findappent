@@ -32,7 +32,7 @@ const DropdownChart: FC<Props> = ({ items, placeholder, onChange }) => {
       ArrowDownIconComponent={CustomDownArrowIcon(colors.darkBlue)}
       showTickIcon={false}
       selectedItemContainerStyle={{ backgroundColor: colors.quaternaryText }}
-      dropDownContainerStyle={[{ borderColor: colors.darkBlue, ...styles.dropdown }]}
+      dropDownContainerStyle={[{ borderColor: colors.darkBlue, backgroundColor: colors.white, ...styles.dropdown }]}
       textStyle={{ color: colors.darkBlue }}
       style={[{ borderColor: colors.darkBlue, backgroundColor: colors.white }, styles.container]}
     />
@@ -43,14 +43,14 @@ const styles = StyleSheet.create({
   container: {
     alignSelf: 'flex-end',
     borderRadius: 30,
-    gap: 10,
     flexDirection: 'row',
-    width: 120,
+    gap: 10,
+    width: 180,
   },
   dropdown: {
     alignSelf: 'flex-end',
     borderWidth: 1,
-    width: 120,
+    width: 180,
   },
 });
 
