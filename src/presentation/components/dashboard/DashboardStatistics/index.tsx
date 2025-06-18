@@ -10,10 +10,9 @@ const DashboardStatistics: FC = () => {
   const {
     colors,
     isLoading,
-    monthsAvailable,
+    monthYearItems,
     selectedMonth,
     selectedYear,
-    yearsAvailable,
     setSelectedMonth,
     setSelectedYear,
   } = useChartDropdownData();
@@ -27,8 +26,7 @@ const DashboardStatistics: FC = () => {
           <DropdownCharts
             colors={colors}
             isLoading={isLoading}
-            monthsAvailable={monthsAvailable}
-            yearsAvailable={yearsAvailable}
+            monthYearItems={monthYearItems}
             setSelectedMonth={setSelectedMonth}
             setSelectedYear={setSelectedYear}
           />
