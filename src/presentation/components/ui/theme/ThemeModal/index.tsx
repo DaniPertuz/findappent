@@ -17,19 +17,11 @@ const ThemeModal: FC<Props> = ({ modalVisible, setModalVisible }) => {
     setSystemTheme,
   } = useContext(ThemeContext);
 
-  const handleSystemTheme = () => {
-    setSystemTheme();
-    setModalVisible(false);
-  };
+  const closeModal = () => setModalVisible(false);
 
-  const handleDarkTheme = () => {
-    setDarkTheme();
-    setModalVisible(false);
-  };
-
-  const handleLightTheme = () => {
-    setLightTheme();
-    setModalVisible(false);
+  const handleThemeChange = (themeSetter: () => void) => {
+    themeSetter();
+    closeModal();
   };
 
   return (
@@ -38,15 +30,15 @@ const ThemeModal: FC<Props> = ({ modalVisible, setModalVisible }) => {
       transparent={true}
       visible={modalVisible}
       onRequestClose={() => {
-        setModalVisible!(!modalVisible);
+        setModalVisible(modalVisible);
       }}
     >
       <View style={styles.modalOverlay}>
         <View style={[styles.modalContainer, { backgroundColor: colors.background, borderColor: colors.mainText }]}>
-          <ModalHeader title={'Tema'} closeIcon={'close'} onPress={() => setModalVisible!(false)} />
-          <ThemeButton text={'Sistema'} onPress={handleSystemTheme} />
-          <ThemeButton text={'Claro'} onPress={handleLightTheme} />
-          <ThemeButton text={'Oscuro'} onPress={handleDarkTheme} />
+          <ModalHeader title={'Tema'} closeIcon={'close'} onPress={() => setModalVisible(false)} />
+          <ThemeButton text={'Sistema'} onPress={() => handleThemeChange(setSystemTheme)} />
+          <ThemeButton text={'Claro'} onPress={() => handleThemeChange(setLightTheme)} />
+          <ThemeButton text={'Oscuro'} onPress={() => handleThemeChange(setDarkTheme)} />
         </View>
       </View>
     </Modal>
