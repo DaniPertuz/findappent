@@ -29,6 +29,7 @@ export const usePlaceData = () => {
     ratingAverage,
     ratings,
     services,
+    fetchPlaceData,
     getRatingsByUrl,
   };
 };
