@@ -4,12 +4,17 @@ import { Caption2 } from '../../ui';
 import { getIconUrl } from '../../../../utils/icon-url';
 import { ThemeContext } from '../../../theme/ThemeContext';
 
-const SubscriptionPlanPrice: FC<{ price: string; }> = ({ price }) => {
+interface Props {
+  price: number;
+  currency: string;
+}
+
+const SubscriptionPlanPrice: FC<Props> = ({ price, currency }) => {
   const { colors, currentTheme } = useContext(ThemeContext);
   return (
     <View style={styles.container}>
       <Image source={{ uri: getIconUrl('money', currentTheme, true) }} style={styles.subscriptionIcon} />
-      <Caption2 customColor={colors.gray}>{price}/Mensuales</Caption2>
+      <Caption2 customColor={colors.gray}>{currency} ${price}/Mensuales</Caption2>
     </View>
   );
 };
