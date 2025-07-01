@@ -201,3 +201,7 @@ export type ChartDataItem = {
   legendFontColor: string;
   legendFontSize:  number;
 };
+
+export interface SubscriptionUrl {
+  url: string;
+}
