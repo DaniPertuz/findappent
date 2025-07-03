@@ -67,6 +67,7 @@ const SubscriptionPlastListItem: FC<Props> = ({ level, levelText, price, details
       await findAPI.post('/payments/cancel-subscription', {
         placeId: place?._id,
       });
+      handlePaymentSuccess();
     } catch (error) {
       console.error('Error creating checkout session', error);
     } finally {
@@ -86,9 +87,9 @@ const SubscriptionPlastListItem: FC<Props> = ({ level, levelText, price, details
       <SubscriptionPlanItemBody>
         <SubscriptionPlanPrice price={localPrice} currency={currency.toUpperCase()} />
         <SubscriptionPlanDetails details={details} />
-        <SubscriptionButton loading={loading} text={`${place?.premium?.toString()}` === level ? 'Suscripción actual' : 'Suscribirme'} onPress={handleSubscribe} />
+        <SubscriptionButton loading={loading} text={`${place?.premium?.toString()}` === level ? 'Suscripción actual' : 'Suscribirme'} onPress={level === '1' ? handleCancelSubscribe : handleSubscribe} />
       </SubscriptionPlanItemBody>
-      <SubscriptionPaymentModal checkoutUrl={checkoutUrl || ''} closeModal={closeModal} onPaymentSuccess={level === '1' ? handleCancelSubscribe : handlePaymentSuccess} />
+      {level !== '1' && <SubscriptionPaymentModal checkoutUrl={checkoutUrl || ''} closeModal={closeModal} onPaymentSuccess={handlePaymentSuccess} />}
     </View>
   );
 };
