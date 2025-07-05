@@ -1,11 +1,10 @@
 import { AxiosError } from 'axios';
-import { IProduct } from '../../entities';
 import findAPI from '../../../config/api/findapp.api';
 import { ProductAPIResponse } from '../../../interfaces/app.interface';
 
-export const deleteProductUseCase = async (product: IProduct): Promise<ProductAPIResponse> => {
+export const deleteProductUseCase = async (id: string): Promise<ProductAPIResponse> => {
   try {
-    const response = await findAPI.delete<ProductAPIResponse>(`products/${product.name}`);
+    const response = await findAPI.delete<ProductAPIResponse>(`products/${id}`);
     return { product: response.product };
   } catch (error: any) {
     if (error instanceof AxiosError) {
