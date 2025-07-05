@@ -12,9 +12,10 @@ const SubscriptionPlansList: FC = () => {
         price={20}
         details={[
           'Alta prioridad en resultado de búsquedas',
-          'Subir fotos ilimitadas',
+          'Subir fotos ilimitadas de tu negocio',
+          'Subir fotos ilimitadas de tus productos',
           'Subir hasta 10 videos promocionales',
-          'Registrar más canales de comunicación del lugar (Instagram & WhatsApp).',
+          'Registrar más canales de comunicación de tu negocio (Instagram & WhatsApp).',
         ]}
       />
       <SubscriptionPlastListItem
@@ -23,9 +24,10 @@ const SubscriptionPlansList: FC = () => {
         price={15}
         details={[
           'Media prioridad en resultado de búsquedas',
-          'Subir hasta 2 fotos del lugar',
+          'Subir hasta 2 fotos de tu negocio',
+          'Subir hasta 2 fotos de tus productos',
           'Subir hasta 2 videos promocionales',
-          'Registrar más canales de comunicación del lugar (Instagram & WhatsApp).',
+          'Registrar más canales de comunicación de tu negocio (Instagram & WhatsApp).',
         ]}
       />
       <SubscriptionPlastListItem
@@ -34,7 +36,8 @@ const SubscriptionPlansList: FC = () => {
         price={0}
         details={[
           'Baja prioridad en resultado de búsquedas',
-          'Subir 1 foto del lugar',
+          'Subir 1 foto de tu negocio',
+          'Subir 1 foto de tus productos',
           'Subir 1 video promocional',
         ]}
       />
