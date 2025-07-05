@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { Formik } from 'formik';
-import { Body, ButtonComponent, Caption2 } from '../../../ui';
+import { Caption2 } from '../../../ui';
 import { DescriptionInput, DefaultInput, DropdownComponent, PasswordInput, AddressInput } from '../../../ui/forms';
 import { IPlace } from '../../../../../core/entities';
 import { categories } from '../../../../../utils/categories';
@@ -9,7 +9,8 @@ import { deviceHeight } from '../../../../../utils/dimensions';
 import { getIconUrl } from '../../../../../utils/icon-url';
 import { useUpdateProfile } from '../../../../hooks/useUpdateProfile';
 import WarningMessage from '../../../auth/WarningMessage';
-import UpdateProfileFormItemContainer from '../UpdateProfileFormItemContainer';
+import UpdateProfileButton from '../UpdateProfileButton';
+import FormItemContainer from '../FormItemContainer';
 import UpdateProfileGallery from '../UpdateProfileGallery';
 import UpdateProfileSchedule from '../UpdateProfileSchedule';
 import { appStyles } from '../../../../theme/app-styles';
@@ -45,12 +46,12 @@ const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
         >
           {({ handleChange, setFieldValue, errors, touched, values }) => (
             <View style={styles.fieldsGap}>
-              <UpdateProfileFormItemContainer>
+              <FormItemContainer>
                 <Caption2 customColor={colors.mainText}>Descripción</Caption2>
                 <DescriptionInput description={values.description} onChange={handleChange('description')} />
                 {errors.description && <WarningMessage text={String(errors.description)} />}
-              </UpdateProfileFormItemContainer>
-              <UpdateProfileFormItemContainer>
+              </FormItemContainer>
+              <FormItemContainer>
                 <Caption2 customColor={colors.mainText}>Nombre de la empresa</Caption2>
                 <DefaultInput
                   field={values.name}
@@ -66,8 +67,8 @@ const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
                   onChange={handleChange('name')}
                 />
                 {errors.name && <WarningMessage text={String(errors.name)} />}
-              </UpdateProfileFormItemContainer>
-              <UpdateProfileFormItemContainer>
+              </FormItemContainer>
+              <FormItemContainer>
                 <Caption2 customColor={colors.mainText}>Correo corporativo</Caption2>
                 <DefaultInput
                   field={values.email}
@@ -83,8 +84,8 @@ const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
                   onChange={handleChange('email')}
                 />
                 {errors.email && <WarningMessage text={String(errors.email)} />}
-              </UpdateProfileFormItemContainer>
-              <UpdateProfileFormItemContainer>
+              </FormItemContainer>
+              <FormItemContainer>
                 <Caption2 customColor={colors.mainText}>Dirección</Caption2>
                 <AddressInput
                   field={values.address}
@@ -95,8 +96,8 @@ const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
                   }}
                 />
                 {errors.address && touched.address && <WarningMessage text={String(errors.address)} />}
-              </UpdateProfileFormItemContainer>
-              <UpdateProfileFormItemContainer>
+              </FormItemContainer>
+              <FormItemContainer>
                 <Caption2 customColor={colors.mainText}>Teléfono</Caption2>
                 <DefaultInput
                   field={values.phone ? String(values.phone) : ''}
@@ -112,8 +113,8 @@ const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
                   onChange={handleChange('phone')}
                 />
                 {errors.phone && <WarningMessage text={String(errors.phone)} />}
-              </UpdateProfileFormItemContainer>
-              <UpdateProfileFormItemContainer>
+              </FormItemContainer>
+              <FormItemContainer>
                 <Caption2 customColor={colors.mainText}>Categoría</Caption2>
                 <DropdownComponent
                   initialValue={values.category}
@@ -144,7 +145,7 @@ const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
                     onChange={(text) => setFieldValue('category', text)}
                   />
                 )}
-              </UpdateProfileFormItemContainer>
+              </FormItemContainer>
               <UpdateProfileGallery />
               <UpdateProfileSchedule
                 place={place}
@@ -152,7 +153,7 @@ const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
               />
               {place.premium !== 1
                 &&
-                <UpdateProfileFormItemContainer>
+                <FormItemContainer>
                   <Caption2 customColor={colors.mainText}>Instagram</Caption2>
                   <DefaultInput
                     field={values.instagram || ''}
@@ -168,11 +169,11 @@ const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
                     onChange={handleChange('instagram')}
                   />
                   {errors.instagram && <WarningMessage text={String(errors.instagram)} />}
-                </UpdateProfileFormItemContainer>
+                </FormItemContainer>
               }
               {place.premium !== 1
                 &&
-                <UpdateProfileFormItemContainer>
+                <FormItemContainer>
                   <Caption2 customColor={colors.mainText}>WhatsApp</Caption2>
                   <DefaultInput
                     field={values.whatsapp ? String(values.whatsapp) : ''}
@@ -188,20 +189,18 @@ const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
                     onChange={handleChange('whatsapp')}
                   />
                   {errors.whatsapp && <WarningMessage text={String(errors.whatsapp)} />}
-                </UpdateProfileFormItemContainer>
+                </FormItemContainer>
               }
-              <UpdateProfileFormItemContainer>
+              <FormItemContainer>
                 <Caption2 customColor={colors.mainText}>Contraseña</Caption2>
                 <PasswordInput field={values.password} fieldValue={'password'} placeholder={'Contraseña'} onChange={handleChange('password')} />
-              </UpdateProfileFormItemContainer>
-              <UpdateProfileFormItemContainer>
+              </FormItemContainer>
+              <FormItemContainer>
                 <Caption2 customColor={colors.mainText}>Repetir contraseña</Caption2>
                 <PasswordInput field={values.confirmPassword} fieldValue={'password'} placeholder={'Repetir contraseña'} onChange={handleChange('confirmPassword')} />
                 {!passwordMatch && <WarningMessage text={'Las contraseñas no son iguales'} />}
-              </UpdateProfileFormItemContainer>
-              <ButtonComponent disabled={loading} loading={loading} onPress={() => onSubmit(values)}>
-                <Body customColor={colors.brandWhite}>Guardar cambios</Body>
-              </ButtonComponent>
+              </FormItemContainer>
+              <UpdateProfileButton loading={loading} values={values} onPress={onSubmit} />
             </View>
           )}
         </Formik>

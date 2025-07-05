@@ -4,7 +4,7 @@ import { Caption2 } from '../../../ui';
 import CustomizedSchedule from '../schedule/CustomizedSchedule';
 import BusinessDaysSchedule from '../schedule/BusinessDaysSchedule';
 import ScheduleDropdownDays from '../schedule/ScheduleDropdownDays';
-import UpdateProfileFormItemContainer from '../UpdateProfileFormItemContainer';
+import FormItemContainer from '../FormItemContainer';
 import { IPlace } from '../../../../../core/entities';
 import { ScheduleType } from '../../../../../interfaces/app.interface';
 import { ThemeContext } from '../../../../theme/ThemeContext';
@@ -39,7 +39,7 @@ const UpdateProfileSchedule: FC<Props> = ({ place, onChangeSchedule }) => {
   };
 
   return (
-    <UpdateProfileFormItemContainer>
+    <FormItemContainer>
       <Caption2 customColor={colors.mainText}>Horario de atención</Caption2>
       {editSchedule
         ?
@@ -64,7 +64,7 @@ const UpdateProfileSchedule: FC<Props> = ({ place, onChangeSchedule }) => {
           </View>
         </>
       }
-    </UpdateProfileFormItemContainer>
+    </FormItemContainer>
   );
 };
 

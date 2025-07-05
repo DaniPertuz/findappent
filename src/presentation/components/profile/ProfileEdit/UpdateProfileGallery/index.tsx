@@ -6,7 +6,7 @@ import { Caption2 } from '../../../ui';
 import GalleryItemsList from '../gallery/GalleryItemsList';
 import GalleryLoadingModal from '../gallery/GalleryLoadingModal';
 import GalleryQueryModal from '../gallery/GalleryQueryModal';
-import UpdateProfileFormItemContainer from '../UpdateProfileFormItemContainer';
+import FormItemContainer from '../FormItemContainer';
 import { useGalleryStore, usePlaceStore } from '../../../../../store';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 
@@ -34,14 +34,14 @@ const UpdateProfileGallery: FC = () => {
 
   return (
     <>
-      <UpdateProfileFormItemContainer>
+      <FormItemContainer>
         <Caption2 customColor={colors.mainText}>Imágenes</Caption2>
         <View style={styles.container}>
           <GalleryItemsList placeImages={placeImages} removeImage={removeImage} onAddImage={handleAddImage} />
           <GalleryLoadingModal loading={loading} />
         </View>
         {place?.premium === 2 && placeImages.length < 2 && <WarningMessage text={`Puede agregar ${diff === 1 ? 'una imagen' : 'hasta 2 imágenes'}`} />}
-      </UpdateProfileFormItemContainer>
+      </FormItemContainer>
       <GalleryQueryModal addGalleryPics={() => addGalleryPics(amount)} addPhoto={addPhoto} modalVisible={modalVisible} setModalVisible={setModalVisible} />
     </>
   );
