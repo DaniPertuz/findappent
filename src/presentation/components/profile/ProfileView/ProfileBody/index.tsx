@@ -6,6 +6,7 @@ import { getIconUrl } from '../../../../../utils/icon-url';
 import ProfileDescription from '../ProfileDescription';
 import ProfileDetail from '../ProfileDetail';
 import ProfileLogoutButton from '../ProfileLogoutButton';
+import ProfileProductsButton from '../../ProfileProductsButton';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 
 const ProfileBody: FC = () => {
@@ -31,6 +32,7 @@ const ProfileBody: FC = () => {
         icon={getIconUrl('envelope', currentTheme, true)}
         text={user?.email ?? ''}
       />
+      <ProfileProductsButton />
       <ProfileLogoutButton />
     </View>
   );
