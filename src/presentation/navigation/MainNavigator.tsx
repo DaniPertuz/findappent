@@ -3,7 +3,7 @@ import { createStackNavigator, StackCardStyleInterpolator } from '@react-navigat
 import SplashScreen from 'react-native-splash-screen';
 import { IProduct, IPlace } from '../../core/entities';
 import { LoadingScreen, LoginScreen, RegisterScreen, ResetPasswordScreen } from '../screens';
-import { UpdateProfileScreen } from '../screens/profile';
+import { ProductDetailsScreen, ProductsScreen, UpdateProfileScreen } from '../screens/profile';
 import BottomTabNavigator from './BottomTabNavigator';
 
 export type RootStackParams = {
@@ -13,7 +13,7 @@ export type RootStackParams = {
   MainScreen: undefined,
   NewPasswordScreen: undefined,
   ProductsScreen: undefined,
-  ProductDetails: { product: IProduct, newItem: boolean; },
+  ProductDetailsScreen: { product: IProduct, newItem: boolean; },
   Profile: undefined,
   RegisterScreen: undefined,
   UpdateProfileScreen: { place: IPlace; };
@@ -40,6 +40,8 @@ const MainNavigator = () => {
       <Stack.Screen options={{ cardStyleInterpolator: fadeAnimation }} name={'RegisterScreen'} component={RegisterScreen} />
       <Stack.Screen options={{ cardStyleInterpolator: fadeAnimation }} name={'NewPasswordScreen'} component={ResetPasswordScreen} />
       <Stack.Screen options={{ cardStyleInterpolator: fadeAnimation }} name={'BottomTabNavigator'} component={BottomTabNavigator} />
+      <Stack.Screen options={{ cardStyleInterpolator: fadeAnimation }} name={'ProductsScreen'} component={ProductsScreen} />
+      <Stack.Screen options={{ cardStyleInterpolator: fadeAnimation }} name={'ProductDetailsScreen'} component={ProductDetailsScreen} />
       <Stack.Screen options={{ cardStyleInterpolator: fadeAnimation }} name={'UpdateProfileScreen'} component={UpdateProfileScreen} />
       <Stack.Screen options={{ cardStyleInterpolator: fadeAnimation }} name={'LoadingScreen'} component={LoadingScreen} />
     </Stack.Navigator>
