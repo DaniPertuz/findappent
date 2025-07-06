@@ -1,5 +1,5 @@
 import { API_URL } from '@env';
-import { AxiosAdapter } from '../adapters/axios.adapter';
+import { AxiosAdapter } from '../../adapters/axios.adapter';
 
 const findAPI = new AxiosAdapter({
     baseUrl: API_URL,
