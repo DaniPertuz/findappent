@@ -28,6 +28,7 @@ const ProductsList = ({ products }: Props) => {
 const styles = StyleSheet.create({
   contentContainer: {
     marginVertical: 20,
+    gap: 15,
   },
 });
 
