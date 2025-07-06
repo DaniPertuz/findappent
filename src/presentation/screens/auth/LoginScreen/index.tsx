@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Image, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { View, Image, ScrollView } from 'react-native';
 import { AuthFormContainer, AuthFooter, AuthHeader, AuthButton, ForgotPasswordButton, RenderInputWithWarning, RenderWarningMessage } from '../../../components/auth';
-import { Background, Footnote, MainView, StatusBarComponent } from '../../../components/ui';
+import { Background, Footnote, KeyboardAvoidingViewComponent, MainView, StatusBarComponent } from '../../../components/ui';
 import { useAuthData } from '../../../hooks/useAuthData';
 import { appStyles } from '../../../theme/app-styles';
 import { styles } from './styles';
@@ -14,7 +14,7 @@ const LoginScreen = () => {
       <StatusBarComponent color={colors.brandMainText} theme={'light-content'} />
       <Background />
       <AuthFormContainer>
-        <KeyboardAvoidingView style={appStyles.keyboardContainer} behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}>
+        <KeyboardAvoidingViewComponent>
           <ScrollView contentContainerStyle={appStyles.scrollContainer} keyboardShouldPersistTaps={'handled'} showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
               <Image style={styles.image} source={logoSource} />
@@ -30,7 +30,7 @@ const LoginScreen = () => {
               <AuthFooter label={'¿No tienes una empresa registrada?'} link={'Crear cuenta'} onPress={goToRegister} />
             </View>
           </ScrollView>
-        </KeyboardAvoidingView>
+        </KeyboardAvoidingViewComponent>
       </AuthFormContainer>
     </MainView>
   );

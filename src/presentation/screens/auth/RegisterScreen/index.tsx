@@ -1,7 +1,7 @@
 import React from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { AuthFormContainer, AuthHeader, RenderInputWithWarning, AuthButton, AuthFooter } from '../../../components/auth';
-import { Background, MainView, StatusBarComponent } from '../../../components/ui';
+import { Background, KeyboardAvoidingViewComponent, MainView, StatusBarComponent } from '../../../components/ui';
 import { useAuthData } from '../../../hooks/useAuthData';
 import { appStyles } from '../../../theme/app-styles';
 import { styles } from './styles';
@@ -14,7 +14,7 @@ const RegisterScreen = () => {
       <Background />
       <StatusBarComponent color={colors.brandMainText} theme={'light-content'} />
       <AuthFormContainer>
-        <KeyboardAvoidingView style={appStyles.keyboardContainer} behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}>
+        <KeyboardAvoidingViewComponent>
           <ScrollView contentContainerStyle={appStyles.scrollContainer} keyboardShouldPersistTaps={'handled'} showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
               <AuthHeader title={'Crea tu cuenta'} subtitle={'Ingresa tus datos para crear una cuenta'} />
@@ -27,7 +27,7 @@ const RegisterScreen = () => {
             </View>
             <AuthFooter label={'¿Ya tienes una empresa registrada'} link={'Inicia sesión'} onPress={goToLogin} />
           </ScrollView>
-        </KeyboardAvoidingView>
+        </KeyboardAvoidingViewComponent>
       </AuthFormContainer>
     </MainView>
   );

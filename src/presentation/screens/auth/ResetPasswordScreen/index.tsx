@@ -1,7 +1,7 @@
 import React from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { AuthBackButton, AuthButton, AuthFormContainer, AuthHeader, RenderInputWithWarning, RenderWarningMessage } from '../../../components/auth';
-import { Background, MainView, StatusBarComponent } from '../../../components/ui';
+import { Background, KeyboardAvoidingViewComponent, MainView, StatusBarComponent } from '../../../components/ui';
 import { useAuthData } from '../../../hooks/useAuthData';
 import { appStyles } from '../../../theme/app-styles';
 import { styles } from './styles';
@@ -14,7 +14,7 @@ const ResetPasswordScreen = () => {
       <Background />
       <StatusBarComponent color={colors.brandMainText} theme={'light-content'} />
       <AuthFormContainer>
-        <KeyboardAvoidingView style={appStyles.keyboardContainer} behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}>
+        <KeyboardAvoidingViewComponent>
           <ScrollView contentContainerStyle={appStyles.scrollContainer} keyboardShouldPersistTaps={'handled'} showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
               <AuthBackButton onPress={goBack} />
@@ -28,7 +28,7 @@ const ResetPasswordScreen = () => {
               <AuthButton loading={loading} text={'Guardar e iniciar sesión'} onPress={onResetPassword} />
             </View>
           </ScrollView>
-        </KeyboardAvoidingView>
+        </KeyboardAvoidingViewComponent>
       </AuthFormContainer>
     </MainView>
   );

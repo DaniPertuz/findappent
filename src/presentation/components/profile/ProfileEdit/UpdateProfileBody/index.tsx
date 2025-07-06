@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import { Formik } from 'formik';
-import { Caption2 } from '../../../ui';
+import { Caption2, KeyboardAvoidingViewComponent } from '../../../ui';
 import { DescriptionInput, DefaultInput, DropdownComponent, PasswordInput, AddressInput } from '../../../ui/forms';
 import { IPlace } from '../../../../../core/entities';
 import { categories } from '../../../../../utils/categories';
@@ -32,7 +32,7 @@ const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
   } = useUpdateProfile({ place });
 
   return (
-    <KeyboardAvoidingView style={appStyles.keyboardContainer} behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}>
+    <KeyboardAvoidingViewComponent>
       <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps={'always'} showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
         <Formik
           initialValues={{
@@ -205,7 +205,7 @@ const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
           )}
         </Formik>
       </ScrollView>
-    </KeyboardAvoidingView>
+    </KeyboardAvoidingViewComponent>
   );
 };
 
