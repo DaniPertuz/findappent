@@ -8,7 +8,7 @@ export interface ProductState {
   addProduct: (product: IProduct) => Promise<IProduct>;
   getProduct: (id: string) => Promise<IProduct>;
   getProductsByPlace: (placeId: string) => Promise<IProduct[]>;
-  updateProduct: (id: string, data: IProduct) => Promise<IProduct>;
+  updateProduct: (id: string, data: Partial<IProduct>) => Promise<IProduct>;
   deleteProduct: (id: string) => Promise<IProduct>;
 }
 
@@ -25,7 +25,7 @@ export const useProductStore = create<ProductState>((set) => ({
       products: [...state.products, response.product as IProduct],
     }));
 
-    return product;
+    return response.product;
   },
   getProduct: async (id) => {
     const product = await ProductsUseCases.getProductsUseCase(`/products/${id}`);
@@ -67,7 +67,7 @@ export const useProductStore = create<ProductState>((set) => ({
     return response.product;
   },
   deleteProduct: async (id) => {
-    const response = await ProductsUseCases.deleteProductUseCase(`/products/${id}`);
+    const response = await ProductsUseCases.deleteProductUseCase(id);
     if (response.error || !response.product) {
       return {} as IProduct;
     }
