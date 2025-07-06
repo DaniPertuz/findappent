@@ -13,7 +13,7 @@ export type RootStackParams = {
   MainScreen: undefined,
   NewPasswordScreen: undefined,
   ProductsScreen: undefined,
-  ProductDetailsScreen: { product: IProduct, newItem: boolean; },
+  ProductDetailsScreen: { product: IProduct, newItem?: boolean; },
   Profile: undefined,
   RegisterScreen: undefined,
   UpdateProfileScreen: { place: IPlace; };
