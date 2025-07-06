@@ -4,7 +4,8 @@ export interface IProduct {
   _id?:        string;
   name:        string;
   description: string;
-  category:    string;
+  categories:  string[];
+  currency:    string;
   price:       number;
   place:       string;
   rate?:       NumericRate;
