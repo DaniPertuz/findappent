@@ -12,13 +12,13 @@ interface Props extends StackScreenProps<RootStackParams, 'ProductDetailsScreen'
 
 const ProductDetailsScreen: FC<Props> = ({ route }) => {
   const { colors } = useContext(ThemeContext);
-  const { product } = route.params;
+  const { product, newItem } = route.params;
   return (
     <>
       <StatusBarComponent color={colors.brandMainText} theme={'light-content'} />
       <View style={[styles.mainContainer, { backgroundColor: colors.background }]}>
         <ProductDetailsHeader product={product} />
-        <ProductItemForm product={product} />
+        <ProductItemForm product={product} newItem={newItem} />
       </View>
     </>
   );
