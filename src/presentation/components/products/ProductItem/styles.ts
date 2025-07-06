@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     borderRadius: 8,
-    marginBottom: 20,
     paddingHorizontal: 10,
     paddingVertical: 8,
   },
@@ -15,8 +14,8 @@ export const styles = StyleSheet.create({
   },
   productImageStyle: {
     borderRadius: 8,
-    height: 42,
-    width: 42,
+    height: 70,
+    width: 70,
   },
   productDetailsButtonContainer: {
     alignItems: 'center',
@@ -24,14 +23,14 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   productDetailsNameContainer: {
-    flex: 3,
+    flex: 2,
     justifyContent: 'center',
-    paddingEnd: 10,
   },
   productDetailsButtonStyle: {
     backgroundColor: '#207CFD',
-    borderRadius: 4,
     justifyContent: 'center',
-    padding: 5,
+    borderRadius: 8,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
   },
 });

@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingTop: 25,
+    paddingTop: 31,
   },
   itemInputsContainer: {
     marginHorizontal: 15,
