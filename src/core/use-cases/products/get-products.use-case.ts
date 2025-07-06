@@ -10,6 +10,6 @@ export const getProductsUseCase = async (url: string): Promise<ProductAPIRespons
     if (error instanceof AxiosError) {
       return error.response?.data;
     }
-    throw new Error('Error desconocido al obtener productos');
+    throw new Error('Error on getting products');
   }
 };

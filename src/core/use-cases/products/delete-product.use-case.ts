@@ -10,6 +10,6 @@ export const deleteProductUseCase = async (id: string): Promise<ProductAPIRespon
     if (error instanceof AxiosError) {
       return error.response?.data;
     }
-    throw new Error('Error desconocido al eliminar producto');
+    throw new Error('Error on deleting product');
   }
 };
