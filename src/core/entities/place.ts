@@ -18,6 +18,7 @@ export interface IPlace {
   photo?:      string;
   premium?:    number;
   pics:        string[];
+  videos:      string[];
   rate?:       NumericRate;
   status:      boolean;
 }
