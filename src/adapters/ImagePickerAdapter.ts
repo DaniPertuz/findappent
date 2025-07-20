@@ -1,9 +1,9 @@
-import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { ImagePickerResponse, launchCamera, launchImageLibrary, MediaType } from 'react-native-image-picker';
 
 export class ImagePickerAdapter {
-  static async takePicture(): Promise<ImagePickerResponse> {
+  static async takeMultimedia(mediaType: MediaType): Promise<ImagePickerResponse> {
     const response = await launchCamera({
-      mediaType: 'photo',
+      mediaType,
       quality: 0.8,
       cameraType: 'back',
     });
@@ -11,9 +11,9 @@ export class ImagePickerAdapter {
     return response;
   }
 
-  static async getPicturesFromLibrary(selectionLimit: number): Promise<ImagePickerResponse> {
+  static async getMultimediaFromLibrary(mediaType: MediaType, selectionLimit: number): Promise<ImagePickerResponse> {
     const response = await launchImageLibrary({
-      mediaType: 'photo',
+      mediaType,
       quality: 0.8,
       selectionLimit,
     });
