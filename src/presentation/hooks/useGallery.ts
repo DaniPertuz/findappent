@@ -7,6 +7,7 @@ import { deleteCloudinaryPic, handleUpdateCloudinaryPic } from './useCloudinaryO
 export const useGallery = () => {
   const [profilePicture, setProfilePicture] = useState<ImagePickerResponse>();
   const [placeImages, setPlaceImages] = useState<string[]>([]);
+  const [placeVideos, setPlaceVideos] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const user = useAuthStore(state => state.authResponse.user);
   const setUser = useAuthStore(state => state.setUser);
@@ -14,7 +15,7 @@ export const useGallery = () => {
   const { place, updatePlacePhoto, updateUserPhoto } = usePlaceStore();
 
   const selectProfilePicture = async () => {
-    const picture = await ImagePickerAdapter.getPicturesFromLibrary(1);
+    const picture = await ImagePickerAdapter.getMultimediaFromLibrary('photo', 1);
 
     if (!picture || !picture.assets) { return; }
 
@@ -22,7 +23,7 @@ export const useGallery = () => {
   };
 
   const takeProfilePicture = async () => {
-    const picture = await ImagePickerAdapter.takePicture();
+    const picture = await ImagePickerAdapter.takeMultimedia('photo');
 
     if (!picture || !picture.assets) { return; }
 
@@ -32,7 +33,7 @@ export const useGallery = () => {
   const addGalleryPic = async () => {
     setLoading(true);
     try {
-      const resp = await ImagePickerAdapter.getPicturesFromLibrary(1);
+      const resp = await ImagePickerAdapter.getMultimediaFromLibrary('photo', 1);
       if (resp.didCancel || !resp.assets || resp.assets.length === 0) {
         return;
       }
@@ -51,7 +52,7 @@ export const useGallery = () => {
   const addGalleryPics = async (limit: number) => {
     setLoading(true);
     try {
-      const resp = await ImagePickerAdapter.getPicturesFromLibrary(limit);
+      const resp = await ImagePickerAdapter.getMultimediaFromLibrary('photo', limit);
 
       if (resp.didCancel || !resp.assets || resp.assets.length === 0) {
         return;
@@ -72,7 +73,7 @@ export const useGallery = () => {
   const addPhoto = async () => {
     setLoading(true);
     try {
-      const resp = await ImagePickerAdapter.takePicture();
+      const resp = await ImagePickerAdapter.takeMultimedia('photo');
       if (resp.didCancel || !resp.assets![0].uri) { return; }
 
       const uri = resp.assets![0].uri;
@@ -94,7 +95,13 @@ export const useGallery = () => {
         return;
       }
 
-      const img = await handleUpdateCloudinaryPic(profilePicture, user?._id!, true, true, user?.photo);
+      const img = await handleUpdateCloudinaryPic({
+        data: profilePicture,
+        userId: user?._id!,
+        profile: true,
+        deleteExisting: true,
+        existingImg: user?.photo,
+      });
 
       const [respPlace, respUser] = await Promise.all([
         updatePlacePhoto(place?._id!, img[0]),
@@ -126,13 +133,13 @@ export const useGallery = () => {
         await Promise.all(imagesToDelete.map(img => deleteCloudinaryPic(img)));
       }
       const remainingPics = oldPics.filter(pic => !imagesToDelete.includes(pic));
-      const updatedPics = await handleUpdateCloudinaryPic(
-        response,
-        user?._id!,
-        false,
-        false,
-        remainingPics,
-      );
+      const updatedPics = await handleUpdateCloudinaryPic({
+        data: response,
+        userId: user?._id!,
+        profile: false,
+        deleteExisting: false,
+        existingImg: remainingPics,
+      });
 
       clearImagesToDelete();
 
@@ -144,18 +151,77 @@ export const useGallery = () => {
     }
   };
 
+  const addGalleryVideo = async () => {
+  setLoading(true);
+  try {
+    const resp = await ImagePickerAdapter.getMultimediaFromLibrary('video', 1);
+    if (resp.didCancel || !resp.assets || resp.assets.length === 0) {
+      return;
+    }
+
+    const uri = resp.assets![0].uri;
+    setPlaceVideos([uri!]);
+    setResponse(resp);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+const addGalleryVideos = async (limit: number) => {
+  setLoading(true);
+  try {
+    const resp = await ImagePickerAdapter.getMultimediaFromLibrary('video', limit);
+    if (resp.didCancel || !resp.assets || resp.assets.length === 0) {
+      return;
+    }
+
+    const uris = resp.assets.map(asset => asset.uri).filter((uri): uri is string => !!uri);
+    setPlaceVideos(prevVideos => [...prevVideos, ...uris]);
+    setResponse(resp);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+const addVideo = async () => {
+  setLoading(true);
+  try {
+    const resp = await ImagePickerAdapter.takeMultimedia('video');
+    if (resp.didCancel || !resp.assets || !resp.assets[0].uri) {
+      return;
+    }
+
+    const uri = resp.assets[0].uri;
+    setPlaceVideos(prevVideos => [...prevVideos, uri]);
+    setResponse(resp);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+};
+
   useEffect(() => {
     setPlaceImages(place?.pics || []);
+    setPlaceVideos(place?.videos || []);
   }, [place]);
 
   return {
     loading,
     placeImages,
+    placeVideos,
     profilePicture,
     response,
     addGalleryPic,
     addGalleryPics,
+    addGalleryVideo,
+    addGalleryVideos,
     addPhoto,
+    addVideo,
     selectProfilePicture,
     setPlaceImages,
     setProfilePicture,
