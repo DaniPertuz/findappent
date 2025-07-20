@@ -6,7 +6,15 @@ const headers = {
   'Content-Type': 'multipart/form-data',
 };
 
-export const handleUpdateCloudinaryPic = async (data: ImagePickerResponse, userId: string, profile: boolean, deleteExisting: boolean = false, existingImg: string | string[] | undefined = undefined): Promise<string[]> => {
+interface CloudinaryOpsProps {
+  data: ImagePickerResponse;
+  userId: string;
+  profile: boolean;
+  deleteExisting: boolean;
+  existingImg: string | string[] | undefined;
+}
+
+export const handleUpdateCloudinaryPic = async ({ data, userId, profile, deleteExisting, existingImg }: CloudinaryOpsProps): Promise<string[]> => {
   try {
     let pics: string[] = [];
 
@@ -27,16 +35,18 @@ export const handleUpdateCloudinaryPic = async (data: ImagePickerResponse, userI
 
       if (uri?.startsWith('http')) { continue; }
 
+      const isVideo = type?.startsWith('video');
+
       const fileToUpload = {
         uri,
         type,
-        name: fileName ?? `image-${Date.now()}`,
+        name: fileName ?? `${isVideo ? 'video' : 'image'}-${Date.now()}`,
       };
 
       const uploadData = new FormData();
       uploadData.append('file', fileToUpload);
       uploadData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-      uploadData.append('folder', `findapp/users/${userId}/${profile ? 'profile' : 'gallery'}`);
+      uploadData.append('folder', `findapp/users/${userId}/${profile ? 'profile' : isVideo ? 'videos' : 'gallery'}`);
 
       const upload = await fetch(CLOUDINARY_UPLOAD_PIC_URL, {
         method: 'POST',
