@@ -9,6 +9,6 @@ export interface IProduct {
   price:       number;
   place:       string;
   rate?:       NumericRate;
-  img?:        string;
+  imgs?:       string[];
   status?:     boolean;
 }
