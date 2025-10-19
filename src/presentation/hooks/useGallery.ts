@@ -224,6 +224,7 @@ const addVideo = async () => {
     addVideo,
     selectProfilePicture,
     setPlaceImages,
+    setPlaceVideos,
     setProfilePicture,
     takeProfilePicture,
     uploadPics,
