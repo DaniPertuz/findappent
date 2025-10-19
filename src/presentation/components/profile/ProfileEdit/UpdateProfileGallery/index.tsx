@@ -3,9 +3,9 @@ import { StyleSheet, View } from 'react-native';
 import { useGallery } from '../../../../hooks/useGallery';
 import { WarningMessage } from '../../../auth';
 import { Caption2 } from '../../../ui';
-import GalleryItemsList from '../gallery/GalleryItemsList';
-import GalleryLoadingModal from '../gallery/GalleryLoadingModal';
-import GalleryQueryModal from '../gallery/GalleryQueryModal';
+import GalleryItemsList from '../products/GalleryItemsList';
+import GalleryLoadingModal from '../products/GalleryLoadingModal';
+import GalleryQueryModal from '../products/GalleryQueryModal';
 import FormItemContainer from '../FormItemContainer';
 import { useGalleryStore, usePlaceStore } from '../../../../../store';
 import { ThemeContext } from '../../../../theme/ThemeContext';
@@ -28,16 +28,14 @@ const UpdateProfileGallery: FC = () => {
     setPlaceImages(prevImages => prevImages.filter((_, i) => i !== index));
   };
 
-  const handleAddImage = () => {
-    setModalVisible(true);
-  };
+  const handleAddImage = () => setModalVisible(true);
 
   return (
     <>
       <FormItemContainer>
         <Caption2 customColor={colors.mainText}>Imágenes</Caption2>
         <View style={styles.container}>
-          <GalleryItemsList placeImages={placeImages} removeImage={removeImage} onAddImage={handleAddImage} />
+          <GalleryItemsList images={placeImages} removeImage={removeImage} onAddImage={handleAddImage} />
           <GalleryLoadingModal loading={loading} />
         </View>
         {place?.premium === 2 && placeImages.length < 2 && <WarningMessage text={`Puede agregar ${diff === 1 ? 'una imagen' : 'hasta 2 imágenes'}`} />}
