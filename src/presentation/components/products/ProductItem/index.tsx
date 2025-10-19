@@ -4,10 +4,10 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParams } from '../../../navigation/MainNavigator';
 import { IProduct } from '../../../../core/entities';
-import { styles } from './styles';
-import { ThemeContext } from '../../../theme/ThemeContext';
 import { getIconUrl } from '../../../../utils/icon-url';
 import { BodySmall, Subheadline } from '../../ui';
+import { ThemeContext } from '../../../theme/ThemeContext';
+import { styles } from './styles';
 
 interface Props {
   product: IProduct;
@@ -16,8 +16,8 @@ interface Props {
 const ProductItem = ({ product }: Props) => {
   const { colors, currentTheme } = useContext(ThemeContext);
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
-  const { name, img } = product;
-  const imageUri = img || getIconUrl('', currentTheme, false);
+  const { name, imgs } = product;
+  const imageUri = imgs ? imgs.find(img => img.main === true)?.img : getIconUrl('product', currentTheme, false);
 
   const handlePress = () => navigation.navigate('ProductDetailsScreen', { product });
 
