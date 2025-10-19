@@ -3,13 +3,12 @@ import { ScrollView, StyleSheet } from 'react-native';
 import { AddEditButton } from '../../../../ui';
 import { usePlaceStore } from '../../../../../../store';
 import GalleryItem from '../GalleryItem';
-import { ProductImg } from '../../../../../../core/entities';
 
 interface Props {
-  images: (string | ProductImg)[];
+  images: string[];
   removeImage: (index: number) => void;
   onAddImage: () => void;
-  onUpdateImages?: (updated: (string | ProductImg)[]) => void;
+  onUpdateImages?: (updated: string[]) => void;
 }
 
 const GalleryItemsList: FC<Props> = ({ images, removeImage, onAddImage }) => {
@@ -27,7 +26,7 @@ const GalleryItemsList: FC<Props> = ({ images, removeImage, onAddImage }) => {
       {images.map((image, index) => (
         <GalleryItem
           key={index}
-          uri={typeof image === 'string' ? image : image.img}
+          uri={image}
           onRemove={() => removeImage(index)}
         />
       ))}

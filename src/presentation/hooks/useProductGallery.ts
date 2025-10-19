@@ -2,15 +2,14 @@ import { useEffect, useState } from 'react';
 import { ImagePickerAdapter } from '../../adapters/ImagePickerAdapter';
 import { useGalleryStore, useAuthStore, usePlaceStore } from '../../store';
 import { deleteCloudinaryPic, handleUpdateCloudinaryPic } from './useCloudinaryOperation';
-import { ProductImg } from '../../core/entities';
 
 interface UseProductGalleryProps {
-  initialImages?: (string | ProductImg)[];
-  onImagesChange?: (images: (string | ProductImg)[]) => void;
+  initialImages?: string[];
+  onImagesChange?: (images: string[]) => void;
 }
 
 export const useProductGallery = ({ initialImages = [], onImagesChange }: UseProductGalleryProps = {}) => {
-  const [productImages, setProductImages] = useState<(string | ProductImg)[]>(initialImages);
+  const [productImages, setProductImages] = useState<string[]>(initialImages);
   const [loading, setLoading] = useState(false);
   const user = useAuthStore(state => state.authResponse.user);
   const { response, setResponse, imagesToDelete, clearImagesToDelete } = useGalleryStore();
