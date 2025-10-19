@@ -11,6 +11,6 @@ export const updateProductUseCase = async (url: string, product: Partial<IProduc
     if (error instanceof AxiosError) {
       return error.response?.data;
     }
-    throw new Error('Error on updating product: ' + error.message);
+    throw new Error('Error on updating product: ' + JSON.stringify(error.response?.data));
   }
 };
