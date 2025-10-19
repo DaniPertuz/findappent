@@ -7,18 +7,19 @@ import * as Yup from 'yup';
 import { WarningMessage } from '../../auth';
 import { RootStackParams } from '../../../navigation/MainNavigator';
 import { IProduct } from '../../../../core/entities';
+import { useProductGallery } from '../../../hooks/useProductGallery';
+import { handleUpdateCloudinaryPic } from '../../../hooks/useCloudinaryOperation';
 import { useProductStore } from '../../../../store/productStore';
 import { deviceHeight } from '../../../../utils/dimensions';
 import { getIconUrl } from '../../../../utils/icon-url';
-import { usePlaceStore } from '../../../../store';
+import { useAuthStore, usePlaceStore } from '../../../../store';
 import FormItemContainer from '../../profile/ProfileEdit/FormItemContainer';
 import GalleryItemsList from '../../profile/ProfileEdit/products/GalleryItemsList';
+import GalleryQueryModal from '../../profile/ProfileEdit/products/GalleryQueryModal';
 import { Body, ButtonComponent, Caption2, KeyboardAvoidingViewComponent } from '../../ui';
 import { CategoryInput, DefaultInput, DescriptionInput } from '../../ui/forms';
 import { appStyles } from '../../../theme/app-styles';
 import { ThemeContext } from '../../../theme/ThemeContext';
-import GalleryQueryModal from '../../profile/ProfileEdit/products/GalleryQueryModal';
-import { useProductGallery } from '../../../hooks/useProductGallery';
 
 interface Props {
   product: IProduct;
@@ -39,6 +40,7 @@ const ProductItemForm: FC<Props> = ({ product, newItem }) => {
   const [loading, setLoading] = useState(false);
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const user = useAuthStore(state => state.authResponse.user);
   const place = usePlaceStore(state => state.place);
   const { addProduct, deleteProduct, updateProduct } = useProductStore();
   const { addProductPhoto, addProductPics, productImages } = useProductGallery({
@@ -79,8 +81,11 @@ const ProductItemForm: FC<Props> = ({ product, newItem }) => {
       payload.price = Number(current.price);
     }
 
-    if (original.imgs !== current.imgs?.trim()) {
-      payload.imgs = current.img?.trim();
+    if (
+      Array.isArray(current.imgs) &&
+      JSON.stringify(original.imgs) !== JSON.stringify(current.imgs)
+    ) {
+      payload.imgs = current.imgs;
     }
 
     const cleanedCategories = current.categories.map((cat: string) => cat.trim());
@@ -94,44 +99,83 @@ const ProductItemForm: FC<Props> = ({ product, newItem }) => {
     return payload;
   };
 
-  const onSubmit = async (values: any) => {
+  const onSubmit = async (values: IProduct) => {
     try {
       setLoading(true);
 
+      const currentImgs = productImages.length > 0 ? productImages : product.imgs || [];
+
+      const localImages = currentImgs.filter(img => img.startsWith('file://'));
+      const remoteImages = currentImgs.filter(img => !img.startsWith('file://'));
+
+      let uploadedImages: string[] = [];
+      if (localImages.length > 0) {
+        const data = {
+          assets: localImages.map(uri => ({
+            uri,
+            type: 'image/jpeg',
+            fileName: uri.split('/').pop(),
+          })),
+        };
+
+        uploadedImages = await handleUpdateCloudinaryPic({
+          data,
+          userId: user?._id!,
+          profile: false,
+          deleteExisting: place?.premium === 1,
+          existingImg: remoteImages,
+        });
+      }
+
+      let finalImgs: string[] = [];
+      const mergedImgs = [...uploadedImages, ...remoteImages];
+
+      switch (place?.premium) {
+        case 1:
+          finalImgs = uploadedImages.length > 0 ? uploadedImages : remoteImages;
+          break;
+        case 2:
+          finalImgs = mergedImgs.slice(0, 2);
+          break;
+        default:
+          finalImgs = mergedImgs;
+      }
+
+      formikRef.current.setFieldValue('imgs', finalImgs);
+
       const productToSave: IProduct = {
         ...values,
-        price: Number(values.price),
-        place: product.place,
         name: values.name.trim(),
         description: values.description.trim(),
-        categories: values.categories.map((cat: string) => cat.trim()),
-        currency: 'COP', // Assuming currency is always COP for now
-        img: values.img?.trim() || getIconUrl('fa_blue', currentTheme, false),
+        price: Number(values.price),
+        categories: values.categories.map(cat => cat.trim()),
+        currency: 'COP',
+        place: product.place,
+        imgs: finalImgs,
       };
 
       if (newItem) {
         const add = await addProduct(productToSave);
-        if (add) {
-          navigation.goBack();
-        }
+        if (add) { }
       } else if (product._id) {
-        const updatePayload = buildUpdatePayload(product, values);
+        const updatePayload = buildUpdatePayload(product, productToSave);
         const updateAction = await updateProduct(product._id, updatePayload);
-        if (updateAction) {
-          navigation.goBack();
-        }
+        if (updateAction) { }
       }
+
     } catch (error) {
+      console.error('Error al guardar producto:', error);
+    } finally {
       setLoading(false);
-      return;
+      navigation.goBack();
     }
   };
 
   const onDelete = async () => {
     try {
       setLoadingDelete(true);
-      const response = await deleteProduct(product._id!);
-      if (response) {
+      const responseDelete = await deleteProduct(product._id!);
+      if (responseDelete) {
         setLoadingDelete(false);
         navigation.goBack();
       }
