@@ -1,21 +1,24 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useContext, useEffect, useRef, useState } from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { WarningMessage } from '../../auth';
+import { RootStackParams } from '../../../navigation/MainNavigator';
 import { IProduct } from '../../../../core/entities';
 import { useProductStore } from '../../../../store/productStore';
 import { deviceHeight } from '../../../../utils/dimensions';
 import { getIconUrl } from '../../../../utils/icon-url';
-import { RootStackParams } from '../../../navigation/MainNavigator';
-import { WarningMessage } from '../../auth';
+import { usePlaceStore } from '../../../../store';
 import FormItemContainer from '../../profile/ProfileEdit/FormItemContainer';
+import GalleryItemsList from '../../profile/ProfileEdit/products/GalleryItemsList';
 import { Body, ButtonComponent, Caption2, KeyboardAvoidingViewComponent } from '../../ui';
 import { CategoryInput, DefaultInput, DescriptionInput } from '../../ui/forms';
 import { appStyles } from '../../../theme/app-styles';
 import { ThemeContext } from '../../../theme/ThemeContext';
-import { usePlaceStore } from '../../../../store';
+import GalleryQueryModal from '../../profile/ProfileEdit/products/GalleryQueryModal';
+import { useProductGallery } from '../../../hooks/useProductGallery';
 
 interface Props {
   product: IProduct;
@@ -23,22 +26,32 @@ interface Props {
 }
 
 const ProductItemForm: FC<Props> = ({ product, newItem }) => {
-  const { colors, currentTheme } = useContext(ThemeContext);
-  const [loading, setLoading] = useState(false);
-  const [loadingDelete, setLoadingDelete] = useState(false);
-  const place = usePlaceStore(state => state.place);
-  const { addProduct, deleteProduct, updateProduct } = useProductStore();
-  const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
-
   const initialValues: IProduct = {
     name: product.name || '',
     description: product.description || '',
     price: product.price || 0,
-    img: product.img || '',
+    imgs: product.imgs || [],
     categories: product.categories || [],
     place: product.place || '',
     currency: product.currency || 'COP', // Assuming currency is always COP for now
   };
+  const { colors, currentTheme } = useContext(ThemeContext);
+  const [loading, setLoading] = useState(false);
+  const [loadingDelete, setLoadingDelete] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const place = usePlaceStore(state => state.place);
+  const { addProduct, deleteProduct, updateProduct } = useProductStore();
+  const { addProductPhoto, addProductPics, productImages } = useProductGallery({
+    initialImages: product.imgs || [],
+  });
+  const formikRef = useRef<any>(null);
+  const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
+  const diff = (place?.premium === 1 ? 1 : 2) - (product.imgs ? product.imgs.length : 0);
+  const amount = place?.premium === 1
+    ? 1
+    : place?.premium === 2
+      ? Math.max(diff, 0)
+      : 100;
 
   const validationSchema = Yup.object({
     name: Yup.string().required('Nombre es requerido'),
@@ -66,8 +79,8 @@ const ProductItemForm: FC<Props> = ({ product, newItem }) => {
       payload.price = Number(current.price);
     }
 
-    if (original.img !== current.img?.trim()) {
-      payload.img = current.img?.trim();
+    if (original.imgs !== current.imgs?.trim()) {
+      payload.imgs = current.img?.trim();
     }
 
     const cleanedCategories = current.categories.map((cat: string) => cat.trim());
@@ -128,78 +141,95 @@ const ProductItemForm: FC<Props> = ({ product, newItem }) => {
     }
   };
 
+  const addProductImage = () => setModalVisible(true);
+
+  useEffect(() => {
+    if (formikRef.current && productImages.length > 0) {
+      formikRef.current.setFieldValue('imgs', productImages);
+    }
+  }, [productImages]);
+
   return (
     <KeyboardAvoidingViewComponent>
       <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps={'always'} showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
         <Formik
+          innerRef={formikRef}
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
           enableReinitialize
         >
-          {({ handleChange, setFieldValue, errors, touched, values }) => (
-            <View style={styles.fieldsGap}>
-              <FormItemContainer>
-                <Caption2 customColor={colors.mainText}>Nombre del producto</Caption2>
-                <DefaultInput
-                  field={values.name}
-                  fieldValue={'name'}
-                  placeholder={'Nombre del producto'}
-                  iconElement={
-                    <Image
-                      source={{ uri: getIconUrl('edit', currentTheme, true) }}
-                      style={appStyles.inputIcon}
-                    />
-                  }
-                  keyboardType={'default'}
-                  onChange={handleChange('name')}
+          {({ handleChange, setFieldValue, errors, touched, values }) => {
+            return (
+              <View style={styles.fieldsGap}>
+                <FormItemContainer>
+                  <Caption2 customColor={colors.mainText}>Nombre del producto</Caption2>
+                  <DefaultInput
+                    field={values.name}
+                    fieldValue={'name'}
+                    placeholder={'Nombre del producto'}
+                    iconElement={
+                      <Image
+                        source={{ uri: getIconUrl('edit', currentTheme, true) }}
+                        style={appStyles.inputIcon}
+                      />
+                    }
+                    keyboardType={'default'}
+                    onChange={handleChange('name')}
+                  />
+                  {(errors.name && touched.name) && <WarningMessage text={String(errors.name)} />}
+                </FormItemContainer>
+                <FormItemContainer>
+                  <Caption2 customColor={colors.mainText}>Descripción</Caption2>
+                  <DescriptionInput description={values.description} onChange={handleChange('description')} />
+                  {errors.description && <WarningMessage text={String(errors.description)} />}
+                </FormItemContainer>
+                <FormItemContainer>
+                  <Caption2 customColor={colors.mainText}>Precio</Caption2>
+                  <DefaultInput
+                    field={String(values.price)}
+                    fieldValue={'phone'}
+                    placeholder={'Precio'}
+                    iconElement={
+                      <Image
+                        source={{ uri: getIconUrl('money', currentTheme, true) }}
+                        style={appStyles.inputIcon}
+                      />
+                    }
+                    keyboardType={'numeric'}
+                    onChange={handleChange('price')}
+                  />
+                  {(errors.price && touched.price) && <WarningMessage text={String(errors.price)} />}
+                </FormItemContainer>
+                <FormItemContainer>
+                  <Caption2 customColor={colors.mainText}>Categorías</Caption2>
+                  <CategoryInput
+                    value={values.categories}
+                    onChange={(newCategories) => setFieldValue('categories', newCategories)}
+                    placeholder={'Agregar categoría'}
+                  />
+                  {(errors.categories && touched.categories) && <WarningMessage text={String(errors.categories)} />}
+                </FormItemContainer>
+                <Caption2 customColor={colors.mainText}>{place?.premium === 1 ? 'Imagen' : 'Imágenes'} del producto</Caption2>
+                <GalleryItemsList
+                  images={productImages.length > 0 ? productImages : values.imgs ?? []}
+                  removeImage={(index) => {
+                    const updatedImgs = [...values.imgs!];
+                    updatedImgs.splice(index, 1);
+                    setFieldValue('imgs', updatedImgs);
+                  }}
+                  onAddImage={addProductImage}
                 />
-                {(errors.name && touched.name) && <WarningMessage text={String(errors.name)} />}
-              </FormItemContainer>
-              <FormItemContainer>
-                <Caption2 customColor={colors.mainText}>Descripción</Caption2>
-                <DescriptionInput description={values.description} onChange={handleChange('description')} />
-                {errors.description && <WarningMessage text={String(errors.description)} />}
-              </FormItemContainer>
-              <FormItemContainer>
-                <Caption2 customColor={colors.mainText}>Precio</Caption2>
-                <DefaultInput
-                  field={String(values.price)}
-                  fieldValue={'phone'}
-                  placeholder={'Precio'}
-                  iconElement={
-                    <Image
-                      source={{ uri: getIconUrl('money', currentTheme, true) }}
-                      style={appStyles.inputIcon}
-                    />
-                  }
-                  keyboardType={'numeric'}
-                  onChange={handleChange('price')}
-                />
-                {(errors.price && touched.price) && <WarningMessage text={String(errors.price)} />}
-              </FormItemContainer>
-              <FormItemContainer>
-                <Caption2 customColor={colors.mainText}>Categorías</Caption2>
-                <CategoryInput
-                  value={values.categories}
-                  onChange={(newCategories) => setFieldValue('categories', newCategories)}
-                  placeholder={'Agregar categoría'}
-                />
-                {(errors.categories && touched.categories) && <WarningMessage text={String(errors.categories)} />}
-              </FormItemContainer>
-              <Caption2 customColor={colors.mainText}>{place?.premium === 1 ? 'Imagen' : 'Imágenes'} del producto</Caption2>
-              <Image
-                source={{ uri: values.img || getIconUrl('product', currentTheme, false) }}
-                style={styles.image}
-              />
-              <ButtonComponent disabled={loading} loading={loading} onPress={() => onSubmit(values)}>
-                <Body customColor={colors.brandWhite}>{newItem ? 'Agregar' : 'Guardar cambios'}</Body>
-              </ButtonComponent>
-              <ButtonComponent customStyle={{ backgroundColor: colors.error }} disabled={loadingDelete} loading={loadingDelete} onPress={onDelete}>
-                <Body customColor={colors.brandWhite}>Eliminar</Body>
-              </ButtonComponent>
-            </View>
-          )}
+                <GalleryQueryModal addGalleryPics={() => addProductPics(amount)} addPhoto={addProductPhoto} modalVisible={modalVisible} setModalVisible={setModalVisible} />
+                <ButtonComponent disabled={loading} loading={loading} onPress={() => onSubmit(values)}>
+                  <Body customColor={colors.brandWhite}>{newItem ? 'Agregar' : 'Guardar cambios'}</Body>
+                </ButtonComponent>
+                <ButtonComponent customStyle={{ backgroundColor: colors.error }} disabled={loadingDelete} loading={loadingDelete} onPress={onDelete}>
+                  <Body customColor={colors.brandWhite}>Eliminar</Body>
+                </ButtonComponent>
+              </View>
+            );
+          }}
         </Formik>
       </ScrollView>
     </KeyboardAvoidingViewComponent>
