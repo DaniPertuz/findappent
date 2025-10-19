@@ -43,6 +43,7 @@ export const useUpdateProfile = ({ place }: { place: IPlace; }) => {
     schedule: place.schedule ?? [],
     pics: place.pics ?? [],
     status: place.status ?? false,
+    videos: place.videos ?? [],
   };
 
   const validationSchema = Yup.object({
