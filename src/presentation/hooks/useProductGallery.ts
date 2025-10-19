@@ -108,6 +108,7 @@ export const useProductGallery = ({ initialImages = [], onImagesChange }: UsePro
   return {
     loading,
     productImages,
+    response,
     setProductImages,
     addProductPhoto,
     addProductPics,
