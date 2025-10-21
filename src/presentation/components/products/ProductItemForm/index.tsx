@@ -43,10 +43,12 @@ const ProductItemForm: FC<Props> = ({ product, newItem }) => {
   const user = useAuthStore(state => state.authResponse.user);
   const place = usePlaceStore(state => state.place);
   const { addProduct, deleteProduct, updateProduct } = useProductStore();
-  const { addProductPhoto, addProductPics, productImages } = useProductGallery({
+  const { addProductPhoto, addProductPics, setProductImages, productImages } = useProductGallery({
     initialImages: product.imgs || [],
   });
   const formikRef = useRef<any>(null);
+  const lastRemovedIndexRef = useRef<number | null>(null);
+  const syncingRef = useRef<boolean>(false);
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
   const diff = (place?.premium === 1 ? 1 : 2) - (product.imgs ? product.imgs.length : 0);
   const amount = place?.premium === 1
@@ -81,13 +83,6 @@ const ProductItemForm: FC<Props> = ({ product, newItem }) => {
       payload.price = Number(current.price);
     }
 
-    if (
-      Array.isArray(current.imgs) &&
-      JSON.stringify(original.imgs) !== JSON.stringify(current.imgs)
-    ) {
-      payload.imgs = current.imgs;
-    }
-
     const cleanedCategories = current.categories.map((cat: string) => cat.trim());
     if (
       original.categories.length !== cleanedCategories.length ||
@@ -102,9 +97,9 @@ const ProductItemForm: FC<Props> = ({ product, newItem }) => {
   const onSubmit = async (values: IProduct) => {
     try {
       setLoading(true);
+      syncingRef.current = true;
 
-      const currentImgs = productImages.length > 0 ? productImages : product.imgs || [];
-
+      const currentImgs = [...(values.imgs || [])];
       const localImages = currentImgs.filter(img => img.startsWith('file://'));
       const remoteImages = currentImgs.filter(img => !img.startsWith('file://'));
 
@@ -127,19 +122,26 @@ const ProductItemForm: FC<Props> = ({ product, newItem }) => {
         });
       }
 
-      let finalImgs: string[] = [];
-      const mergedImgs = [...uploadedImages, ...remoteImages];
+      let finalImgs = [...remoteImages];
 
-      switch (place?.premium) {
-        case 1:
-          finalImgs = uploadedImages.length > 0 ? uploadedImages : remoteImages;
-          break;
-        case 2:
-          finalImgs = mergedImgs.slice(0, 2);
-          break;
-        default:
-          finalImgs = mergedImgs;
+      if (uploadedImages.length > 0) {
+        const newUploaded = uploadedImages.filter(u => !remoteImages.includes(u) && !finalImgs.includes(u));
+
+        if (newUploaded.length > 0) {
+          if (lastRemovedIndexRef.current !== null) {
+            finalImgs.push(...newUploaded);
+            lastRemovedIndexRef.current = null;
+          } else {
+            finalImgs.push(...newUploaded);
+          }
+
+          setProductImages(finalImgs);
+        }
       }
+
+      finalImgs = Array.from(new Set(finalImgs));
+      const maxImages = place?.premium === 1 ? 1 : place?.premium === 2 ? 2 : 100;
+      finalImgs = finalImgs.slice(0, maxImages);
 
       formikRef.current.setFieldValue('imgs', finalImgs);
 
@@ -155,17 +157,17 @@ const ProductItemForm: FC<Props> = ({ product, newItem }) => {
       };
 
       if (newItem) {
-        const add = await addProduct(productToSave);
-        if (add) { }
+        await addProduct(productToSave);
       } else if (product._id) {
         const updatePayload = buildUpdatePayload(product, productToSave);
-        const updateAction = await updateProduct(product._id, updatePayload);
-        if (updateAction) { }
+        updatePayload.imgs = finalImgs;
+        await updateProduct(product._id, updatePayload);
       }
 
     } catch (error) {
       console.error('Error al guardar producto:', error);
     } finally {
+      syncingRef.current = false;
       setLoading(false);
       navigation.goBack();
     }
@@ -188,10 +190,21 @@ const ProductItemForm: FC<Props> = ({ product, newItem }) => {
   const addProductImage = () => setModalVisible(true);
 
   useEffect(() => {
-    if (formikRef.current && productImages.length > 0) {
-      formikRef.current.setFieldValue('imgs', productImages);
+    if (!formikRef.current || syncingRef.current) { return; }
+
+    const maxImages = place?.premium === 1 ? 1 : place?.premium === 2 ? 2 : 100;
+
+    const uniqueImgs = Array.from(new Set(productImages)).slice(0, maxImages);
+    const currentImgs = formikRef.current.values.imgs ?? [];
+
+    if (JSON.stringify(currentImgs) !== JSON.stringify(uniqueImgs)) {
+      const mergedImgs = currentImgs.filter((img: string) => uniqueImgs.includes(img));
+      const newImgs = uniqueImgs.filter(img => !mergedImgs.includes(img));
+      const finalImgs = [...mergedImgs, ...newImgs].slice(0, maxImages);
+
+      formikRef.current.setFieldValue('imgs', finalImgs);
     }
-  }, [productImages]);
+  }, [productImages, place?.premium]);
 
   return (
     <KeyboardAvoidingViewComponent>
@@ -256,11 +269,15 @@ const ProductItemForm: FC<Props> = ({ product, newItem }) => {
                 </FormItemContainer>
                 <Caption2 customColor={colors.mainText}>{place?.premium === 1 ? 'Imagen' : 'Imágenes'} del producto</Caption2>
                 <GalleryItemsList
-                  images={productImages.length > 0 ? productImages : values.imgs ?? []}
+                  images={values.imgs ?? []}
                   removeImage={(index) => {
                     const updatedImgs = [...values.imgs!];
                     updatedImgs.splice(index, 1);
                     setFieldValue('imgs', updatedImgs);
+
+                    setProductImages((prev) => prev.filter((_, i) => i !== index));
+
+                    lastRemovedIndexRef.current = index;
                   }}
                   onAddImage={addProductImage}
                 />
