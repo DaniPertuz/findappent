@@ -101,10 +101,6 @@ export const useProductGallery = ({ initialImages = [], onImagesChange }: UsePro
     }
   };
 
-  useEffect(() => {
-    console.log({ productImages, response });
-  }, [productImages, response]);
-
   return {
     loading,
     productImages,
