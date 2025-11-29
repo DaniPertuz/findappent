@@ -14,8 +14,8 @@ import { deviceHeight } from '../../../../utils/dimensions';
 import { getIconUrl } from '../../../../utils/icon-url';
 import { useAuthStore, usePlaceStore } from '../../../../store';
 import FormItemContainer from '../../profile/ProfileEdit/FormItemContainer';
-import GalleryItemsList from '../../profile/ProfileEdit/products/GalleryItemsList';
-import GalleryQueryModal from '../../profile/ProfileEdit/products/GalleryQueryModal';
+import GalleryItemsList from '../../profile/ProfileEdit/profile/gallery/GalleryItemsList';
+import GalleryQueryModal from '../../profile/ProfileEdit/profile/gallery/GalleryQueryModal';
 import { Body, ButtonComponent, Caption2, KeyboardAvoidingViewComponent } from '../../ui';
 import { CategoryInput, DefaultInput, DescriptionInput } from '../../ui/forms';
 import { appStyles } from '../../../theme/app-styles';
@@ -31,7 +31,11 @@ const ProductItemForm: FC<Props> = ({ product, newItem }) => {
     name: product.name || '',
     description: product.description || '',
     price: product.price || 0,
-    imgs: product.imgs || [],
+    imgs: product.imgs?.map(img =>
+      typeof img === 'string'
+        ? { img, main: false }
+        : img
+    ) || [],
     categories: product.categories || [],
     place: product.place || '',
     currency: product.currency || 'COP', // Assuming currency is always COP for now
@@ -100,17 +104,20 @@ const ProductItemForm: FC<Props> = ({ product, newItem }) => {
       syncingRef.current = true;
 
       const currentImgs = [...(values.imgs || [])];
-      const localImages = currentImgs.filter(img => img.startsWith('file://'));
-      const remoteImages = currentImgs.filter(img => !img.startsWith('file://'));
+      const localImages = currentImgs.filter(img => img.img.startsWith('file://'));
+      const remoteImages = currentImgs.filter(img => !img.img.startsWith('file://'));
 
       let uploadedImages: string[] = [];
       if (localImages.length > 0) {
         const data = {
-          assets: localImages.map(uri => ({
-            uri,
-            type: 'image/jpeg',
-            fileName: uri.split('/').pop(),
-          })),
+          assets: localImages.map(image => {
+            const { img } = image;
+            return {
+              uri: img,
+              type: 'image/jpeg',
+              fileName: img.split('/').pop(),
+            };
+          }),
         };
 
         uploadedImages = await handleUpdateCloudinaryPic({
@@ -118,24 +125,32 @@ const ProductItemForm: FC<Props> = ({ product, newItem }) => {
           userId: user?._id!,
           profile: false,
           deleteExisting: place?.premium === 1,
-          existingImg: remoteImages,
+          existingImg: remoteImages.map((r: any) => (typeof r === 'string' ? r : r.img)),
         });
       }
 
       let finalImgs = [...remoteImages];
 
       if (uploadedImages.length > 0) {
-        const newUploaded = uploadedImages.filter(u => !remoteImages.includes(u) && !finalImgs.includes(u));
+        // Compare uploaded string URLs against the img property of remote/final image objects
+        const remoteUrls = remoteImages.map((r: any) => typeof r === 'string' ? r : r.img);
+        const finalUrls = finalImgs.map((f: any) => typeof f === 'string' ? f : f.img);
+
+        const newUploaded = uploadedImages.filter(u => !remoteUrls.includes(u) && !finalUrls.includes(u));
 
         if (newUploaded.length > 0) {
+          // Convert uploaded URLs into ProductImage objects before adding
+          const newUploadedObjs = newUploaded.map(u => ({ img: u, main: false }));
+
           if (lastRemovedIndexRef.current !== null) {
-            finalImgs.push(...newUploaded);
+            finalImgs.push(...newUploadedObjs);
             lastRemovedIndexRef.current = null;
           } else {
-            finalImgs.push(...newUploaded);
+            finalImgs.push(...newUploadedObjs);
           }
 
-          setProductImages(finalImgs);
+          // keep productImages as an array of ProductImage objects
+          setProductImages(finalImgs.map((f: any) => typeof f === 'string' ? { img: f, main: false } : f));
         }
       }
 
@@ -198,8 +213,19 @@ const ProductItemForm: FC<Props> = ({ product, newItem }) => {
     const currentImgs = formikRef.current.values.imgs ?? [];
 
     if (JSON.stringify(currentImgs) !== JSON.stringify(uniqueImgs)) {
-      const mergedImgs = currentImgs.filter((img: string) => uniqueImgs.includes(img));
-      const newImgs = uniqueImgs.filter(img => !mergedImgs.includes(img));
+      // Normalize current formik imgs into objects with an `img` string property
+      const currentImgObjs = currentImgs.map((img: any) =>
+        typeof img === 'string' ? { img, main: false } : img
+      );
+
+      // Keep only the ones that still exist in productImages (by URL)
+      const mergedImgs = currentImgObjs.filter((obj: any) => uniqueImgs.includes(obj.img));
+
+      // Create new product image objects for any uniqueImgs not already present
+      const newImgs = uniqueImgs
+        .filter(url => !mergedImgs.some((m: any) => m.img === url))
+        .map(url => ({ img: url, main: false }));
+
       const finalImgs = [...mergedImgs, ...newImgs].slice(0, maxImages);
 
       formikRef.current.setFieldValue('imgs', finalImgs);
@@ -280,6 +306,10 @@ const ProductItemForm: FC<Props> = ({ product, newItem }) => {
                     lastRemovedIndexRef.current = index;
                   }}
                   onAddImage={addProductImage}
+                  onUpdateImages={(updated) => {
+                    setFieldValue('imgs', updated);
+                    setProductImages(updated.map((u: any) => typeof u === 'string' ? { img: u, main: false } : u));
+                  }}
                 />
                 <GalleryQueryModal addGalleryPics={() => addProductPics(amount)} addPhoto={addProductPhoto} modalVisible={modalVisible} setModalVisible={setModalVisible} />
                 <ButtonComponent disabled={loading} loading={loading} onPress={() => onSubmit(values)}>
