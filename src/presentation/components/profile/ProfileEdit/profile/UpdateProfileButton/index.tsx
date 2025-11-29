@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react';
-import { Body, ButtonComponent } from '../../../ui';
-import { ThemeContext } from '../../../../theme/ThemeContext';
+import { Body, ButtonComponent } from '../../../../ui';
+import { ThemeContext } from '../../../../../theme/ThemeContext';
 
 interface Props {
   loading: boolean;

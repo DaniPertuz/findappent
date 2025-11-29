@@ -1,15 +1,15 @@
 import React, { FC, useContext, useState } from 'react';
 import { View } from 'react-native';
-import { Caption2 } from '../../../ui';
-import CustomizedSchedule from '../schedule/CustomizedSchedule';
-import BusinessDaysSchedule from '../schedule/BusinessDaysSchedule';
-import ScheduleDropdownDays from '../schedule/ScheduleDropdownDays';
-import FormItemContainer from '../FormItemContainer';
-import { IPlace } from '../../../../../core/entities';
-import { ScheduleType } from '../../../../../interfaces/app.interface';
-import { ThemeContext } from '../../../../theme/ThemeContext';
-import ScheduleTable from '../schedule/ScheduleTable';
-import ScheduleEditButton from '../schedule/ScheduleEditButton';
+import { Caption2 } from '../../../../ui';
+import CustomizedSchedule from '../../schedule/CustomizedSchedule';
+import BusinessDaysSchedule from '../../schedule/BusinessDaysSchedule';
+import ScheduleDropdownDays from '../../schedule/ScheduleDropdownDays';
+import FormItemContainer from '../../FormItemContainer';
+import { IPlace } from '../../../../../../core/entities';
+import { ScheduleType } from '../../../../../../interfaces/app.interface';
+import { ThemeContext } from '../../../../../theme/ThemeContext';
+import ScheduleTable from '../../schedule/ScheduleTable';
+import ScheduleEditButton from '../../schedule/ScheduleEditButton';
 
 interface Props {
   place: IPlace;

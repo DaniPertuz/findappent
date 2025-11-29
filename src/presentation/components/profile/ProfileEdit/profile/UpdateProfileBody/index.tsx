@@ -1,19 +1,19 @@
 import React, { FC } from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import { Formik } from 'formik';
-import { Caption2, KeyboardAvoidingViewComponent } from '../../../ui';
-import { DescriptionInput, DefaultInput, DropdownComponent, PasswordInput, AddressInput } from '../../../ui/forms';
-import { IPlace } from '../../../../../core/entities';
-import { categories } from '../../../../../utils/categories';
-import { deviceHeight } from '../../../../../utils/dimensions';
-import { getIconUrl } from '../../../../../utils/icon-url';
-import { useUpdateProfile } from '../../../../hooks/useUpdateProfile';
-import WarningMessage from '../../../auth/WarningMessage';
+import { Caption2, KeyboardAvoidingViewComponent } from '../../../../ui';
+import { DescriptionInput, DefaultInput, DropdownComponent, PasswordInput, AddressInput } from '../../../../ui/forms';
+import { IPlace } from '../../../../../../core/entities';
+import { categories } from '../../../../../../utils/categories';
+import { deviceHeight } from '../../../../../../utils/dimensions';
+import { getIconUrl } from '../../../../../../utils/icon-url';
+import { useUpdateProfile } from '../../../../../hooks/useUpdateProfile';
+import WarningMessage from '../../../../auth/WarningMessage';
 import UpdateProfileButton from '../UpdateProfileButton';
-import FormItemContainer from '../FormItemContainer';
+import FormItemContainer from '../../FormItemContainer';
 import UpdateProfileGallery from '../UpdateProfileGallery';
 import UpdateProfileSchedule from '../UpdateProfileSchedule';
-import { appStyles } from '../../../../theme/app-styles';
+import { appStyles } from '../../../../../theme/app-styles';
 
 const UpdateProfileBody: FC<{ place: IPlace; }> = ({ place }) => {
   const {

@@ -1,18 +1,18 @@
 import React, { FC, useContext, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useGallery } from '../../../../hooks/useGallery';
-import { WarningMessage } from '../../../auth';
-import { Caption2 } from '../../../ui';
-import GalleryItemsList from '../products/GalleryItemsList';
-import GalleryLoadingModal from '../products/GalleryLoadingModal';
-import GalleryQueryModal from '../products/GalleryQueryModal';
-import FormItemContainer from '../FormItemContainer';
-import { useGalleryStore, usePlaceStore } from '../../../../../store';
-import { ThemeContext } from '../../../../theme/ThemeContext';
+import { usePlaceGallery } from '../../../../../hooks/usePlaceGallery';
+import { WarningMessage } from '../../../../auth';
+import { Caption2 } from '../../../../ui';
+import GalleryItemsList from '../gallery/GalleryItemsList';
+import GalleryLoadingModal from '../gallery/GalleryLoadingModal';
+import GalleryQueryModal from '../gallery/GalleryQueryModal';
+import FormItemContainer from '../../FormItemContainer';
+import { useGalleryStore, usePlaceStore } from '../../../../../../store';
+import { ThemeContext } from '../../../../../theme/ThemeContext';
 
 const UpdateProfileGallery: FC = () => {
   const { colors } = useContext(ThemeContext);
-  const { addGalleryPics, addPhoto, loading, placeImages, setPlaceImages } = useGallery();
+  const { addGalleryPics, addPhoto, loading, placeImages, setPlaceImages } = usePlaceGallery();
   const place = usePlaceStore(state => state.place);
   const { addImageToDelete } = useGalleryStore();
   const diff = (place?.premium === 1 ? 1 : 2) - placeImages.length;
