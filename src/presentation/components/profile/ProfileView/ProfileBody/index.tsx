@@ -6,7 +6,7 @@ import { getIconUrl } from '../../../../../utils/icon-url';
 import ProfileDescription from '../ProfileDescription';
 import ProfileDetail from '../ProfileDetail';
 import ProfileLogoutButton from '../ProfileLogoutButton';
-import ProfileProductsButton from '../../ProfileProductsButton';
+import ProfileProductsButton from '../../ProfileEdit/profile/ProfileProductsButton';
 import { ThemeContext } from '../../../../theme/ThemeContext';
 
 const ProfileBody: FC = () => {

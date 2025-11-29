@@ -1,8 +1,8 @@
 import React, { FC, useContext } from 'react';
 import { StackScreenProps } from '@react-navigation/stack';
 import ProfileMainContainer from '../../../components/profile/ProfileView/ProfileMainContainer';
-import UpdateProfileBody from '../../../components/profile/ProfileEdit/UpdateProfileBody';
-import UpdateProfileHeader from '../../../components/profile/ProfileEdit/UpdateProfileHeader';
+import UpdateProfileBody from '../../../components/profile/ProfileEdit/profile/UpdateProfileBody';
+import UpdateProfileHeader from '../../../components/profile/ProfileEdit/profile/UpdateProfileHeader';
 import StatusBarComponent from '../../../components/ui/StatusBarComponent';
 import { RootStackParams } from '../../../navigation/MainNavigator';
 import { ThemeContext } from '../../../theme/ThemeContext';
