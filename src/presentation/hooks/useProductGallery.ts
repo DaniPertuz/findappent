@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { ImagePickerAdapter } from '../../adapters/ImagePickerAdapter';
+import { ProductImage } from '../../core/entities';
 import { useGalleryStore, useAuthStore, usePlaceStore } from '../../store';
 import { deleteCloudinaryPic, handleUpdateCloudinaryPic } from './useCloudinaryOperation';
 
 interface UseProductGalleryProps {
-  initialImages?: string[];
-  onImagesChange?: (images: string[]) => void;
+  initialImages?: ProductImage[];
+  onImagesChange?: (images: ProductImage[]) => void;
 }
 
 export const useProductGallery = ({ initialImages = [], onImagesChange }: UseProductGalleryProps = {}) => {
-  const [productImages, setProductImages] = useState<string[]>(initialImages);
+  const [productImages, setProductImages] = useState<ProductImage[]>(initialImages);
   const [loading, setLoading] = useState(false);
   const user = useAuthStore(state => state.authResponse.user);
   const { response, setResponse, imagesToDelete, clearImagesToDelete } = useGalleryStore();
@@ -32,13 +33,13 @@ export const useProductGallery = ({ initialImages = [], onImagesChange }: UsePro
 
       setProductImages(prev => {
         if (premium === 1) {
-          return [uri];
+          return [{ main: true, img: uri }];
         } else if (premium === 2) {
           const limit = 2;
-          const newImages = [...prev, uri].slice(-limit);
+          const newImages = [...prev, { main: false, img: uri }].slice(-limit);
           return newImages;
         } else {
-          return [...prev, uri];
+          return [...prev, { main: false, img: uri }];
         }
       });
       setResponse(resp);
@@ -57,13 +58,14 @@ export const useProductGallery = ({ initialImages = [], onImagesChange }: UsePro
 
       const uris = resp.assets.map(a => a.uri).filter((u): u is string => !!u);
       setProductImages(prev => {
+        const productImageObjs = uris.map(uri => ({ main: false, img: uri }));
         if (premium === 1) {
-          return [uris[0]];
+          return [productImageObjs[0]];
         } else if (premium === 2) {
-          const combined = [...prev, ...uris].slice(-2);
+          const combined = [...prev, ...productImageObjs].slice(-2);
           return combined;
         } else {
-          return [...prev, ...uris];
+          return [...prev, ...productImageObjs];
         }
       });
       setResponse(resp);
