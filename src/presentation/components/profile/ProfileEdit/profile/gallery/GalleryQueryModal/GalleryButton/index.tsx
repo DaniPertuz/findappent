@@ -1,8 +1,8 @@
 import React, { FC, useContext } from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
-import { BodySmall } from '../../../../../ui';
-import { getIconUrl } from '../../../../../../../utils/icon-url';
-import { ThemeContext } from '../../../../../../theme/ThemeContext';
+import { BodySmall } from '../../../../../../ui';
+import { getIconUrl } from '../../../../../../../../utils/icon-url';
+import { ThemeContext } from '../../../../../../../theme/ThemeContext';
 
 interface Props {
   galleryType: string;

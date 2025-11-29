@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { Modal, View, ActivityIndicator, StyleSheet } from 'react-native';
-import { ThemeContext } from '../../../../../theme/ThemeContext';
+import { ThemeContext } from '../../../../../../theme/ThemeContext';
 
 const GalleryLoadingModal: FC<{ loading: boolean; }> = ({ loading }) => {
   const { colors } = useContext(ThemeContext);

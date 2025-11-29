@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { ThemeContext } from '../../../../../../theme/ThemeContext';
+import { ThemeContext } from '../../../../../../../theme/ThemeContext';
 
 const ItemImage: FC<{ uri: string; }> = ({ uri }) => {
   const { colors } = useContext(ThemeContext);
