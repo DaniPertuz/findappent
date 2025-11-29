@@ -17,7 +17,7 @@ const ProductItem = ({ product }: Props) => {
   const { colors, currentTheme } = useContext(ThemeContext);
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
   const { name, imgs } = product;
-  const imageUri = imgs ? imgs[0] : getIconUrl('product', currentTheme, false);
+  const imageUri = imgs?.find(img => img.main)?.img ?? getIconUrl('fa_blue', currentTheme, false);
 
   const handlePress = () => navigation.navigate('ProductDetailsScreen', { product });
 

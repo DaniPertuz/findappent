@@ -9,6 +9,11 @@ export interface IProduct {
   price:       number;
   place:       string;
   rate?:       NumericRate;
-  imgs?:       string[];
+  imgs?:       ProductImage[];
   status?:     boolean;
+}
+
+export interface ProductImage {
+  main: boolean;
+  img: string;
 }
