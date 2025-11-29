@@ -7,7 +7,7 @@ import { IPlace } from '../../core/entities';
 import { Location } from '../../interfaces/app.interface';
 import { useAuthStore, useGalleryStore, usePlaceStore } from '../../store';
 import { getCoords } from './getLocation';
-import { useGallery } from './useGallery';
+import { usePlaceGallery } from './usePlaceGallery';
 import { ThemeContext } from '../theme/ThemeContext';
 
 export const useUpdateProfile = ({ place }: { place: IPlace; }) => {
@@ -25,7 +25,7 @@ export const useUpdateProfile = ({ place }: { place: IPlace; }) => {
   const { updateUserPassword } = useAuthStore();
   const { response, clearResponse } = useGalleryStore();
   const { updatePlace } = usePlaceStore();
-  const { uploadPics } = useGallery();
+  const { uploadPics } = usePlaceGallery();
 
   const initialValues: IPlace = {
     name: place.name ?? '',

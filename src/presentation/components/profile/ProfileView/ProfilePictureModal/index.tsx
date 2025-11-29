@@ -7,13 +7,13 @@ import PicturePickerButtons from './PicturePickerButtons';
 import ProfilePictureModalContainer from './ProfilePictureModalContainer';
 import ModalProfilePictureContainer from './ModalProfilePictureContainer';
 import { useAuthStore } from '../../../../../store';
-import { useGallery } from '../../../../hooks/useGallery';
+import { usePlaceGallery } from '../../../../hooks/usePlaceGallery';
 
 const ProfilePictureModal: FC<ModalProps> = ({ modalVisible, setModalVisible }) => {
   const [displayThumb, setDisplayThumb] = useState(false);
   const [isUploaded, setIsUploaded] = useState(false);
   const user = useAuthStore(state => state.authResponse.user);
-  const { loading, profilePicture, setProfilePicture, selectProfilePicture, takeProfilePicture, uploadPicture } = useGallery();
+  const { loading, profilePicture, setProfilePicture, selectProfilePicture, takeProfilePicture, uploadPicture } = usePlaceGallery();
 
   useEffect(() => {
     const hasProfileAssets = profilePicture?.assets !== undefined;
